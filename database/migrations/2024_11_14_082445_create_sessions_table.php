@@ -19,6 +19,10 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+        // Specify the storage engine as InnoDB
+        Schema::table('sessions', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+        });
     }
 
     /**

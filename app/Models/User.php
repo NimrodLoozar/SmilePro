@@ -21,7 +21,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'person_id',
-        'name', // Gebruikersnaam veld in jouw database
+        'username', // Gebruikersnaam veld in jouw database
         'email',
         'password',
         'is_ingelogd',

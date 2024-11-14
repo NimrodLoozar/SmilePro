@@ -21,6 +21,10 @@ return new class extends Migration
             $table->text('notes')->nullable();
             $table->timestamps();
         });
+        // Specify the storage engine as InnoDB
+        Schema::table('people', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+        });
     }
 
     /**

@@ -20,6 +20,10 @@ return new class extends Migration
             $table->text('comments')->nullable();
             $table->timestamps();
         });
+        // Specify the storage engine as InnoDB
+        Schema::table('patienst', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+        });
     }
 
     /**

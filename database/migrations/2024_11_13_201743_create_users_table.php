@@ -13,17 +13,24 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('person_id')->constrained('persons');
+            // $table->foreignId('person_id')->constrained('persons');
+            // $table->string('name');
             $table->string('username')->unique();
             $table->string('password');
+            $table->string('email')->unique();
             $table->boolean('is_signd_in')->default(false);
             $table->datetime('signed_in')->nullable();
             $table->datetime('signed_out')->nullable();
-            $table->tinyInteger('is_active')->default(1);  // Corrected: use tinyInteger() for the bit-like behavior
+            $table->tinyInteger('is_active')->default(1);
             $table->text('comments')->nullable();
             $table->timestamps();
         });
+        // Specify the storage engine as InnoDB
+        Schema::table('users', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+        });
     }
+
 
     /**
      * Reverse the migrations.
