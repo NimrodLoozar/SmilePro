@@ -25,6 +25,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('person_id')->references('id')->on('person');
+            // yo
         });
         DB::statement('ALTER TABLE employee MODIFY is_active BIT(1)default 1');
     }

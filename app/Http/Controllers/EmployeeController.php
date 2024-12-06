@@ -1,20 +1,25 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
     /**
-     * Display a listing of employees.
+     * Display a listing of employees!
      */
     public function index()
     {
-        $employees = Employee::with('person')->get();
-        return view('employees.index', compact('employees'));
+        if (Auth::user()->role !== 'admin') {
+            return redirect()->route('home')->with('error', 'You do not have access.');
+        }
+        $employees = Employee::all();
+        return view('Employee.index', compact('employees'));
     }
 
     /**

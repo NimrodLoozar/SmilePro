@@ -21,7 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'rule',
+        'role',
     ];
 
     /**
@@ -45,5 +45,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Zorg ervoor dat de roles relatie correct is
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
     }
 }

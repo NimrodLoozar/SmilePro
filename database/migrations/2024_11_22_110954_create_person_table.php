@@ -15,14 +15,18 @@ return new class extends Migration
     {
         Schema::create('person', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->bigIncrements('id');
-            $table->string('first_name');
-            $table->string('infix')->nullable();
-            $table->string('last_name');
-            $table->date('date_of_birth');
-            $table->boolean('is_active');
-            $table->text('comment')->nullable();
+            $table->bigIncrements('id')->nullable(false);
+            $table->unsignedBigInteger('user_id')->nullable(false);
+            $table->string('name')->nullable(false);
+            $table->string('email')->nullable(false);
+            $table->date('date_of_birth')->nullable(true);
+            $table->boolean('is_active')->nullable(true);
+            $table->text('comment')->nullable(true);
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('email')->references('email')->on('users');
+            $table->foreign('name')->references('name')->on('users'); // Re-add this line
         });
         DB::statement('ALTER TABLE person MODIFY is_active BIT(1)default 1');
     }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
+use App\Models\Role;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -27,12 +28,11 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(), // name
-            'email' => $this->faker->unique()->safeEmail(), // email
-            'email_verified_at' => now(), // email verified at
-            'password' => Hash::make('password'), // password
-            'rule' => 'user', // user role by default
-            'remember_token' => Str::random(10), // remember token
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
         ];
     }
 
@@ -55,13 +55,12 @@ class UserFactory extends Factory
             'name' => 'TestUser',
             'email' => 'test@gmail.com',
             'password' => Hash::make('Test1234'),
-            'rule' => 'user',
-            'email_verified_at' => now(),
+            'role' => 'user',
         ]);
     }
 
     /**
-     * Indicate that the model should have specific employee user data.
+     * Indicate that the model should have specific admin user data.
      */
     public function adminUser(): static
     {
@@ -69,36 +68,7 @@ class UserFactory extends Factory
             'name' => 'AdminUser',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('Admin1234'),
-            'rule' => 'admin',
-            'email_verified_at' => now(),
-        ]);
-    }
-
-    /**
-     * Indicate that the model should have specific dentist user data.
-     */
-    public function dentistUser(): static
-    {
-        return $this->state(fn(array $attributes) => [
-            'name' => 'DentistUser',
-            'email' => 'dentist@gmail.com',
-            'password' => Hash::make('Dentist1234'),
-            'rule' => 'dentist',
-            'email_verified_at' => now(),
-        ]);
-    }
-
-    /**
-     * Indicate that the model should have specific employee user data.
-     */
-    public function employeeUser(): static
-    {
-        return $this->state(fn(array $attributes) => [
-            'name' => 'EmployeeUser',
-            'email' => 'employee@gmail.com',
-            'password' => Hash::make('Employee1234'),
-            'rule' => 'employee',
-            'email_verified_at' => now(),
+            'role' => 'admin',
         ]);
     }
 
@@ -111,8 +81,45 @@ class UserFactory extends Factory
             'name' => 'PatientUser',
             'email' => 'patient@gmail.com',
             'password' => Hash::make('Patient1234'),
-            'rule' => 'patient',
-            'email_verified_at' => now(),
+            'role' => 'patient',
         ]);
+    }
+
+    /**
+     * Indicate that the model should have specific dentist user data.
+     */
+    public function dentistUser(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'name' => 'DentistUser',
+            'email' => 'dentist@gmail.com',
+            'password' => Hash::make('Dentist1234'),
+            'role' => 'dentist',
+        ]);
+    }
+
+    /**
+     * Indicate that the model should have specific employee user data.
+     */
+    public function employeeUser(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'name' => 'EmployeeUser',
+            'email' => 'employee@gmail.com',
+            'password' => Hash::make('Employee1234'),
+            'role' => 'employee',
+        ]);
+    }
+
+    /**
+     * Configure the model factory.
+     */
+    public function configure(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            // Verwijder de aanmaak van een nieuwe rol hier
+            // $role = Role::factory()->create();
+            // $user->roles()->attach($role);
+        });
     }
 }

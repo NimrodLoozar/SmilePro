@@ -15,11 +15,11 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique(); // Add unique constraint
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('rule')->default('user');
+            $table->string('role')->default('user');
             $table->string('profile_photo_path', 2048)->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();

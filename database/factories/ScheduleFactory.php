@@ -21,11 +21,15 @@ class ScheduleFactory extends Factory
      */
     public function definition(): array
     {
+        $startTime = Carbon::now()->addDays(rand(1, 30));
+        $endTime = (clone $startTime)->addDays(rand(1, 30));
+
         return [
             'user_id' => User::factory(),
-            'name' => $this->faker->sentence,
-            'start_time' => Carbon::now()->addDays(rand(1, 30)),
-            'end_time' => Carbon::now()->addDays(rand(31, 60)),
+            'name' => 
+            $this->faker->randomElement(['Tandarts: Dr. Beren', 'Mondhygiënist: Dr. Astra', 'Assistent: Dr. Jansen', 'Tandarts: Dr. Jansen']),
+            'start_time' => $startTime,
+            'end_time' => $endTime,
             'description' => $this->faker->paragraph,
         ];
     }

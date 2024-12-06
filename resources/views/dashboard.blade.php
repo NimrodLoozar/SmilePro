@@ -26,7 +26,7 @@
 
                 <!-- Berichten -->
                 <div class="w-full lg:w-2/3 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100" style="max-height: 500px; overflow-y: auto;">
+                    <div class="p-6 text-gray-900 dark:text-gray-100" style="max-height: 300px;">
                         <h3 class="text-2xl font-bold mb-4 flex justify-between items-center">
                             Mijn Berichten
                             <button
@@ -71,7 +71,7 @@
                                 @if ($conversations->isEmpty())
                                     <p class="text-gray-500">Je hebt nog geen berichten verstuurd.</p>
                                 @else
-                                    <ul class="space-y-4">
+                                    <ul class="space-y-4" style="max-height: 165px; overflow-y: auto;">
                                         @foreach ($conversations as $conversation)
                                             <li class="p-4 bg-gray-800 shadow rounded-lg mb-4">
                                                 @foreach ($conversation->messages as $message)
@@ -85,26 +85,31 @@
                                         @endforeach
                                     </ul>
                                 @endif
-                                <form action="{{ route('messages.store') }}" method="POST" class="mt-4">
-                                    @csrf
-                                    <div class="flex items-center space-x-4">
-                                        <input type="text" name="content" placeholder="Uw bericht" required
-                                            class="flex-1 p-2 border border-gray-300 rounded">
-                                        <input type="hidden" name="recipient"
-                                            value="{{ $conversations->first()->recipient ?? '' }}">
-                                        <button type="submit"
-                                            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Verstuur</button>
-                                    </div>
-                                </form>
+                                @if (isset($conversation))
+                                    <form action="{{ route('messages.reply', ['conversation' => $conversation->id]) }}"
+                                        method="POST" class="mt-4">
+                                        @csrf
+                                        <div class="flex items-center space-x-4">
+                                            <input type="text" name="content" placeholder="Uw bericht" required
+                                                class="flex-1 p-2 border border-gray-300 rounded">
+                                            <button type="submit"
+                                                class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Verstuur</button>
+                                        </div>
+                                    </form>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <a href="{{ route('appointments.index') }}">Jouw Afspraken</a>
-                </div>
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <a href="{{ route('appointments.index') }}">Alle Afspraken</a>
+                <div class="w-full lg:w-1/3 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100" style="max-height: 500px; overflow-y: auto;">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <a href="{{ route('appointments.index') }}">Jouw Afspraken</a>
+                        </div>
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <a href="{{ route('appointments.index') }}">Alle Afspraken</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

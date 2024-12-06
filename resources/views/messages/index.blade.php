@@ -11,7 +11,7 @@
                         <div class="flex justify-between items-center">
                             <div>
                                 <h3 class="text-xl font-bold text-gray-300">
-                                    {{ $conversation->user->name ?? 'Onbekende gebruiker' }}</h3>
+                                    Gesprek met {{ $conversation->user->name ?? 'Onbekende gebruiker' }}</h3>
                                 <small class="text-gray-500">Gestart op:
                                     {{ $conversation->created_at->format('d-m-Y H:i') }}</small>
                             </div>

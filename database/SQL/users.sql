@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `rule` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL DEFAULT 'user',
+  `role` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL DEFAULT 'user',
   `profile_photo_path` varchar(2048) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `phone` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `address` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,

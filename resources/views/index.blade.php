@@ -6,8 +6,11 @@
     </div>
 
     <br>
-    <a href="{{ route('schedules.index') }}">View Schedules</a>
-                            
+    <a href="{{ route('schedules.index') }}" class="btn btn-primary">Beschikbaarheid Overzicht</a>
+    <br>
+    <a href="{{ route('schedules.create') }}" class="btn btn-primary">Beschikbaarheid Toevoegen</a>
+    <br>
+    
     <div class="text-center">
         <h2 class="text-2xl font-semibold mt-8 mb-4">Onze diensten</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -28,24 +31,24 @@
             </div>
         </div>
 
-    <div class="container mx-auto p-4">
-        <h1 class="text-2xl font-bold mb-4">Stuur een bericht</h1>
+        <div class="container mx-auto p-4">
+            <h1 class="text-2xl font-bold mb-4">Stuur een bericht</h1>
 
-        @if (session('success'))
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
-                role="alert">
-                <span class="block sm:inline">{{ session('success') }}</span>
-            </div>
-        @endif
+            @if (session('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
+                    role="alert">
+                    <span class="block sm:inline">{{ session('success') }}</span>
+                </div>
+            @endif
 
-        <form action="{{ route('messages.store') }}" method="POST">
-            @csrf
-            <div class="flex items-center space-x-4">
-                <input type="text" name="content" placeholder="Uw bericht" required
-                    class="flex-1 p-2 border border-gray-300 rounded">
-                <button type="submit"
-                    class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Verstuur</button>
-            </div>
-        </form>
-    </div>
+            <form action="{{ route('messages.store') }}" method="POST">
+                @csrf
+                <div class="flex items-center space-x-4">
+                    <input type="text" name="content" placeholder="Uw bericht" required
+                        class="flex-1 p-2 border border-gray-300 rounded">
+                    <button type="submit"
+                        class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Verstuur</button>
+                </div>
+            </form>
+        </div>
 </x-layout>

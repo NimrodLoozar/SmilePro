@@ -13,14 +13,15 @@ class AdminMiddleware
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
+     * @param  string|null  $role
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $role = null)
     {
-        if (Auth::check() && Auth::user()->rule === 'admin') {
+        if (Auth::check() && ($role === null || Auth::user()->role === $role)) {
             return $next($request);
         }
 
-        return redirect()->route('home')->with('error', 'You do not have admin access.');
+        return redirect()->route('home')->with('error', 'You do not have access.');
     }
 }
