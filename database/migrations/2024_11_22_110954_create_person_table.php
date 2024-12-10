@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email')->nullable(false);
             $table->date('date_of_birth')->nullable(true);
             $table->boolean('employee')->nullable(true);
-            $table->boolean('is_active')->nullable(true);
+            $table->boolean('is_active')->default(1);
             $table->text('comment')->nullable(true);
             $table->timestamps();
 

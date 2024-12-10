@@ -68,8 +68,8 @@ class AppointmentController extends Controller
      */
     public function edit(Appointment $appointment)
     {
-        $patients = Patient::with('person')->get()->pluck('full_name', 'id');
-        $employees = Employee::with('person')->get()->pluck('full_name', 'id');
+        $patients = Patient::with('person')->get()->pluck('name', 'id');
+        $employees = Employee::with('person')->get()->pluck('name', 'id');
 
         return view('appointments.edit', compact('appointment', 'patients', 'employees'));
     }

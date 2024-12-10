@@ -18,7 +18,7 @@ class PersonObserver
             'name' => $person->name,
             'email' => $person->email,
             'date_of_birth' => $person->date_of_birth,
-            'is_active' => $person->is_active,
+            // 'is_active' => $person->is_active,
         ]);
     }
 
@@ -33,7 +33,7 @@ class PersonObserver
             'name' => $person->name,
             'email' => $person->email,
             'date_of_birth' => $person->date_of_birth,
-            'is_active' => $person->is_active,
+            // 'is_active' => $person->is_active,
         ]);
     }
 

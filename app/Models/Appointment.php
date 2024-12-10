@@ -9,9 +9,7 @@ class Appointment extends Model
     protected $table = 'appointment';
     use HasFactory;
 
-    protected $fillable = [
-        'patient_id', 'employee_id', 'date', 'time', 'status', 'is_active', 'comment'
-    ];
+    protected $fillable = ['patient_id', 'employee_id', 'date', 'time', 'status', 'is_active', 'comment'];
 
     protected $casts = [
         'is_active' => 'boolean',

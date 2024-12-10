@@ -25,7 +25,7 @@ return new class extends Migration
             $table->text('availability')->nullable();
             $table->boolean('employee')->default(0);
             $table->date('date_of_birth')->nullable();
-            $table->boolean('is_active');
+            $table->boolean('is_active')->default(1);
             $table->text('comment')->nullable();
             $table->timestamps();
 

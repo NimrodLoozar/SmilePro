@@ -18,7 +18,7 @@ class UserObserver
             'email' => $user->email,
             'date_of_birth' => $user->date_of_birth,
             'employee' => $user->employee,
-            'is_active' => $user->is_active,
+            // 'is_active' => $user->is_active,
         ]);
     }
 
@@ -33,7 +33,7 @@ class UserObserver
             'email' => $user->email,
             'date_of_birth' => $user->date_of_birth,
             'employee' => $user->employee,
-            'is_active' => $user->is_active,
+            // 'is_active' => $user->is_active,
         ]);
     }
 
