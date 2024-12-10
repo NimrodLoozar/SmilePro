@@ -20,9 +20,24 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
         'password',
         'role',
+        'profile_photo_path',
+        'phone',
+        'address',
+        'city',
+        'postcode',
+        'country',
+        'date_of_birth',
+        'employee',
+        'is_active',
     ];
+
+    public function person()
+    {
+        return $this->hasOne(Person::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

@@ -12,13 +12,23 @@ class Person extends Model
     use HasFactory;
 
     protected $fillable = [
-        'first_name',
-        'infix',
-        'last_name',
+        'user_id',
+        'name',
+        'email',
         'date_of_birth',
         'is_active',
         'comment'
     ];
+
+    public function employee()
+    {
+        return $this->hasOne(Employee::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     protected $casts = [
         'is_active' => 'boolean',

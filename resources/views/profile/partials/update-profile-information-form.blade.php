@@ -13,7 +13,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
@@ -48,6 +48,54 @@
                     @endif
                 </div>
             @endif
+        </div>
+
+        <div>
+            <x-input-label for="date_of_birth" :value="__('Birth Date')" />
+            <x-text-input id="date_of_birth" name="date_of_birth" type="date" class="mt-1 block w-full"
+                :value="old('date_of_birth', $user->date_of_birth)" required />
+            <x-input-error class="mt-2" :messages="$errors->get('date_of_birth')" />
+        </div>
+
+        <div>
+            <x-input-label for="country" :value="__('Country')" />
+            <x-text-input id="country" name="country" type="text" class="mt-1 block w-full" :value="old('country', $user->country)"
+                required />
+            <x-input-error class="mt-2" :messages="$errors->get('country')" />
+        </div>
+
+        <div>
+            <x-input-label for="postcode" :value="__('Postal Code')" />
+            <x-text-input id="postcode" name="postcode" type="text" class="mt-1 block w-full" :value="old('postcode', $user->postcode)"
+                required />
+            <x-input-error class="mt-2" :messages="$errors->get('postcode')" />
+        </div>
+
+        <div>
+            <x-input-label for="city" :value="__('City')" />
+            <x-text-input id="city" name="city" type="text" class="mt-1 block w-full" :value="old('city', $user->city)"
+                required />
+            <x-input-error class="mt-2" :messages="$errors->get('city')" />
+        </div>
+
+        <div>
+            <x-input-label for="address" :value="__('Address')" />
+            <x-text-input id="address" name="address" type="text" class="mt-1 block w-full" :value="old('address', $user->address)"
+                required />
+            <x-input-error class="mt-2" :messages="$errors->get('address')" />
+        </div>
+
+        <div>
+            <x-input-label for="phone" :value="__('Phone Number')" />
+            <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full" :value="old('phone', $user->phone)"
+                required />
+            <x-input-error class="mt-2" :messages="$errors->get('phone')" />
+        </div>
+
+        <div>
+            <x-input-label for="profile_photo_path" :value="__('Profile Photo')" />
+            <x-text-input id="profile_photo_path" name="profile_photo_path" type="file" class="mt-1 block w-full" />
+            <x-input-error class="mt-2" :messages="$errors->get('profile_photo_path')" />
         </div>
 
         <div class="flex items-center gap-4">

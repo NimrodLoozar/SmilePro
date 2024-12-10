@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Person;
+use App\Models\User;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use App\Observers\UserObserver;
+use App\Observers\PersonObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Schema::defaultStringLength(255);
+        User::observe(UserObserver::class);
+        Person::observe(PersonObserver::class);
     }
 }

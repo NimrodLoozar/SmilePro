@@ -15,10 +15,15 @@ class Employee extends Model
 
     protected $fillable = [
         'person_id',
+        'user_id',
+        'name',
         'number',
+        'email',
         'employee_type',
         'specialization',
         'availability',
+        'date_of_birth',
+        'employee',
         'is_active',
         'comment'
     ];
@@ -34,5 +39,18 @@ class Employee extends Model
     public function getFullNameAttribute()
     {
         return isset($this->person) ? $this->person->first_name . ' ' . $this->person->last_name : 'N/A';
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($employee) {
+            do {
+                $randomNumber = mt_rand(100000, 999999); // Genereer een nummer met 6 cijfers
+            } while (self::where('number', $randomNumber)->exists()); // Controleer uniekheid
+
+            $employee->number = $randomNumber; // Stel het nummer in
+        });
     }
 }

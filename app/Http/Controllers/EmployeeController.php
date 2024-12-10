@@ -28,7 +28,7 @@ class EmployeeController extends Controller
     public function create()
     {
         $persons = Person::pluck('name', 'id'); // Assuming Person has a 'name' field
-        return view('employees.create', compact('persons'));
+        return view('employee.create', compact('persons'));
     }
 
     /**

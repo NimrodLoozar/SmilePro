@@ -26,10 +26,8 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('postcode')->nullable();
             $table->string('country')->nullable();
-            $table->string('company')->nullable();
-            $table->string('vat')->nullable();
-            $table->string('kvk')->nullable();
-            $table->string('iban')->nullable();
+            $table->date('date_of_birth')->nullable(true);
+            $table->boolean('employee')->default(0);
             $table->boolean('is_active');
             $table->rememberToken();
             $table->timestamps(6);

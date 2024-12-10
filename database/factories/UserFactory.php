@@ -56,6 +56,7 @@ class UserFactory extends Factory
             'email' => 'test@gmail.com',
             'password' => Hash::make('Test1234'),
             'role' => 'user',
+            'employee' => false,
         ]);
     }
 
@@ -69,6 +70,7 @@ class UserFactory extends Factory
             'email' => 'admin@gmail.com',
             'password' => Hash::make('Admin1234'),
             'role' => 'admin',
+            'employee' => true,
         ]);
     }
 
@@ -82,6 +84,7 @@ class UserFactory extends Factory
             'email' => 'patient@gmail.com',
             'password' => Hash::make('Patient1234'),
             'role' => 'patient',
+
         ]);
     }
 
@@ -95,6 +98,7 @@ class UserFactory extends Factory
             'email' => 'dentist@gmail.com',
             'password' => Hash::make('Dentist1234'),
             'role' => 'dentist',
+            'employee' => true,
         ]);
     }
 
@@ -108,6 +112,7 @@ class UserFactory extends Factory
             'email' => 'employee@gmail.com',
             'password' => Hash::make('Employee1234'),
             'role' => 'employee',
+            'employee' => true,
         ]);
     }
 

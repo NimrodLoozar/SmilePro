@@ -47,7 +47,7 @@
                     <input type="text" name="content" placeholder="Uw bericht" required
                         class="flex-1 p-2 border border-gray-300 rounded">
                     <button type="submit"
-                        class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Verstuur</button>
+                        class="bg-green-400 text-white px-4 py-2 rounded hover:bg-green-300">Verstuur</button>
                 </div>
             </form>
         </div>

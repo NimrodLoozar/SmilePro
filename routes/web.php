@@ -36,6 +36,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/messages/{message}/read', [MessageController::class, 'markAsRead'])->name('messages.read');
     Route::post('/messages/{conversation}/reply', [MessageController::class, 'reply'])->name('messages.reply');
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+    Route::delete('/conversations/{conversation}', [MessageController::class, 'destroy'])->name('conversations.destroy');
+    Route::delete('/messages/deleteSelected', [MessageController::class, 'deleteSelected'])->name('messages.deleteSelected');
 });
 
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
@@ -43,11 +45,14 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admindashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/users', [AdminDashboardController::class, 'showUsers'])->name('admin.users');
     Route::get('/admin/Employee', [EmployeeController::class, 'index'])->name('admin.Employee');
+    Route::get('/employees/create', [EmployeeController::class, 'create'])
+    ->name('employees.create');
     // ...other admin routes...
     Route::get('/messages/{conversation}', [MessageController::class, 'show'])->name('messages.show');
     Route::get('/messages/{conversation}/edit', [MessageController::class, 'edit'])->name('messages.edit');
     Route::put('/messages/{conversation}', [MessageController::class, 'update'])->name('messages.update');
     Route::delete('/messages/{conversation}', [MessageController::class, 'destroy'])->name('messages.destroy');
+    Route::delete('/messages/{conversation}/deleteLastMessage', [MessageController::class, 'deleteLastMessage'])->name('messages.deleteLastMessage');
     Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');
     Route::get('/schedules/create', [ScheduleController::class, 'create'])->name('schedules.create');
     Route::get('/schedules/{schedule}', [ScheduleController::class, 'show'])->name('schedules.show');
