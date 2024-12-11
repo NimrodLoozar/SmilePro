@@ -3,33 +3,46 @@
 namespace Database\Factories;
 
 use App\Models\Employee;
+use App\Models\User;
 use App\Models\Person;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Faker\Generator as Faker;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Employee>
- */
 class EmployeeFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
     protected $model = Employee::class;
 
     /**
      * Define the model's default state.
      *
-     * @return array<string, mixed>
+     * @return array
      */
     public function definition()
     {
+        $user = User::factory()->create();
+        $person = Person::factory()->create([
+            'user_id' => $user->id,
+            'employee' => true,
+        ]);
+
         return [
-            'person_id' => Person::factory(), // Assumes a factory exists for the Person model
-            'number' => $this->faker->unique()->regexify('[A-Z]{3}-[0-9]{4}'),
-            'employee_type' => $this->faker->randomElement(['full-time', 'part-time', 'contract']),
-            'specialization' => $this->faker->optional()->jobTitle(),
-            'availability' => $this->faker->optional()->text(100),
-            'is_active' => $this->faker->boolean(),
-            'comment' => $this->faker->optional()->sentence(),
-            'created_at' => now(),
-            'updated_at' => now(),
+            'person_id' => $person->id,
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'number' => $this->faker->unique()->randomNumber(8),
+            'email' => $user->email,
+            'employee_type' => $this->faker->word,
+            'specialization' => $this->faker->word,
+            'availability' => $this->faker->text,
+            'employee' => true,
+            'date_of_birth' => $person->date_of_birth,
+            'is_active' => true,
+            'comment' => $this->faker->text,
         ];
     }
 }

@@ -80,22 +80,22 @@ class AppointmentController extends Controller
     public function update(Request $request, Appointment $appointment)
     {
         $validator = Validator::make($request->all(), [
-            'patient_id' => 'required|exists:patients,id',
-            'employee_id' => 'required|exists:employees,id',
+            'patient_id' => 'required|exists:patient,id', // Fixed table name
+            'employee_id' => 'required|exists:employee,id',
             'date' => 'required|date',
-            'time' => 'required|date_format:H:i',
+            'time' => 'required',
             'status' => 'required|string|max:255',
             'is_active' => 'required|boolean',
             'comment' => 'nullable|string',
         ]);
-
+    
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-
+    
         $appointment->update($request->all());
         return redirect()->route('appointments.show', $appointment->id)->with('success', 'Appointment updated successfully.');
-    }
+    }    
 
     /**
      * Remove the specified resource from storage.
