@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Schedule;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->dentistUser()->create();
         User::factory()->employeeUser()->create();
         User::factory()->patientUser()->create();
+        Schedule::factory(10)->create();
 
         // Other seeders can be called here
         // $this->call(OtherSeeder::class);

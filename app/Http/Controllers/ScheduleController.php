@@ -34,7 +34,7 @@ class ScheduleController extends Controller
         Schedule::create($request->all());
 
         return redirect()->route('schedules.index')
-                         ->with('success', 'Schedule created successfully.');
+            ->with('success', 'Schedule created successfully.');
     }
 
     // Display the specified resource. show
@@ -66,7 +66,7 @@ class ScheduleController extends Controller
         $schedule->update($request->all());
 
         return redirect()->route('schedules.index')
-                         ->with('success', 'Schedule updated successfully.');
+            ->with('success', 'Schedule updated successfully.');
     }
 
     // Remove the specified resource from storage. delete
@@ -76,6 +76,6 @@ class ScheduleController extends Controller
         $schedule->delete();
 
         return redirect()->route('schedules.index')
-                         ->with('success', 'Schedule deleted successfully.');
+            ->with('success', 'Schedule deleted successfully.');
     }
 }

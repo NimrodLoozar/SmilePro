@@ -239,7 +239,8 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->unsignedBigInteger('employee_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('employee_id')->nullable();
             $table->string('name');
             $table->date('start_time');
             $table->date('end_time');
@@ -247,6 +248,7 @@ return new class extends Migration
             $table->boolean('is_active');
             $table->timestamps();
 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('employee_id')->references('id')->on('employee')->onDelete('cascade');
         });
         DB::statement('ALTER TABLE schedules MODIFY is_active BIT(1) default 1');
