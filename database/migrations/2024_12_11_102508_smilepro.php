@@ -153,6 +153,7 @@ return new class extends Migration
             $table->date('date');
             $table->time('time');
             $table->string('status');
+            $table->integer('wait_time')->default(0); // Add this line
             $table->boolean('is_active');
             $table->text('comment')->nullable();
             $table->timestamps();
