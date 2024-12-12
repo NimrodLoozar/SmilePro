@@ -18,7 +18,7 @@ class AppointmentController extends Controller
     public function index()
     {
         $user = Auth::user();
-
+    
         if ($user->role === 'admin') {
             // Retrieve all appointments for Admins
             $appointments = Appointment::with('patient', 'employee')->paginate(10);
@@ -28,7 +28,7 @@ class AppointmentController extends Controller
                 ->with('patient', 'employee')
                 ->paginate(10);
         }
-
+    
         return view('appointments.index', compact('appointments'));
     }
 
