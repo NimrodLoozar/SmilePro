@@ -37,6 +37,12 @@ class MessageController extends Controller
             'recipient' => 'required|string|in:dentist,Hulpdesk',
         ]);
 
+        $maxLength = 25; // Set your desired maximum length here
+
+        if (strlen($request->content) > $maxLength) {
+            return redirect()->back()->with('error', 'Bericht kan niet worden verzonden omdat het te lang is.');
+        }
+
         $conversation = Conversation::firstOrCreate([
             'user_id' => Auth::id(),
             'recipient' => $request->recipient,
@@ -56,6 +62,12 @@ class MessageController extends Controller
         $request->validate([
             'content' => 'required|string|max:255',
         ]);
+
+        $maxLength = 25; // Set your desired maximum length here
+
+        if (strlen($request->content) > $maxLength) {
+            return redirect()->back()->with('error', 'Bericht kan niet worden verzonden omdat het te lang is.');
+        }
 
         Message::create([
             'conversation_id' => $conversation->id,
@@ -94,6 +106,12 @@ class MessageController extends Controller
         $request->validate([
             'content' => 'required|string|max:255',
         ]);
+
+        $maxLength = 25; // Set your desired maximum length here
+
+        if (strlen($request->content) > $maxLength) {
+            return redirect()->back()->with('error', 'Bericht kan niet worden bijgewerkt omdat het te lang is.');
+        }
 
         $lastMessage = $conversation->messages()->where('user_id', Auth::id())->latest()->first();
         if ($lastMessage) {

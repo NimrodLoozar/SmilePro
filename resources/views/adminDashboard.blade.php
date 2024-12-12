@@ -17,10 +17,10 @@
                         <p>{{ Auth::user()->name }}</p>
                         <h4 class="text-xl font-semibold mt-4">Email</h4>
                         <p>{{ Auth::user()->email }}</p>
-                        <h4 class="text-xl font-semibold mt-4">Adres</h4>
+                        {{-- <h4 class="text-xl font-semibold mt-4">Adres</h4>
                         <p>{{ Auth::user()->address }}</p>
                         <h4 class="text-xl font-semibold mt-4">Telefoon</h4>
-                        <p>{{ Auth::user()->phone }}</p>
+                        <p>{{ Auth::user()->phone }}</p> --}}
                     </div>
                 </div>
             </div>
