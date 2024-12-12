@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Person;
+use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,9 +22,10 @@ class PersonFactory extends Factory
     public function definition()
     {
         return [
-            'first_name' => $this->faker->firstName(),
-            'infix' => $this->faker->optional()->randomElement(['van', 'de', 'van der', 'ter', 'te', null]), // Veelvoorkomende Nederlandse tussenvoegsels
-            'last_name' => $this->faker->lastName(),
+            'user_id' => User::factory(),
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'employee' => $this->faker->boolean(),
             'date_of_birth' => $this->faker->dateTimeBetween('-80 years', '-18 years')->format('Y-m-d'),
             'is_active' => $this->faker->boolean(),
             'comment' => $this->faker->optional()->sentence(),
