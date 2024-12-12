@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Schedule;
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use App\Models\Schedule;
 use App\Models\Patient;
 use App\Models\Role;
 use App\Models\Person;
