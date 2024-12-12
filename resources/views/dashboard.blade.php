@@ -7,6 +7,16 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if (session('error'))
+                <div class="bg-red-500 text-white p-4 rounded mb-4">
+                    {{ session('error') }}
+                </div>
+            @endif
+            @if (session('success'))
+                <div class="bg-green-500 text-white p-4 rounded mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div class="flex flex-col lg:flex-row gap-8">
                 <!-- Gebruikersgegevens -->
                 <div
@@ -17,10 +27,10 @@
                         <p>{{ Auth::user()->name }}</p>
                         <h4 class="text-xl font-semibold mt-4">Email</h4>
                         <p>{{ Auth::user()->email }}</p>
-                        <h4 class="text-xl font-semibold mt-4">Adres</h4>
+                        {{-- <h4 class="text-xl font-semibold mt-4">Adres</h4>
                         <p>{{ Auth::user()->address }}</p>
                         <h4 class="text-xl font-semibold mt-4">Telefoon</h4>
-                        <p>{{ Auth::user()->phone }}</p>
+                        <p>{{ Auth::user()->phone }}</p> --}}
                     </div>
                 </div>
 
