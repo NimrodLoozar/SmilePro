@@ -30,6 +30,10 @@
                         <h3 class="text-2xl font-bold mb-4">Statistieken</h3>
                         <p>Totaal aantal patiënten: <span id="totalPatients"></span></p>
                         <p>Gemiddelde wachttijd: <span id="averageWaitTime"></span> minuten</p>
+                        <p>Aantal geplande afspraken: <span id="totalAppointments"></span></p>
+                        <p>Aantal betalingen: <span id="totalPayments"></span></p>
+                        <p>Gemiddelde afspraakduur: <span id="averageAppointmentDuration"></span> minuten</p>
+                        <div id="error" class="text-red-500 mt-4" style="display: none;">Statistieken konden niet worden geladen. Probeer het later opnieuw.</div>
                     </div>
                 </div>
                  
@@ -43,6 +47,12 @@
                 .then(data => {
                     document.getElementById('totalPatients').textContent = data.total_patients;
                     document.getElementById('averageWaitTime').textContent = data.average_wait_time;
+                    document.getElementById('totalAppointments').textContent = data.total_appointments;
+                    document.getElementById('totalPayments').textContent = data.total_payments;
+                    document.getElementById('averageAppointmentDuration').textContent = data.average_appointment_duration;
+                })
+                .catch(error => {
+                    document.getElementById('error').style.display = 'block';
                 });
         });
     </script>

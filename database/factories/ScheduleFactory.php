@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\User;
 use App\Models\Schedule;
+use App\Models\Employee;
 use Carbon\Carbon;
 
 /**
@@ -21,16 +21,17 @@ class ScheduleFactory extends Factory
      */
     public function definition(): array
     {
-        $startTime = Carbon::now()->addDays(rand(1, 30));
-        $endTime = (clone $startTime)->addDays(rand(1, 30));
+        $startTime = Carbon::now()->addDays(rand(1, 30))->toDateTimeString();
+        $endTime = Carbon::parse($startTime)->addDays(rand(1, 30))->toDateTimeString();
 
         return [
-            'user_id' => User::factory(),
+            'employee_id' => Employee::factory(),
             'name' => 
             $this->faker->randomElement(['Tandarts: Dr. Beren', 'Mondhygiënist: Dr. Astra', 'Assistent: Dr. Jansen', 'Tandarts: Dr. Jansen']),
             'start_time' => $startTime,
             'end_time' => $endTime,
             'description' => $this->faker->paragraph,
+            'is_active' => $this->faker->boolean,
         ];
     }
 }

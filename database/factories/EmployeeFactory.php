@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Employee;
 use App\Models\User;
 use App\Models\Person;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EmployeeFactory extends Factory
@@ -30,17 +31,19 @@ class EmployeeFactory extends Factory
         ]);
 
         return [
-            'person_id' => $person->id,
-            'user_id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'number' => $this->faker->unique()->randomNumber(8),
-            'employee_type' => $this->faker->optional()->word, // Optional field
-            'specialization' => $this->faker->optional()->word, // Optional field
-            'availability' => $this->faker->optional()->text, // Optional field
-            'date_of_birth' => $person->date_of_birth,
-            'is_active' => $this->faker->boolean, // Boolean field
-            'comment' => $this->faker->optional()->text, // Optional field
+            'user_id' => User::factory(), // Assumes a factory exists for the User model    
+            'person_id' => Person::factory(), // Assumes a factory exists for the Person model
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'number' => $this->faker->unique()->regexify('[A-Z]{3}-[0-9]{4}'),
+            'employee_type' => $this->faker->randomElement(['full-time', 'part-time', 'contract']),
+            'specialization' => $this->faker->optional()->jobTitle(),
+            'availability' => $this->faker->optional()->text(100),
+            'date_of_birth' => $this->faker->date(),
+            'is_active' => $this->faker->boolean(),
+            'comment' => $this->faker->optional()->sentence(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

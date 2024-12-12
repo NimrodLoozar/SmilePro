@@ -154,7 +154,6 @@ return new class extends Migration
             $table->date('date');
             $table->time('time');
             $table->string('status');
-            $table->integer('wait_time')->default(0); // Add this line
             $table->boolean('is_active');
             $table->text('comment')->nullable();
             $table->timestamps();
@@ -243,8 +242,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('employee_id');
             $table->string('name');
-            $table->date('start_time');
-            $table->date('end_time');
+            $table->datetime('start_time');
+            $table->datetime('end_time');
             $table->text('description')->nullable();
             $table->boolean('is_active');
             $table->timestamps();

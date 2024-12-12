@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Person;
+use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Faker\Generator as Faker;
 
@@ -25,12 +27,15 @@ class PersonFactory extends Factory
         $user = \App\Models\User::factory()->create();
 
         return [
-            'user_id' => $user->id,
-            'email' => $user->email,
-            'name' => $user->name,
-            'date_of_birth' => $this->faker->date(),
+            'user_id' => User::factory(),
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
             'employee' => $this->faker->boolean(),
-            'comment' => $this->faker->text(),
+            'date_of_birth' => $this->faker->dateTimeBetween('-80 years', '-18 years')->format('Y-m-d'),
+            'is_active' => $this->faker->boolean(),
+            'comment' => $this->faker->optional()->sentence(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
