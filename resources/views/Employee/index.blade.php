@@ -46,7 +46,7 @@
                                 <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $employee->name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $employee->number }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $employee->type }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $employee->employee_type }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $employee->specialization }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $employee->availability ? 'Yes' : 'No' }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $employee->active ? 'Yes' : 'No' }}</td>

@@ -93,7 +93,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('number');
-            $table->string('employee_type')->nullable();
+            $table->string('employee_type')->default('Tandarts');
             $table->string('specialization')->nullable();
             $table->text('availability')->nullable();
             $table->date('date_of_birth')->nullable();

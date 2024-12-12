@@ -27,7 +27,7 @@ class EmployeeFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'number' => $this->faker->unique()->regexify('[A-Z]{3}-[0-9]{4}'),
-            'employee_type' => $this->faker->randomElement(['full-time', 'part-time', 'contract']),
+            'employee_type' => $this->faker->randomElement(['Assistents', 'Tandarts', 'HulpDesk']),
             'specialization' => $this->faker->optional()->jobTitle(),
             'availability' => $this->faker->optional()->text(100),
             'date_of_birth' => $this->faker->date(),
