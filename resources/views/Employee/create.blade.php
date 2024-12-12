@@ -50,44 +50,6 @@
                             @enderror
                         </div>
 
-                        <!-- Availability -->
-                        <div class="mt-4">
-                            <label for="availability" class="block text-sm font-medium text-gray-700">Availability</label>
-                            <select name="availability" id="availability" 
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm @error('availability') border-red-500 @enderror" 
-                                required>
-                                <option value="" disabled {{ old('availability') ? '' : 'selected' }}>Select Availability</option>
-                                <option value="1" {{ old('availability') == '1' ? 'selected' : '' }}>Yes</option>
-                                <option value="0" {{ old('availability') == '0' ? 'selected' : '' }}>No</option>
-                            </select>
-                            @error('availability')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Active -->
-                        <div class="mt-4">
-                            <label for="active" class="block text-sm font-medium text-gray-700">Active</label>
-                            <select name="active" id="active" 
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm @error('active') border-red-500 @enderror">
-                                <option value="" disabled {{ old('active') ? '' : 'selected' }}>Select Active Status</option>
-                                <option value="1" {{ old('active') == '1' ? 'selected' : '' }}>Yes</option>
-                                <option value="0" {{ old('active') == '0' ? 'selected' : '' }}>No</option>
-                            </select>
-                            @error('active')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Comment -->
-                        <div class="mt-4">
-                            <label for="comment" class="block text-sm font-medium text-gray-700">Comment</label>
-                            <textarea name="comment" id="comment" rows="3" 
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm @error('comment') border-red-500 @enderror">{{ old('comment') }}</textarea>
-                            @error('comment')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
 
                         <!-- Submit Button -->
                         <div class="mt-4">

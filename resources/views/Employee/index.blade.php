@@ -30,15 +30,7 @@
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
                                     Specialization</th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
-                                    Availability</th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
-                                    Active</th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
-                                    Comment</th>
+
                             </tr>
                         </thead>
                         <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
@@ -48,9 +40,6 @@
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $employee->number }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $employee->employee_type }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $employee->specialization }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $employee->availability ? 'Yes' : 'No' }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $employee->active ? 'Yes' : 'No' }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $employee->comment }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
