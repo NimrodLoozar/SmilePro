@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\Patient;
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,18 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = Appointment::with('patient', 'employee')->paginate(10);
+        $user = Auth::user();
+
+        if ($user->role === 'admin') {
+            // Retrieve all appointments for Admins
+            $appointments = Appointment::with('patient', 'employee')->paginate(10);
+        } else {
+            // Retrieve appointments for the current patient
+            $appointments = Appointment::where('patient_id', $user->id)
+                ->with('patient', 'employee')
+                ->paginate(10);
+        }
+
         return view('appointments.index', compact('appointments'));
     }
 
@@ -88,14 +100,14 @@ class AppointmentController extends Controller
             'is_active' => 'required|boolean',
             'comment' => 'nullable|string',
         ]);
-    
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-    
+
         $appointment->update($request->all());
         return redirect()->route('appointments.show', $appointment->id)->with('success', 'Appointment updated successfully.');
-    }    
+    }
 
     /**
      * Remove the specified resource from storage.
