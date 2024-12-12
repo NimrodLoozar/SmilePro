@@ -9,6 +9,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StatisticsController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\AdminDashboardController;
 
@@ -62,6 +63,7 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedules.store');
     Route::get('/schedules/{schedule}/edit', [ScheduleController::class, 'edit'])->name('schedules.edit');
     Route::patch('/schedules/{schedule}', [ScheduleController::class, 'update'])->name('schedules.update');
+    Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
