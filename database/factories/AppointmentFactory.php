@@ -21,14 +21,28 @@ class AppointmentFactory extends Factory
      */
     public function definition()
     {
+        $appointmentTypes = [
+            'General Checkup',
+            'Dental Cleaning',
+            'Eye Examination',
+            'Vaccination',
+            'Physical Therapy',
+            'Cardiology Consultation',
+            'Orthopedic Consultation',
+            'Psychological Consultation',
+            'Nutrition Consultation',
+            'Dermatology Consultation',
+        ];
+
         return [
-            'patient_id' => Patient::factory(), // Zorg dat PatientFactory bestaat
-            'employee_id' => Employee::factory(), // Zorg dat EmployeeFactory bestaat
+            'patient_id' => Patient::factory(), // Ensure PatientFactory exists
+            'employee_id' => Employee::factory(), // Ensure EmployeeFactory exists
             'date' => $this->faker->dateTimeBetween('-1 year', '+1 year')->format('Y-m-d'),
             'time' => $this->faker->time('H:i:s'),
             'status' => $this->faker->randomElement(['scheduled', 'completed', 'cancelled']),
             'is_active' => $this->faker->boolean(),
             'comment' => $this->faker->optional()->sentence(),
+            'name' => $this->faker->randomElement($appointmentTypes), // Add the name field
             'created_at' => now(),
             'updated_at' => now(),
         ];

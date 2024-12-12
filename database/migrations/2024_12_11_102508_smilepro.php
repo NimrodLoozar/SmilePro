@@ -148,6 +148,7 @@ return new class extends Migration
         Schema::create('appointment', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->string('name');
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('employee_id');
             $table->date('date');

@@ -6,7 +6,6 @@ use App\Models\Employee;
 use App\Models\User;
 use App\Models\Person;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Faker\Generator as Faker;
 
 class EmployeeFactory extends Factory
 {
@@ -34,15 +33,14 @@ class EmployeeFactory extends Factory
             'person_id' => $person->id,
             'user_id' => $user->id,
             'name' => $user->name,
-            'number' => $this->faker->unique()->randomNumber(8),
             'email' => $user->email,
-            'employee_type' => $this->faker->word,
-            'specialization' => $this->faker->word,
-            'availability' => $this->faker->text,
-            'employee' => true,
+            'number' => $this->faker->unique()->randomNumber(8),
+            'employee_type' => $this->faker->optional()->word, // Optional field
+            'specialization' => $this->faker->optional()->word, // Optional field
+            'availability' => $this->faker->optional()->text, // Optional field
             'date_of_birth' => $person->date_of_birth,
-            'is_active' => true,
-            'comment' => $this->faker->text,
+            'is_active' => $this->faker->boolean, // Boolean field
+            'comment' => $this->faker->optional()->text, // Optional field
         ];
     }
 }

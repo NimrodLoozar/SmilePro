@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\Patient;
 use App\Models\Employee;
-use App\Models\User;
+use App\Models\user;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
