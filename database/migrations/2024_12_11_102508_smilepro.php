@@ -243,8 +243,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('employee_id')->nullable();
             $table->string('name');
-            $table->date('start_time');
-            $table->date('end_time');
+            $table->timestamp('start_time');
+            $table->timestamp('end_time');
             $table->text('description')->nullable();
             $table->boolean('is_active');
             $table->timestamps();

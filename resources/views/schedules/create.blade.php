@@ -11,23 +11,18 @@
         <form action="{{ route('schedules.store') }}" method="POST">
             @csrf
             <div class="form-group mb-4">
-                <label for="text" class="block text-black">Naam:</label>
-                <input type="text" id="text" name="name"
-                    class="form-control mt-1 block w-full border-black-300 rounded-md shadow-sm" required>
-            </div>
-            <div class="form-group mb-4">
-                <label for="date" class="block text-black">Datum:</label>
-                <input type="date" id="date" name="date"
+                <label for="name" class="block text-black">Naam:</label>
+                <input type="text" id="name" name="name"
                     class="form-control mt-1 block w-full border-black-300 rounded-md shadow-sm" required>
             </div>
             <div class="form-group mb-4">
                 <label for="start_time" class="block text-black">Starttijd:</label>
-                <input type="time" id="start_time" name="start_time"
+                <input type="datetime-local" id="start_time" name="start_time"
                     class="form-control mt-1 block w-full border-black-300 rounded-md shadow-sm" required>
             </div>
             <div class="form-group mb-4">
                 <label for="end_time" class="block text-black">Eindtijd:</label>
-                <input type="time" id="end_time" name="end_time"
+                <input type="datetime-local" id="end_time" name="end_time"
                     class="form-control mt-1 block w-full border-black-300 rounded-md shadow-sm" required>
             </div>
             <div class="form-group mb-4">
