@@ -1,11 +1,11 @@
 <?php
-
 namespace Database\Factories;
 
 use App\Models\Appointment;
 use App\Models\Patient;
 use App\Models\Employee;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Carbon\Carbon;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Appointment>
@@ -34,11 +34,16 @@ class AppointmentFactory extends Factory
             'Dermatology Consultation',
         ];
 
+        // Zorg dat de datum minimaal 24 uur in de toekomst ligt
+        $startDate = Carbon::now()->addDay(); // Minimaal 24 uur in de toekomst
+        $endDate = Carbon::now()->addYear(); // Maximaal 1 jaar in de toekomst
+        $appointmentDate = $this->faker->dateTimeBetween($startDate, $endDate);
+
         return [
             'patient_id' => Patient::factory(), // Ensure PatientFactory exists
             'employee_id' => Employee::factory(), // Ensure EmployeeFactory exists
-            'date' => $this->faker->dateTimeBetween('-1 year', '+1 year')->format('Y-m-d'),
-            'time' => $this->faker->time('H:i:s'),
+            'date' => $appointmentDate->format('Y-m-d'),
+            'time' => $appointmentDate->format('H:i:s'),
             'status' => $this->faker->randomElement(['scheduled', 'completed', 'cancelled']),
             'is_active' => $this->faker->boolean(),
             'comment' => $this->faker->optional()->sentence(),

@@ -25,8 +25,8 @@
             <tbody>
                 @foreach ($appointments as $appointment)
                     <tr class="border-t border-gray-300">
-                        <td class="py-2 px-4">{{ $appointment->patient->full_name ?? 'N/A' }}</td>
-                        <td class="py-2 px-4">{{ $appointment->employee->name }}</td>
+                        <td class="py-2 px-4">{{ $appointment->patient->person->name ?? 'N/A' }}</td>
+                        <td class="py-2 px-4">{{ $appointment->employee->person->name }}</td>
                         <td class="py-2 px-4">{{ $appointment->name ?? 'N/A' }}</td> <!-- Display the appointment type -->
                         <td class="py-2 px-4">{{ $appointment->date }}</td>
                         <td class="py-2 px-4">

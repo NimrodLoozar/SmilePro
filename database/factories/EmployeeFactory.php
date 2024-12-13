@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Models\Employee;
 use App\Models\User;
 use App\Models\Person;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EmployeeFactory extends Factory

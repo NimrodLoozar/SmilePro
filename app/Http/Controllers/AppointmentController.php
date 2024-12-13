@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Appointment;
 use App\Models\Patient;
 use App\Models\Employee;
-use App\Models\user;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
@@ -18,17 +17,9 @@ class AppointmentController extends Controller
     public function index()
     {
         $user = Auth::user();
-    
-        if ($user->role === 'admin') {
-            // Retrieve all appointments for Admins
-            $appointments = Appointment::with('patient', 'employee')->paginate(10);
-        } else {
-            // Retrieve appointments for the current patient
-            $appointments = Appointment::where('patient_id', $user->id)
-                ->with('patient', 'employee')
-                ->paginate(10);
-        }
-    
+
+        $appointments = Appointment::with('patient', 'employee')->paginate(10);
+
         return view('appointments.index', compact('appointments'));
     }
 
@@ -42,14 +33,28 @@ class AppointmentController extends Controller
         return view('appointments.create', compact('patients', 'employees'));
     }
 
-
-
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'patient_id' => 'required|exists:patients,id',
-            'employee_id' => 'required|exists:employees,id',
-            'date' => 'required|date',
+            'patient_id' => 'required|exists:patient,id',
+            'employee_id' => 'required|exists:employee,id',
+            'date' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) {
+                    $appointmentDate = Carbon::parse($value);
+                    $now = Carbon::now();
+
+                    if ($appointmentDate->lessThanOrEqualTo($now)) {
+                        $fail('De afspraak kan niet in het verleden liggen.');
+                    } elseif ($appointmentDate->lessThan($now->addDay())) {
+                        $fail('De afspraak moet minimaal 24 uur in de toekomst liggen.');
+                    }
+                },
+            ],
             'time' => 'required',
             'comment' => 'nullable|string|max:255',
         ]);
@@ -59,13 +64,14 @@ class AppointmentController extends Controller
             'employee_id' => $validated['employee_id'],
             'date' => $validated['date'],
             'time' => $validated['time'],
-            'status' => 'Pending', // default waarde
+            'status' => 'Pending',
             'is_active' => true,
             'comment' => $validated['comment'] ?? null,
         ]);
 
         return redirect()->route('appointments.index')->with('success', 'Appointment created successfully');
     }
+
 
     /**
      * Display the specified resource.
@@ -80,8 +86,9 @@ class AppointmentController extends Controller
      */
     public function edit(Appointment $appointment)
     {
-        $patients = Patient::with('person')->get()->pluck('name', 'id');
-        $employees = Employee::with('person')->get()->pluck('name', 'id');
+        // Fetch patients and employees with their full names
+        $patients = Patient::with('person')->get()->pluck('full_name', 'id');
+        $employees = Employee::with('person')->get()->pluck('full_name', 'id');
 
         return view('appointments.edit', compact('appointment', 'patients', 'employees'));
     }
@@ -89,23 +96,34 @@ class AppointmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, Appointment $appointment)
     {
-        $validator = Validator::make($request->all(), [
-            'patient_id' => 'required|exists:patient,id', // Fixed table name
+        $validated = $request->validate([
+            'patient_id' => 'required|exists:patient,id',
             'employee_id' => 'required|exists:employee,id',
-            'date' => 'required|date',
+            'date' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) {
+                    $appointmentDate = Carbon::parse($value);
+                    $now = Carbon::now();
+
+                    if ($appointmentDate->lessThanOrEqualTo($now)) {
+                        $fail('De afspraak kan niet in het verleden liggen.');
+                    } elseif ($appointmentDate->lessThan($now->addDay())) {
+                        $fail('De afspraak moet minimaal 24 uur in de toekomst liggen.');
+                    }
+                },
+            ],
             'time' => 'required',
             'status' => 'required|string|max:255',
             'is_active' => 'required|boolean',
             'comment' => 'nullable|string',
         ]);
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+        $appointment->update($validated);
 
-        $appointment->update($request->all());
         return redirect()->route('appointments.show', $appointment->id)->with('success', 'Appointment updated successfully.');
     }
 
@@ -114,6 +132,21 @@ class AppointmentController extends Controller
      */
     public function destroy(Appointment $appointment)
     {
+        // Combine date and time into a single DateTime object
+        $appointmentDateTime = \DateTime::createFromFormat('Y-m-d H:i', $appointment->date . ' ' . $appointment->time);
+
+        // Get current datetime
+        $now = \DateTime::createFromFormat('U', time());
+
+        // Calculate the difference
+        $diff = $appointmentDateTime->diff($now);
+
+        // Check if the appointment is less than 24 hours away
+        if ($diff->days < 1) {
+            return back()->with('error', 'Kan afspraak niet annuleren omdat de afspraak over minder dan 24 uur plaatsvindt.');
+        }
+
+        // Proceed to delete the appointment
         $appointment->delete();
         return redirect()->route('appointments.index')->with('success', 'Appointment deleted successfully.');
     }
