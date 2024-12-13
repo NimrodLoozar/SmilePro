@@ -1,42 +1,40 @@
-<x-layout>
+<x-app-layout>
     <div class="container mx-auto p-4">
         @if (session('success'))
-            <div class="bg-green-100 border-t-4 border-green-600 rounded-b px-4 py-3 text-green-700" role="alert">
+            <div class="bg-green-900 border-t-4 border-green-600 rounded-b px-4 py-3 text-green-200" role="alert">
                 {{ session('success') }}
             </div>
         @endif
 
         @if (session('error'))
-            <div class="bg-red-100 border-t-4 border-red-600 rounded-b px-4 py-3 text-red-700" role="alert">
+            <div class="bg-red-900 border-t-4 border-red-600 rounded-b px-4 py-3 text-red-200" role="alert">
                 {{ session('error') }}
             </div>
         @endif
 
-
         <div class="flex justify-between items-center mb-4">
-            <h1 class="text-3xl font-bold">Afspraken</h1>
+            <h1 class="text-3xl font-bold text-white">Afspraken</h1>
             <a href="{{ route('appointments.create') }}"
                 class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Nieuwe afspraak maken</a>
         </div>
 
-        <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-sm">
+        <table class="min-w-full bg-gray-800 border border-gray-700 rounded-lg shadow-sm">
             <thead>
-                <tr class="bg-gray-100">
-                    <th class="py-2 px-4 text-left">Patient</th>
-                    <th class="py-2 px-4 text-left">Medewerker</th>
-                    <th class="py-2 px-4 text-left">Type Afspraak</th> <!-- Added column for appointment type -->
-                    <th class="py-2 px-4 text-left">Datum</th>
-                    <th class="py-2 px-4 text-left">Acties</th>
+                <tr class="bg-gray-700">
+                    <th class="py-2 px-4 text-left text-gray-200">Patient</th>
+                    <th class="py-2 px-4 text-left text-gray-200">Medewerker</th>
+                    <th class="py-2 px-4 text-left text-gray-200">Type Afspraak</th>
+                    <th class="py-2 px-4 text-left text-gray-200">Datum</th>
+                    <th class="py-2 px-4 text-left text-gray-200">Acties</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($appointments as $appointment)
-                    <tr class="border-t border-gray-300">
-                        <td class="py-2 px-4">{{ $appointment->patient->person->name ?? 'N/A' }}</td>
-                        <td class="py-2 px-4">{{ $appointment->employee->person->name }}</td>
-                        <td class="py-2 px-4">{{ $appointment->name ?? 'N/A' }}</td>
-                        <!-- Display the appointment type -->
-                        <td class="py-2 px-4">{{ $appointment->date }}</td>
+                    <tr class="border-t border-gray-700 hover:bg-gray-700">
+                        <td class="py-2 px-4 text-gray-300">{{ $appointment->patient->person->name ?? 'N/A' }}</td>
+                        <td class="py-2 px-4 text-gray-300">{{ $appointment->employee->person->name }}</td>
+                        <td class="py-2 px-4 text-gray-300">{{ $appointment->name ?? 'N/A' }}</td>
+                        <td class="py-2 px-4 text-gray-300">{{ $appointment->date }}</td>
                         <td class="py-2 px-4">
                             <div class="flex space-x-2">
                                 <a href="{{ route('appointments.show', $appointment->id) }}"
@@ -56,8 +54,8 @@
             </tbody>
         </table>
 
-        <div class="mt-4">
+        <div class="mt-4 text-gray-300">
             {{ $appointments->links() }}
         </div>
     </div>
-</x-layout>
+</x-app-layout>
