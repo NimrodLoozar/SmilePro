@@ -4,34 +4,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Schedule;
+use App\Models\User;
 
 class ScheduleController extends Controller
 {
     // Display a listing of the resource. view
     public function index()
     {
-        $schedules = Schedule::all();
-        return view('schedules.index', compact('schedules'));
+        $users = User::with('schedules')->has('schedules')->get();
+        return view('schedules.index', compact('users'));
     }
 
     // Show the form for creating a new resource. create
     public function create()
     {
-        return view('schedules.create');
+        $roles = User::whereIn('role', ['admin', 'dentist', 'employee'])
+            ->get()
+            ->groupBy('role');
+        return view('schedules.create', compact('roles'));
     }
 
     // Store a newly created resource in storage. store
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'user_id' => 'required|exists:users,id',
             'description' => 'required',
             'start_time' => 'required|date',
             'end_time' => 'required|date',
-            'user_id' => 'required|exists:users,id',
         ]);
 
-        Schedule::create($request->all());
+        $user = User::find($request->user_id);
+        $schedule = new Schedule($request->all());
+        $schedule->name = $user->name;
+        $schedule->save();
 
         return redirect()->route('schedules.index')
             ->with('success', 'Schedule created successfully.');
@@ -41,7 +47,7 @@ class ScheduleController extends Controller
     public function show($id)
     {
         $schedule = Schedule::find($id);
-        return view('schedules.show', compact('schedule'));
+        return view('schedules.show', ['schedule' => $schedule]);
     }
 
     // Show the form for editing the specified resource. edit
@@ -55,15 +61,13 @@ class ScheduleController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
             'description' => 'required',
             'start_time' => 'required|date',
             'end_time' => 'required|date',
-            'user_id' => 'required|exists:users,id',
         ]);
 
         $schedule = Schedule::find($id);
-        $schedule->update($request->all());
+        $schedule->update($request->only(['description', 'start_time', 'end_time']));
 
         return redirect()->route('schedules.index')
             ->with('success', 'Schedule updated successfully.');

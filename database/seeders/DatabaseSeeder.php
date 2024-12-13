@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Create users with specific roles
+        User::factory(10)->create();
         User::factory()->testUser()->create();
         User::factory()->adminUser()->create();
         User::factory()->dentistUser()->create();
@@ -33,19 +34,19 @@ class DatabaseSeeder extends Seeder
         Schedule::factory(10)->create();
 
         // Create schedules
-        Schedule::factory()->count(10)->create();
+        // Schedule::factory()->count(10)->create();
 
         // Create patients
         Patient::factory()->count(10)->create();
 
         // Create roles
-        Role::factory()->count(10)->create();
+        // Role::factory()->count(10)->create();
 
         // Create persons
-        Person::factory()->count(10)->create();
+        // Person::factory()->count(10)->create();
 
         // Create employees
-        Employee::factory()->count(10)->create();
+        // Employee::factory()->count(10)->create();
 
         // Create appointments
         Appointment::factory()->count(10)->create();

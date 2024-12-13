@@ -39,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
     Route::delete('/conversations/{conversation}', [MessageController::class, 'destroy'])->name('conversations.destroy');
     Route::delete('/messages/deleteSelected', [MessageController::class, 'deleteSelected'])->name('messages.deleteSelected');
+    Route::resource('schedules', ScheduleController::class);
 });
 
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
@@ -70,7 +71,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-Route::resource('schedules', ScheduleController::class)->middleware('auth');
 
 require __DIR__ . '/auth.php';
