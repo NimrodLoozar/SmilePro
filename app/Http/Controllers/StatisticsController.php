@@ -5,19 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Models\Invoice;
-use Illuminate\Http\JsonResponse;
+use Illuminate\View\View;
+use App\Models\Patient;
 
 class StatisticsController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(): View
     {
-        $totalPatients = Appointment::count();
+        $totalPatients = Patient::count();
         $averageWaitTime = Appointment::avg('wait_time');
         $totalAppointments = Appointment::count();
         $totalPayments = Invoice::count();
         $averageAppointmentDuration = Appointment::avg('duration');
 
-        return response()->json([
+        return view('adminDashboard', [
             'total_patients' => $totalPatients,
             'average_wait_time' => $averageWaitTime,
             'total_appointments' => $totalAppointments,

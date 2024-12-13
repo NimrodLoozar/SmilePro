@@ -13,6 +13,8 @@ use App\Models\Appointment;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\Rule;
+// use App\Models\Invoice;
+// use App\Models\Treatment;
 // ...other model imports...
 
 class DatabaseSeeder extends Seeder
@@ -47,6 +49,12 @@ class DatabaseSeeder extends Seeder
 
         // Create appointments
         Appointment::factory()->count(10)->create();
+
+        // Create Invoice
+        // Invoice::factory()->count(10)->create();
+
+        // Create Treatment
+        // Treatment::factory()->count(10)->create();
 
         // Other seeders can be called here
         // $this->call(OtherSeeder::class);
