@@ -14,7 +14,6 @@ return new class extends Migration
     {
         // Conversations table
         Schema::create('conversations', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('recipient');
@@ -25,7 +24,6 @@ return new class extends Migration
 
         // Messages table
         Schema::create('messages', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->id();
             $table->unsignedBigInteger('conversation_id');
             $table->unsignedBigInteger('user_id');
@@ -40,7 +38,6 @@ return new class extends Migration
 
         // Person table
         Schema::create('person', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->string('name');
@@ -57,7 +54,6 @@ return new class extends Migration
 
         // Rules table
         Schema::create('rules', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->unsignedBigInteger('user_id');
             $table->string('name')->nullable();
@@ -71,7 +67,6 @@ return new class extends Migration
 
         // Patient table
         Schema::create('patient', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->unsignedBigInteger('person_id');
             $table->string('number');
@@ -86,7 +81,6 @@ return new class extends Migration
 
         // Employee table
         Schema::create('employee', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('person_id');
@@ -108,7 +102,6 @@ return new class extends Migration
 
         // Availability table
         Schema::create('availability', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->unsignedBigInteger('employee_id');
             $table->date('date_from');
@@ -126,7 +119,6 @@ return new class extends Migration
 
         // Contact table
         Schema::create('contact', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->unsignedBigInteger('patient_id');
             $table->string('street_name');
@@ -146,7 +138,6 @@ return new class extends Migration
 
         // Appointment table
         Schema::create('appointment', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('employee_id');
@@ -164,7 +155,6 @@ return new class extends Migration
 
         // Treatment table
         Schema::create('treatment', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->unsignedBigInteger('employee_id');
             $table->unsignedBigInteger('patient_id');
@@ -185,7 +175,6 @@ return new class extends Migration
 
         // Invoice table
         Schema::create('invoice', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('treatment_id');
@@ -204,7 +193,6 @@ return new class extends Migration
 
         // Communication table
         Schema::create('communication', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('employee_id');
@@ -221,7 +209,6 @@ return new class extends Migration
 
         // Feedback table
         Schema::create('feedback', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->unsignedBigInteger('patient_id');
             $table->integer('rating');
@@ -237,7 +224,6 @@ return new class extends Migration
 
         // Schedules table
         Schema::create('schedules', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('employee_id')->nullable();
