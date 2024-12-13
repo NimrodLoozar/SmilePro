@@ -28,7 +28,6 @@ class AdminDashboardController extends Controller
             'totalPatients' => $totalPatients,
             'averageWaitTime' => $averageWaitTime,
             'totalAppointments' => $totalAppointments,
-            'totalPayments' => $totalPayments,
             'averageAppointmentDuration' => $averageAppointmentDuration,
         ]);
     }
