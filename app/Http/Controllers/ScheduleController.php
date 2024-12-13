@@ -46,8 +46,9 @@ class ScheduleController extends Controller
     // Display the specified resource. show
     public function show($id)
     {
-        $schedule = Schedule::find($id);
-        return view('schedules.show', ['schedule' => $schedule]);
+        $user = User::find($id);
+        $schedules = $user->schedules;
+        return view('schedules.show', compact('user', 'schedules'));
     }
 
     // Show the form for editing the specified resource. edit
@@ -69,7 +70,7 @@ class ScheduleController extends Controller
         $schedule = Schedule::find($id);
         $schedule->update($request->only(['description', 'start_time', 'end_time']));
 
-        return redirect()->route('schedules.index')
+        return redirect()->route('schedules.show', $schedule->user_id)
             ->with('success', 'Schedule updated successfully.');
     }
 

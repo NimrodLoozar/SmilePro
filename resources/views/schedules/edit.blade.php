@@ -40,8 +40,26 @@
                                 value="{{ $schedule->end_time }}" required>
                         </div>
 
-                        <button type="submit"
-                            class="btn btn-primary mt-4 bg-green-500 hover:bg-green-600 px-5 py-1 rounded-lg">Update</button>
+                        <div class="flex justify-between mt-4">
+                            <a href="{{ route('schedules.show', $schedule->user_id) }}"
+                                class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                                Cancel
+                            </a>
+                            <div class="flex space-x-4">
+                                <button type="submit"
+                                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                    Update
+                                </button>
+                                <form action="{{ route('schedules.destroy', $schedule->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

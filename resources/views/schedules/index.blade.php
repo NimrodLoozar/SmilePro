@@ -15,17 +15,9 @@
             @foreach ($users as $user)
                 <div class="mb-4 p-4 bg-white shadow rounded-lg">
                     <h3 class="text-lg font-semibold">
-                        <a href="{{ route('schedules.show', $user->schedules->first()->id) }}"
+                        <a href="{{ route('schedules.show', $user->id) }}"
                             class="text-black hover:underline">{{ $user->name }}</a>
                     </h3>
-                    <ul class="list-disc pl-5 space-y-2">
-                        @foreach ($user->schedules as $schedule)
-                            <li>
-                                <p class="text-blue-600"><strong>Start Time:</strong> {{ $schedule->start_time }}</p>
-                                <p class="text-blue-600"><strong>End Time:</strong> {{ $schedule->end_time }}</p>
-                            </li>
-                        @endforeach
-                    </ul>
                 </div>
             @endforeach
         </ul>
