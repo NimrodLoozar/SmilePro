@@ -133,7 +133,7 @@ class AppointmentController extends Controller
     public function destroy(Appointment $appointment)
     {
         // Combine date and time into a single DateTime object, including milliseconds
-        $appointmentDateTime = \DateTime::createFromFormat('Y-m-d H:i:s.u', $appointment->date . ' ' . $appointment->time);
+        $appointmentDateTime = \DateTime::createFromFormat('Y-m-d H:i:s', $appointment->date . ' ' . $appointment->time);
     
         if (!$appointmentDateTime) {
             return back()->with('error', 'De datum of tijd van de afspraak is ongeldig.');
