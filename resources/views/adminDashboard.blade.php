@@ -24,16 +24,29 @@
             <br>
             <!-- Statistieken -->
             <div class="w-full bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <h3 class="text-2xl font-bold mb-4">Statistieken</h3>
-                        <p><strong>Totaal aantal patiënten: </strong>{{ $totalPatients }} patiënten</p>
-                        <p><strong>Gemiddelde wachttijd: </strong>{{ $averageWaitTime }} Uren</p>
-                        <p><strong>Aantal geplande afspraken: </strong>{{ $totalAppointments }} afspraken</p>
-                        <p><strong>Gemiddelde afspraakduur: </strong>{{ $averageAppointmentDuration }} minuten</p>
-
-                        <div class="text-red-500 mt-4" style="display: none;">Statistieken konden niet worden geladen. Probeer het later opnieuw.</div>
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <h3 class="text-2xl font-bold mb-4">Statistieken</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow">
+                            <p class="text-lg font-semibold">Totaal aantal patiënten</p>
+                            <p class="text-3xl">{{ $totalPatients }}</p>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow">
+                            <p class="text-lg font-semibold">Gemiddelde wachttijd</p>
+                            <p class="text-3xl">{{ $averageWaitTime }} Uren</p>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow">
+                            <p class="text-lg font-semibold">Aantal geplande afspraken</p>
+                            <p class="text-3xl">{{ $totalAppointments }}</p>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow">
+                            <p class="text-lg font-semibold">Gem. afspraakduur per maand</p>
+                            <p class="text-3xl">{{ $averageAppointmentDuration }} minuten</p>
+                        </div>
                     </div>
+                    <div class="text-red-500 mt-4" style="display: none;">Statistieken konden niet worden geladen. Probeer het later opnieuw.</div>
                 </div>
+            </div>
         </div>
     </div>
 </x-app-layout>
