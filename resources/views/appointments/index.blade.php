@@ -6,6 +6,13 @@
             </div>
         @endif
 
+        @if (session('error'))
+            <div class="bg-red-100 border-t-4 border-red-600 rounded-b px-4 py-3 text-red-700" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+
+
         <div class="flex justify-between items-center mb-4">
             <h1 class="text-3xl font-bold">Afspraken</h1>
             <a href="{{ route('appointments.create') }}"
@@ -27,7 +34,8 @@
                     <tr class="border-t border-gray-300">
                         <td class="py-2 px-4">{{ $appointment->patient->person->name ?? 'N/A' }}</td>
                         <td class="py-2 px-4">{{ $appointment->employee->person->name }}</td>
-                        <td class="py-2 px-4">{{ $appointment->name ?? 'N/A' }}</td> <!-- Display the appointment type -->
+                        <td class="py-2 px-4">{{ $appointment->name ?? 'N/A' }}</td>
+                        <!-- Display the appointment type -->
                         <td class="py-2 px-4">{{ $appointment->date }}</td>
                         <td class="py-2 px-4">
                             <div class="flex space-x-2">
