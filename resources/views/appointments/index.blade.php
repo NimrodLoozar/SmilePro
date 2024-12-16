@@ -14,21 +14,6 @@
                 afspraak maken</a>
         </p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            @foreach ($appointments as $appointment)
-                <div class="border border-gray-300 rounded-lg p-4 shadow-sm bg-white">
-                    <h2 class="text-xl font-semibold mb-2">{{ $appointment->patient->person->full_name }}</h2>
-                    <p class="text-gray-600"><strong>Medewerker:</strong>
-                        {{ $appointment->employee->person->full_name }}</p>
-                    <p class="text-gray-600"><strong>Datum:</strong> {{ $appointment->date }}</p>
-                    <div class="mt-4">
-                        <a href="{{ route('appointments.show', $appointment->id) }}"
-                            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Bekijken</a>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-
         <table class="min-w-full bg-gray-800 border border-gray-700 rounded-lg shadow-sm">
             <thead>
                 <tr class="bg-gray-700">
