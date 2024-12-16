@@ -139,6 +139,7 @@ return new class extends Migration
         // Appointment table
         Schema::create('appointment', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('employee_id');
             $table->date('date');

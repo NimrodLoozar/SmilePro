@@ -38,7 +38,7 @@ class Employee extends Model
 
     public function getFullNameAttribute()
     {
-        return isset($this->person) ? $this->person->first_name . ' ' . $this->person->last_name : 'N/A';
+        return isset($this->person) ? $this->person->name : 'N/A';
     }
 
     protected static function boot()

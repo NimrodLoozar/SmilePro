@@ -21,10 +21,11 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
-Route::resource('appointments', AppointmentController::class);
-Route::resource('employees', EmployeeController::class);
-Route::resource('patients', PatientController::class);
-Route::resource('persons', PersonController::class);
+    Route::resource('appointments', AppointmentController::class);
+    Route::resource('employees', EmployeeController::class);
+    Route::resource('patients', PatientController::class);
+    Route::resource('persons', PersonController::class);
+
 
 Route::get('/banner', function () {
     return view('banner');
