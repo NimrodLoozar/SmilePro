@@ -8,11 +8,11 @@
 
         <h1 class="text-3xl font-bold mb-4">Afspraken</h1>
 
-        <p class="mb-4">
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-3xl font-bold text-white">Afspraken</h1>
             <a href="{{ route('appointments.create') }}"
-                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-[2px_2px_5px_rgba(0,0,0,0.75)]">Nieuwe
-                afspraak maken</a>
-        </p>
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Nieuwe afspraak maken</a>
+        </div>
 
         <table class="min-w-full bg-gray-800 border border-gray-700 rounded-lg shadow-sm">
             <thead>
