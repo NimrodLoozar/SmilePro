@@ -16,16 +16,14 @@ class Employee extends Model
     protected $fillable = [
         'person_id',
         'user_id',
-        'name',
         'number',
+        'name',
         'email',
         'employee_type',
         'specialization',
         'availability',
-        'date_of_birth',
-        'employee',
         'is_active',
-        'comment'
+        'comment',
     ];
 
     protected $casts = [
@@ -38,7 +36,7 @@ class Employee extends Model
 
     public function getFullNameAttribute()
     {
-        return isset($this->person) ? $this->person->name : 'N/A';
+        return $this->person->name;
     }
 
     protected static function boot()

@@ -16,7 +16,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::with('employee')->paginate(10);
+        $employees = Employee::with('person')->paginate(10);
         return view('employee.index', compact('employees'));
     }
 
@@ -25,37 +25,47 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $persons = Person::pluck('name', 'id');
+        $persons = Person::all(); // Fetch all persons
         return view('employee.create', compact('persons'));
     }
+
 
     /**
      * Store a new employee in the database.
      */
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'person_id' => 'required|exists:persons,id',
-            'number' => 'required|string',
-            'employee_type' => 'required|string',
-            'specialization' => 'nullable|string',
-            'availability' => 'nullable|string',
-            'is_active' => 'required|boolean',
-            'comment' => 'nullable|string',
-        ]);
+{
+    // Validate the incoming request data
+    $validated = $request->validate([
+        'person_id' => 'required|exists:person,id',
+        'number' => 'required|string|max:255',
+        'employee_type' => 'required|string|max:255',
+        'specialization' => 'nullable|string|max:255',
+        'availability' => 'nullable|string|max:255',
+        'comment' => 'nullable|string|max:500',
+    ]);
 
-        Employee::create([
-            'person_id' => $validated['person_id'],
-            'number' => $validated['number'],
-            'employee_type' => $validated['employee_type'],
-            'specialization' => $validated['specialization'],
-            'availability' => $validated['availability'],
-            'is_active' => $validated['is_active'],
-            'comment' => $validated['comment'],
-        ]);
+    // Retrieve the person
+    $person = Person::findOrFail($validated['person_id']);
 
-        return redirect()->route('employee.index')->with('success', 'Employee created successfully');
-    }
+    // Create a new employee record
+    Employee::create([
+        'person_id' => $validated['person_id'],
+        'user_id' => Auth::id(),
+        'name' => $person->name, // Use the name from the selected person
+        'email' => $person->email, // Use the email from the selected person
+        'number' => $validated['number'],
+        'employee_type' => $validated['employee_type'],
+        'specialization' => $validated['specialization'],
+        'availability' => $validated['availability'],
+        'comment' => $validated['comment'],
+    ]);
+
+    // Redirect with a success message
+    return redirect()->route('employees.index')->with('success', 'Medewerker succesvol aangemaakt.');
+}
+
+
 
     /**
      * Show details of a specific employee.

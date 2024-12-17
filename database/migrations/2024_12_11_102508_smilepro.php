@@ -97,7 +97,7 @@ return new class extends Migration
             $table->string('specialization')->nullable();
             $table->text('availability')->nullable();
             $table->date('date_of_birth')->nullable();
-            $table->boolean('is_active');
+            $table->boolean('is_active')->nullable();
             $table->text('comment')->nullable();
             $table->timestamps();
 
