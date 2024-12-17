@@ -25,37 +25,37 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-    $employees = Employee::with('person')->get(); // Volledige modellen doorgeven
-    return view('employee.create', compact('employees'));
+        $persons = Person::pluck('name', 'id');
+        return view('employee.create', compact('persons'));
     }
 
     /**
      * Store a new employee in the database.
      */
     public function store(Request $request)
-{
-    $validated = $request->validate([
-        'person_id' => 'required|exists:persons,id',
-        'number' => 'required|string',
-        'employee_type' => 'required|string',
-        'specialization' => 'nullable|string',
-        'availability' => 'nullable|string',
-        'is_active' => 'required|boolean',
-        'comment' => 'nullable|string',
-    ]);
+    {
+        $validated = $request->validate([
+            'person_id' => 'required|exists:persons,id',
+            'number' => 'required|string',
+            'employee_type' => 'required|string',
+            'specialization' => 'nullable|string',
+            'availability' => 'nullable|string',
+            'is_active' => 'required|boolean',
+            'comment' => 'nullable|string',
+        ]);
 
-    Employee::create([
-       'person_id' => $validated['person_id'],
-       'number' => $validated['number'],
-       'employee_type' => $validated['employee_type'],
-       'specialization' => $validated['specialization'],
-       'availability' => $validated['availability'],
-       'is_active' => $validated['is_active'],
-       'comment' => $validated['comment'],
-    ]);
+        Employee::create([
+            'person_id' => $validated['person_id'],
+            'number' => $validated['number'],
+            'employee_type' => $validated['employee_type'],
+            'specialization' => $validated['specialization'],
+            'availability' => $validated['availability'],
+            'is_active' => $validated['is_active'],
+            'comment' => $validated['comment'],
+        ]);
 
-    return redirect()->route('employee.index')->with('success', 'Employee created successfully');
-}
+        return redirect()->route('employee.index')->with('success', 'Employee created successfully');
+    }
 
     /**
      * Show details of a specific employee.
