@@ -1,4 +1,10 @@
 <x-app-layout>
+@if(session('success'))
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+        <strong class="font-bold">Success!</strong>
+        <span class="block sm:inline">{{ session('success') }}</span>
+    </div>
+@endif
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-200 leading-tight">
@@ -6,7 +12,7 @@
             </h2>
             <!-- NEW Employee Button -->
             <a href="{{ route('employees.create') }}" 
-                class="px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600">
+                class="px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 float-right">
                 NEW +
             </a>
         </div>
@@ -30,7 +36,6 @@
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
                                     Specialization</th>
-
                             </tr>
                         </thead>
                         <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
