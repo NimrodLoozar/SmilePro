@@ -41,6 +41,7 @@ class AppointmentController extends Controller
         $validated = $request->validate([
             'patient_id' => 'required|exists:patient,id',
             'employee_id' => 'required|exists:employee,id',
+            'name' => 'required|string|max:255',
             'date' => [
                 'required',
                 'date',
@@ -62,6 +63,7 @@ class AppointmentController extends Controller
         Appointment::create([
             'patient_id' => $validated['patient_id'],
             'employee_id' => $validated['employee_id'],
+            'name' => $validated['name'],
             'date' => $validated['date'],
             'time' => $validated['time'],
             'status' => 'Pending',
@@ -102,6 +104,7 @@ class AppointmentController extends Controller
         $validated = $request->validate([
             'patient_id' => 'required|exists:patient,id',
             'employee_id' => 'required|exists:employee,id',
+            'name' => 'required|string|max:255',
             'date' => [
                 'required',
                 'date',
@@ -154,6 +157,4 @@ class AppointmentController extends Controller
         $appointment->delete();
         return redirect()->route('appointments.index')->with('success', 'Appointment deleted successfully.');
     }
-    
-    
 }
