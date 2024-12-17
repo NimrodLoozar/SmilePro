@@ -5,6 +5,12 @@
         </h2>
     </x-slot>
 
+    @if (session('error'))
+    <div class="bg-red-900 border-t-4 border-red-600 rounded-b px-4 py-3 text-red-200" role="alert">
+        {{ session('error') }}
+    </div>
+    @endif
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -53,7 +59,7 @@
                         <!-- Availability -->
                         <div class="mt-4">
                             <label for="availability" class="block text-sm font-medium text-gray-700">Availability</label>
-                            <select name="availability" id="availability" 
+                            <select name="avai0lability" id="availability" 
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm @error('availability') border-red-500 @enderror" 
                                 required>
                                 <option value="" disabled {{ old('availability') ? '' : 'selected' }}>Select Availability</option>
