@@ -7,6 +7,7 @@ use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class EmployeeController extends Controller
 {
@@ -15,11 +16,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role !== 'admin') {
-            return redirect()->route('home')->with('error', 'You do not have access.');
-        }
-        $employees = Employee::all();
-        return view('Employee.index', compact('employees'));
+        $employees = Employee::with('employee')->paginate(10);
+        return view('employee.index', compact('employees'));
     }
 
     /**
@@ -27,32 +25,37 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $persons = Person::pluck('name', 'id'); // Assuming Person has a 'name' field
-        return view('employee.create', compact('persons'));
+    $employees = Employee::with('person')->get(); // Volledige modellen doorgeven
+    return view('employee.create', compact('employees'));
     }
 
     /**
      * Store a new employee in the database.
      */
     public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'person_id' => 'required|exists:persons,id',
-            'number' => 'required|string',
-            'employee_type' => 'required|string',
-            'specialization' => 'nullable|string',
-            'availability' => 'nullable|string',
-            'is_active' => 'required|boolean',
-            'comment' => 'nullable|string',
-        ]);
+{
+    $validated = $request->validate([
+        'person_id' => 'required|exists:persons,id',
+        'number' => 'required|string',
+        'employee_type' => 'required|string',
+        'specialization' => 'nullable|string',
+        'availability' => 'nullable|string',
+        'is_active' => 'required|boolean',
+        'comment' => 'nullable|string',
+    ]);
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+    Employee::create([
+       'person_id' => $validated['person_id'],
+       'number' => $validated['number'],
+       'employee_type' => $validated['employee_type'],
+       'specialization' => $validated['specialization'],
+       'availability' => $validated['availability'],
+       'is_active' => $validated['is_active'],
+       'comment' => $validated['comment'],
+    ]);
 
-        Employee::create($request->all());
-        return redirect()->route('employees.index')->with('success', 'Employee created successfully.');
-    }
+    return redirect()->route('employee.index')->with('success', 'Employee created successfully');
+}
 
     /**
      * Show details of a specific employee.
@@ -78,7 +81,7 @@ class EmployeeController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'person_id' => 'required|exists:persons,id',
-            'number' => 'required|string',
+            'name' => 'required|string',
             'employee_type' => 'required|string',
             'specialization' => 'nullable|string',
             'availability' => 'nullable|string',
@@ -91,7 +94,7 @@ class EmployeeController extends Controller
         }
 
         $employee->update($request->all());
-        return redirect()->route('employees.show', $employee->id)->with('success', 'Employee updated successfully.');
+        return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');
     }
 
     /**
@@ -102,6 +105,4 @@ class EmployeeController extends Controller
         $employee->delete();
         return redirect()->route('employees.index')->with('success', 'Employee deleted successfully.');
     }
-
-    
 }
