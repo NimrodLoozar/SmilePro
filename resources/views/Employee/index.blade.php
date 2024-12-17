@@ -48,9 +48,8 @@
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $employee->number }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $employee->employee_type }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $employee->specialization }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $employee->availability }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        {{ $employee->is_active ? 'Yes' : 'No' }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $employee->availability ? 'Yes' : 'No' }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $employee->active ? 'Yes' : 'No' }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $employee->comment }}</td>
                                 </tr>
                             @endforeach

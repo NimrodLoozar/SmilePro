@@ -21,6 +21,7 @@
                     <th class="py-2 px-4 text-left text-gray-200">Medewerker</th>
                     <th class="py-2 px-4 text-left text-gray-200">Type Afspraak</th>
                     <th class="py-2 px-4 text-left text-gray-200">Datum</th>
+                    <th class="py-2 px-4 text-left text-gray-200">Tijd</th>
                     <th class="py-2 px-4 text-left text-gray-200">Acties</th>
                 </tr>
             </thead>
@@ -31,6 +32,7 @@
                         <td class="py-2 px-4 text-gray-300">{{ $appointment->employee->person->name }}</td>
                         <td class="py-2 px-4 text-gray-300">{{ $appointment->name ?? 'N/A' }}</td>
                         <td class="py-2 px-4 text-gray-300">{{ $appointment->date }}</td>
+                        <td class="py-2 px-4 text-gray-300">{{ $appointment->time }}</td>
                         <td class="py-2 px-4">
                             <div class="flex space-x-2">
                                 <a href="{{ route('appointments.show', $appointment->id) }}"
