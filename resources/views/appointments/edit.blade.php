@@ -39,6 +39,11 @@
                     @endforeach
                 </select>
             </div>
+            
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 font-bold mb-2">Naam</label>
+                <input type="text" name="name" id="name" value="{{ $appointment->name }}" class="w-full border border-gray-300 rounded px-3 py-2 dark:bg-gray-900 dark:text-gray-300">
+            </div>
 
             <div class="mb-4">
                 <label for="date" class="block text-gray-700 font-bold mb-2">Datum</label>
