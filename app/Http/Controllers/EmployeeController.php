@@ -59,7 +59,7 @@ class EmployeeController extends Controller
         'specialization' => $validated['specialization'],
         'availability' => $validated['availability'],
         'comment' => $validated['comment'],
-    ]);
+        ]);
 
     // Redirect with a success message
     return redirect()->route('employees.index')->with('success', 'Medewerker succesvol aangemaakt.');

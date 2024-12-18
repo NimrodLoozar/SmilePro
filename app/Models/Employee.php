@@ -16,15 +16,14 @@ class Employee extends Model
     protected $fillable = [
         'person_id',
         'user_id',
-        'number',
         'name',
         'email',
+        'number',
         'employee_type',
         'specialization',
         'availability',
-        'is_active',
         'comment',
-    ];
+    ];    
 
     protected $casts = [
         'is_active' => 'boolean',
