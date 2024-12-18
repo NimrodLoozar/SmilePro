@@ -5,7 +5,7 @@
         <div class="bg-white shadow overflow-hidden sm:rounded-lg dark:bg-gray-900">
             <div class="px-4 py-5 sm:px-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">
-                    Afspraak ID: {{ $appointment->id }}
+                    Afspraak: {{ $appointment->name }}
                 </h3>
             </div>
             <div class="border-t border-gray-200 px-4 py-5 sm:p-0 dark:border-gray-700">

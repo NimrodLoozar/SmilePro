@@ -80,6 +80,7 @@
                 <input type="time" name="time" id="time" value="{{ $appointment->time }}"
                     class="w-full border border-gray-300 rounded px-3 py-2 dark:bg-gray-900 dark:text-gray-300">
             </div>
+            
 
             <div class="mb-4">
                 <label for="status" class="block text-gray-200 font-bold mb-2">Status</label>

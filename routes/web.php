@@ -64,6 +64,11 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin/Employee', [EmployeeController::class, 'index'])->name('admin.Employee');
     Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
     Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
+    Route::middleware(['auth'])->group(function () {
+        Route::resource('employees', EmployeeController::class);
+        
+    });
+
 
     // ...other admin routes...
     Route::get('/messages/{conversation}', [MessageController::class, 'show'])->name('messages.show');
