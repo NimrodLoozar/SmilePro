@@ -39,8 +39,8 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'patient_id' => 'required|exists:patient,id',
-            'employee_id' => 'required|exists:employee,id',
+            'patient_id' => 'required|exists:patients,id',
+            'employee_id' => 'required|exists:employees,id',
             'name' => 'required|string|max:255',
             'date' => [
                 'required',
@@ -102,8 +102,8 @@ class AppointmentController extends Controller
     public function update(Request $request, Appointment $appointment)
     {
         $validated = $request->validate([
-            'patient_id' => 'required|exists:patient,id',
-            'employee_id' => 'required|exists:employee,id',
+            'patient_id' => 'required|exists:patients,id',
+            'employee_id' => 'required|exists:employees,id',
             'name' => 'required|string|max:255',
             'date' => [
                 'required',
@@ -137,22 +137,22 @@ class AppointmentController extends Controller
     {
         // Combine date and time into a single DateTime object, including milliseconds
         $appointmentDateTime = \DateTime::createFromFormat('Y-m-d H:i:s', $appointment->date . ' ' . $appointment->time);
-    
+
         if (!$appointmentDateTime) {
             return back()->with('error', 'De datum of tijd van de afspraak is ongeldig.');
         }
-    
+
         // Get current datetime
         $now = new \DateTime(); // Gebruik direct new \DateTime() voor de huidige tijd
-    
+
         // Calculate the difference
         $diff = $appointmentDateTime->diff($now);
-    
+
         // Check if the appointment is less than 24 hours away
         if ($diff->days < 1 && $diff->invert === 0) {
             return back()->with('error', 'Kan afspraak niet annuleren omdat de afspraak over minder dan 24 uur plaatsvindt.');
         }
-    
+
         // Proceed to delete the appointment
         $appointment->delete();
         return redirect()->route('appointments.index')->with('success', 'Appointment deleted successfully.');

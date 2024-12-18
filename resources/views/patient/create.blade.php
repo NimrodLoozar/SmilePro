@@ -1,11 +1,30 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-2xl text-white leading-tight">
-            {{ __('Nieuwe Patiënt Toevoegen') }}
-        </h2>
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-2xl text-white leading-tight">
+                {{ __('Nieuwe Patiënt Toevoegen') }}
+            </h2>
+            <label class="flex items-center">
+                <span class="mr-2 text-white">Toon Data</span>
+                <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                    <input type="checkbox" id="dataToggle"
+                        class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+                        checked />
+                    <div
+                        class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                        <input type="checkbox" id="dataToggle"
+                            class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+                            checked />
+                        <label for="dataToggle"
+                            class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                    </div>
+                </div>
+            </label>
+        </div>
     </x-slot>
 
-    <div class="container mx-auto mt-8 bg-white p-6 rounded-lg shadow mb-6 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:shadow-md dark:bg-opacity-70"
+    <div id="dataContainer"
+        class="container mx-auto mt-8 bg-white p-6 rounded-lg shadow mb-6 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:shadow-md dark:bg-opacity-70"
         style="width: 50%;">
         <form action="{{ route('patient.store') }}" method="POST">
             @csrf
@@ -52,4 +71,32 @@
             <p class="mt-4 text-red-500">{{ session('error') }}</p>
         @endif
     </div>
+    <div id="errorContainer" class="container mx-auto mt-8 hidden">
+        <p class="text-red-500">Er kan geen data opgehaald worden.</p>
+    </div>
 </x-app-layout>
+
+<script>
+    document.getElementById('dataToggle').addEventListener('change', function() {
+        const dataContainer = document.getElementById('dataContainer');
+        const errorContainer = document.getElementById('errorContainer');
+        if (this.checked) {
+            dataContainer.classList.remove('hidden');
+            errorContainer.classList.add('hidden');
+        } else {
+            dataContainer.classList.add('hidden');
+            errorContainer.classList.remove('hidden');
+        }
+    });
+</script>
+
+<style>
+    .toggle-checkbox:checked {
+        right: 0;
+        border-color: #68D391;
+    }
+
+    .toggle-checkbox:checked+.toggle-label {
+        background-color: #68D391;
+    }
+</style>

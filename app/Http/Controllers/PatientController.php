@@ -9,17 +9,16 @@ use Illuminate\View\View;
 
 class PatientController extends Controller
 {
-    // pages?
     public function index(): View
     {
         $patients = Patient::with('person')->paginate(10);
-        return View('Patient.index', ['patients' => $patients]);
+        return view('patient.index', ['patients' => $patients]);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'person_id' => 'required|exists:persons,id',
+            'person_id' => 'required|exists:people,id',
             'number' => 'required|string',
             'medical_file' => 'nullable|string',
             'is_active' => 'required|boolean',
@@ -42,7 +41,7 @@ class PatientController extends Controller
     public function update(Request $request, Patient $patient)
     {
         $validator = Validator::make($request->all(), [
-            'person_id' => 'required|exists:persons,id',
+            'person_id' => 'required|exists:people,id',
             'number' => 'required|string',
             'medical_file' => 'nullable|string',
             'is_active' => 'required|boolean',

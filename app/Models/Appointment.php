@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
-    // protected $table = 'appointments';
+    protected $table = 'appointments'; // Ensure the table name is correct
 
     use HasFactory;
 

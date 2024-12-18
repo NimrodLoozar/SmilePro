@@ -9,8 +9,7 @@ class Patient extends Model
 {
     use HasFactory;
 
-
-    // protected $table = 'patient';
+    protected $table = 'patients'; // Ensure the table name is correct
 
     protected $fillable = [
         'person_id',
@@ -32,5 +31,10 @@ class Patient extends Model
     public function person()
     {
         return $this->belongsTo(Person::class);
+    }
+
+    public static function bestaatAl($email)
+    {
+        return self::where('email', $email)->exists();
     }
 }
