@@ -11,7 +11,7 @@ class Employee extends Model
     // yo! I'm a comment
     use HasFactory;
 
-    protected $table = 'employee';
+    // protected $table = 'employees';
 
     protected $fillable = [
         'person_id',
@@ -23,7 +23,6 @@ class Employee extends Model
         'specialization',
         'availability',
         'date_of_birth',
-        'employee',
         'is_active',
         'comment'
     ];
@@ -38,7 +37,7 @@ class Employee extends Model
 
     public function getFullNameAttribute()
     {
-        return isset($this->person) ? $this->person->name : 'N/A';
+        return isset($this->person) ? $this->person->first_name . ' ' . $this->person->last_name : 'N/A';
     }
 
     protected static function boot()

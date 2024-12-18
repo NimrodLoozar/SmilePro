@@ -23,11 +23,11 @@ class EmployeeFactory extends Factory
      */
     public function definition()
     {
-        $user = User::factory()->create();
-        $person = Person::factory()->create([
-            'user_id' => $user->id,
-            'employee' => true,
-        ]);
+        // $user = User::factory()->create();
+        // $person = Person::factory()->create([
+        //     'user_id' => $user->id,
+        //     'employee' => true,
+        // ]);
 
         return [
             'user_id' => User::factory(), // Assumes a factory exists for the User model    

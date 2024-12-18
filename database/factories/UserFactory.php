@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Role;
-use Nette\Utils\Random;
-use Random\Randomizer;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -34,8 +32,9 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'role' => ['admin', 'dentist', 'employee'][array_rand(['admin', 'dentist', 'employee'])],
             'remember_token' => Str::random(10),
+            'is_employee' => false
+            // naming convention laravel
         ];
     }
 
@@ -59,7 +58,8 @@ class UserFactory extends Factory
             'email' => 'test@gmail.com',
             'password' => Hash::make('Test1234'),
             'role' => 'user',
-            'employee' => false,
+            'is_employee' => false,
+            // naming convention laravel
         ]);
     }
 
@@ -73,7 +73,8 @@ class UserFactory extends Factory
             'email' => 'admin@gmail.com',
             'password' => Hash::make('Admin1234'),
             'role' => 'admin',
-            'employee' => true,
+            'is_employee' => true,
+            // naming convention laravel
         ]);
     }
 
@@ -87,6 +88,8 @@ class UserFactory extends Factory
             'email' => 'patient@gmail.com',
             'password' => Hash::make('Patient1234'),
             'role' => 'patient',
+            'is_employee' => false,
+            // naming convention laravel
 
         ]);
     }
@@ -101,7 +104,8 @@ class UserFactory extends Factory
             'email' => 'dentist@gmail.com',
             'password' => Hash::make('Dentist1234'),
             'role' => 'dentist',
-            'employee' => true,
+            'is_employee' => true,
+            // naming convention laravel
         ]);
     }
 
@@ -115,7 +119,8 @@ class UserFactory extends Factory
             'email' => 'employee@gmail.com',
             'password' => Hash::make('Employee1234'),
             'role' => 'employee',
-            'employee' => true,
+            'is_employee' => true,
+            // naming convention laravel
         ]);
     }
 

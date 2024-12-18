@@ -1,38 +1,68 @@
-{{-- Patiënt Overzicht --}}
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
-            {{ __('Patiënt Overzicht') }}
-        </h2>
-    </x-slot>
-
-    <div class="container mx-auto mt-8">
-        <div class="flex justify-end mb-6">
-            <a href="{{ route('patient.create') }}"
-                class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Patiënt Toevoegen</a>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-6">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        id
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        number
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        medical file
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        isactive
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        comment
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($patients as $patient)
+                    <tr
+                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row"
+                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $patient->person->name }}
+                        </th>
+                        <td class="px-6 py-4">
+                            {{ $patient->number }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $patient->medical_file }}
+                        </td>
+                        <td class="px-6 py-4">
+                            @if ($patient->is_active)
+                                Active
+                            @else
+                                Inactive
+                            @endif
+                        </td>
+                        <td class="px-6 py-4 text-wrap">
+                            {{ $patient->comment }}
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <a href="patients/{{ $patient->id }}/edit"
+                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <form action="patients/{{ $patient->id }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div class="pt-3">
+            {{ $patients->links() }}
         </div>
-        <ul class="list-disc pl-5 space-y-4">
-            @foreach ($patients as $patient)
-                <div class="mb-4 p-4 bg-white shadow rounded-lg flex justify-between">
-                    <div>
-                        <h3 class="text-lg font-semibold">
-                            <a href="{{ route('patient.show', $patient->id) }}"
-                                class="text-black hover:underline">{{ $patient->person->name }}</a>
-                        </h3>
-                        <p>{{ $patient->person->email }}</p>
-                        <p>{{ $patient->person->phone_number }}</p>
-                    </div>
-                    <div>
-                        <a href="{{ route('patient.update', $patient->id) }}"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Bewerken</a>
-                        <form action="{{ route('patient.destroy', $patient->id) }}" method="POST" class="inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Verwijderen</button>
-                        </form>
-                    </div>
-                </div>
-            @endforeach
-        </ul>
+    </div>
 </x-app-layout>

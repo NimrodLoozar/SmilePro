@@ -30,7 +30,7 @@ class ScheduleFactory extends Factory
         return [
             'user_id' => $user->id,
             'employee_id' => Employee::factory(),
-            'name' => in_array(User::find($user->id)->role, ['admin', 'dentist', 'employee']) ? $userName : 'Default Name',
+            'name' => in_array(User::find($user->id)->role, ['admin', 'dentist']) ? $userName : 'Default Name',
             'start_time' => $startTime,
             'end_time' => $endTime,
             'description' => $this->faker->paragraph,

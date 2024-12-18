@@ -10,24 +10,34 @@
         <form action="{{ route('patient.store') }}" method="POST">
             @csrf
             <div class="mb-4">
-                <label for="naam" class="block text-black dark:text-white">Naam:</label>
-                <input class="form-control mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:text-black"
-                    type="text" id="naam" name="naam" required>
-            </div>
-            <div class="mb-4">
-                <label for="geboortedatum" class="block text-black dark:text-white">Geboortedatum:</label>
-                <input class="form-control mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:text-black"
-                    type="date" id="geboortedatum" name="geboortedatum" required>
+                <label for="name" class="block text-black dark:text-white">Naam:</label>
+                <input class="form-control mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black"
+                    type="text" id="name" name="name" required>
             </div>
             <div class="mb-4">
                 <label for="email" class="block text-black dark:text-white">E-mailadres:</label>
-                <input class="form-control mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:text-black"
+                <input class="form-control mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black"
                     type="email" id="email" name="email" required>
             </div>
             <div class="mb-4">
-                <label for="telefoonnummer" class="block text-black dark:text-white">Telefoonnummer:</label>
-                <input class="form-control mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:text-black"
-                    type="text" id="telefoonnummer" name="telefoonnummer">
+                <label for="password" class="block text-black dark:text-white">Wachtwoord:</label>
+                <input class="form-control mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black"
+                    type="password" id="password" name="password" required>
+            </div>
+            <div class="mb-4">
+                <label for="password_confirmation" class="block text-black dark:text-white">Bevestig Wachtwoord:</label>
+                <input class="form-control mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black"
+                    type="password" id="password_confirmation" name="password_confirmation" required>
+            </div>
+            <div class="mb-4">
+                <label for="medical_file" class="block text-black dark:text-white">Medisch Dossier:</label>
+                <textarea class="form-control mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black" id="medical_file"
+                    name="medical_file"></textarea>
+            </div>
+            <div class="mb-4">
+                <label for="comment" class="block text-black dark:text-white">Opmerking:</label>
+                <textarea class="form-control mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black" id="comment"
+                    name="comment"></textarea>
             </div>
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Opslaan
