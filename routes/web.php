@@ -57,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin/messages', [MessageController::class, 'adminIndex'])->name('messages.admin.index');
-    Route::get('/admindashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/users', [AdminDashboardController::class, 'showUsers'])->name('admin.users');
 
     // Employee
@@ -66,7 +66,6 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
     Route::middleware(['auth'])->group(function () {
         Route::resource('employees', EmployeeController::class);
-        
     });
 
 
