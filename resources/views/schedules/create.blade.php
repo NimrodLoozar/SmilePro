@@ -7,10 +7,11 @@
 
     <div class="container mx-auto p-6 bg-white shadow-md rounded-lg">
         <h1 class="text-2xl font-bold mb-6 text-black">Beschikbaarheid Toevoegen</h1>
+        
         <form action="{{ route('schedules.store') }}" method="POST">
             @csrf
             <div class="form-group mb-4">
-                <label for="user_id" class="block text-black">Gebruiker:</label>
+                <label for="user_id" class="block text-black">Organisator:</label>
                 <select id="user_id" name="user_id"
                     class="form-control mt-1 block w-full border-black-300 rounded-md shadow-sm" required>
                     @foreach ($roles as $role => $users)
@@ -23,9 +24,18 @@
                 </select>
             </div>
             <div class="form-group mb-4">
+                <label for="employee_id" class="block text-black">Assistent:</label>
+                <select id="employee_id" name="employee_id"
+                    class="form-control mt-1 block w-full border-black-300 rounded-md shadow-sm" required>
+                    @foreach ($employees as $employee)
+                        <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group mb-4">
                 <label for="description" class="block text-black">Beschrijving:</label>
                 <textarea id="description" name="description"
-                    class="form-control mt-1 block w-full border-black-300 rounded-md shadow-sm" required></textarea>
+                    class="form-control mt-1 block w-full border-black-300 rounded-md shadow-sm" placeholder="Voer een beschrijving in" required></textarea>
             </div>
             <div class="form-group mb-4">
                 <label for="start_time" class="block text-black">Starttijd:</label>
@@ -40,5 +50,9 @@
             <button type="submit"
                 class="btn btn-primary bg-blue-500 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded">Create</button>
         </form>
+        <a href="{{ route('schedules.index') }}" 
+            class="btn btn-secondary bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-4 inline-block">
+            Beschikbaarheid Overzicht
+        </a>
     </div>
 </x-app-layout>
