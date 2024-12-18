@@ -23,6 +23,9 @@ Route::get('/welcome', function () {
 });
 
 Route::resource('appointments', AppointmentController::class);
+Route::get('appointments/{appointment}/change-date', [AppointmentController::class, 'editDate'])->name('appointments.change-date');
+Route::put('appointments/{appointment}/change-date', [AppointmentController::class, 'changeDate'])->name('appointments.update-date');
+
 Route::resource('employees', EmployeeController::class);
 // Route::resource('patient', PatiëntController::class);
 Route::resource('persons', PersonController::class);

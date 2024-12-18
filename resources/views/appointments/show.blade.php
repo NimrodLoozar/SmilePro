@@ -62,9 +62,15 @@
             </div>
         </div>
 
-        <div class="mt-4">
-            <a href="{{ route('appointments.edit', $appointment->id) }}" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2">Bewerken</a>
-            <form action="{{ route('appointments.destroy', $appointment->id) }}" method="POST" style="display:inline;">
+        <div class="mt-4 flex justify-between items-center">
+            <!-- Linkerkant knoppen -->
+            <div class="flex space-x-2">
+                <a href="{{ route('appointments.edit', $appointment->id) }}" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Bewerken</a>
+                <a href="{{ route('appointments.change-date', $appointment->id) }}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Verzetten</a>
+            </div>
+            
+            <!-- Rechterkant knop -->
+            <form action="{{ route('appointments.destroy', $appointment->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="return confirm('Weet je zeker dat je deze afspraak wilt verwijderen?')">Verwijderen</button>
