@@ -11,7 +11,7 @@
                     </ul>
                 </div>
             @endif
-            
+
             <div>
                 <h2 class="font-semibold text-xl text-gray-600 dark:text-gray-300">Afspraak Formulier</h2>
                 <p class="text-gray-500 dark:text-gray-400 mb-6">Vul het formulier in om een afspraak te maken.</p>
@@ -30,7 +30,7 @@
                                     <div class="md:col-span-5">
                                         <label for="patient_id">Patiënt</label>
                                         <select name="patient_id" id="patient_id"
-                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 text-gray-900 dark:bg-gray-700 dark:text-white">
                                             @foreach ($patients as $patient)
                                                 <option value="{{ $patient->id }}">{{ $patient->person->name }}
                                                 </option>
@@ -41,7 +41,7 @@
                                     <div class="md:col-span-5">
                                         <label for="employee_id">Medewerker</label>
                                         <select name="employee_id" id="employee_id"
-                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 text-gray-900 dark:bg-gray-700 dark:text-white">
                                             @foreach ($employees as $employee)
                                                 <option value="{{ $employee->id }}">{{ $employee->person->name }}
                                                 </option>

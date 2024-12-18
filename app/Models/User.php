@@ -30,7 +30,8 @@ class User extends Authenticatable
         'postcode',
         'country',
         'date_of_birth',
-        'employee',
+        // why man :( you already have this at person, don't do it at both
+        // 'employee',
         'is_active',
     ];
 

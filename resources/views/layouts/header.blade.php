@@ -1,4 +1,4 @@
-<header class="bg-teal-400 text-white shadow-md">
+<header class="bg-teal-400 text-white shadow-[2px_2px_5px_rgba(0,0,0,0.75)]">
     <div class="container mx-auto flex justify-between items-center py-4 px-6">
         <div>
             <h1 class="text-2xl font-bold">SmilePro</h1>

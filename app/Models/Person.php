@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
 {
-    protected $table = 'person';
 
     use HasFactory;
 
@@ -17,7 +16,8 @@ class Person extends Model
         'email',
         'date_of_birth',
         'is_active',
-        'comment'
+        'comment',
+        'is_employee'
     ];
 
     public function employee()

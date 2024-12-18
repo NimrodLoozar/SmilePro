@@ -95,10 +95,10 @@
                                     Gesprek</button>
                             </div>
                         </form>
-                        <div class="flex flex-col lg:flex-row gap-4">
+                        <div class="flex flex-row lg:flex-row gap-4">
                             <div class="lg:w-1/3 mb-4">
                                 <h4 class="text-xl font-semibold mb-2">Mijn Gesprekken</h4>
-                                <ul class="space-y-2">
+                                <ul class="space-y-2" style="max-height: 135px; overflow-y: auto;">
                                     @if ($allConversations->isEmpty())
                                         <li class="text-gray-500">Je hebt nog geen gesprekken gestart.</li>
                                     @else

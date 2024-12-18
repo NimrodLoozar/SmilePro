@@ -27,14 +27,17 @@ class PersonObserver
      */
     public function updated(Person $person): void
     {
-        $person->employee->update([
-            'person_id' => $person->id,
-            'user_id' => $person->user_id,
-            'name' => $person->name,
-            'email' => $person->email,
-            'date_of_birth' => $person->date_of_birth,
-            // 'is_active' => $person->is_active,
-        ]);
+        $employee = Employee::where('person_id', $person->id)->first();
+        if ($employee) {
+            $employee->update([
+                'person_id' => $person->id,
+                'user_id' => $person->user_id,
+                'name' => $person->name,
+                'email' => $person->email,
+                'date_of_birth' => $person->date_of_birth,
+                // 'is_active' => $person->is_active,
+            ]);
+        }
     }
 
     /**
