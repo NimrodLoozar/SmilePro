@@ -19,6 +19,7 @@ class Schedule extends Model
         'user_id'
     ];
 
+    // Define the inverse relationship
     public function user()
     {
         return $this->belongsTo(User::class);

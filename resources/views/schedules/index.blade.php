@@ -11,6 +11,9 @@
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Beschikbaarheid
                 Toevoegen</a>
         </div>
+
+        <p class="text-white mb-4">Selecteer een van de onderstaande dokters om hun beschikbaarheid te bekijken:</p>
+
         <ul class="list-disc pl-5 space-y-4">
             @foreach ($users as $user)
                 <div class="mb-4 p-4 bg-white shadow rounded-lg">
