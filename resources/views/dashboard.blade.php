@@ -86,7 +86,8 @@
                             class="hidden mb-4">
                             @csrf
                             <div class="flex items-center space-x-4">
-                                <select name="recipient" required class="p-2 border border-gray-300 rounded">
+                                <select name="recipient" required
+                                    class="p-2 border border-gray-300 text-gray-900 rounded">
                                     <option value="dentist">Dentist</option>
                                     <option value="Hulpdesk">Hulpdesk</option>
                                 </select>
@@ -145,7 +146,7 @@
                                                             <div class="flex items-center space-x-4">
                                                                 <input type="text" name="content"
                                                                     value="{{ $message->content }}" required
-                                                                    class="flex-1 p-2 border border-gray-300 rounded">
+                                                                    class="flex-1 p-2 border border-gray-300 text-gray-900 rounded">
                                                                 <button type="submit"
                                                                     class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Update</button>
                                                             </div>
@@ -162,7 +163,7 @@
                                         @csrf
                                         <div class="flex items-center space-x-4">
                                             <input type="text" name="content" placeholder="Uw bericht" required
-                                                class="flex-1 p-2 border border-gray-300 rounded">
+                                                class="flex-1 p-2 border border-gray-300 text-gray-900 rounded">
                                             <button type="submit"
                                                 class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Verstuur</button>
                                         </div>
