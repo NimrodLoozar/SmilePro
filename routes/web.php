@@ -23,6 +23,9 @@ Route::get('/welcome', function () {
 });
 
 Route::resource('appointments', AppointmentController::class);
+Route::get('appointments/{appointment}/change-date', [AppointmentController::class, 'editDate'])->name('appointments.change-date');
+Route::put('appointments/{appointment}/change-date', [AppointmentController::class, 'changeDate'])->name('appointments.update-date');
+
 Route::resource('employees', EmployeeController::class);
 // Route::resource('patient', PatiëntController::class);
 Route::resource('persons', PersonController::class);
@@ -57,7 +60,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin/messages', [MessageController::class, 'adminIndex'])->name('messages.admin.index');
-    Route::get('/admindashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/users', [AdminDashboardController::class, 'showUsers'])->name('admin.users');
 
     // Employee
@@ -66,7 +69,6 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
     Route::middleware(['auth'])->group(function () {
         Route::resource('employees', EmployeeController::class);
-        
     });
 
 

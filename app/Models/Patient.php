@@ -25,16 +25,11 @@ class Patient extends Model
 
     public function getFullNameAttribute()
     {
-        return $this->person->first_name . ' ' . $this->person->last_name;
+        return $this->person->name;
     }
 
     public function person()
     {
         return $this->belongsTo(Person::class);
-    }
-
-    public static function bestaatAl($email)
-    {
-        return self::where('email', $email)->exists();
     }
 }

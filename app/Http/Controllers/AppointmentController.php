@@ -157,4 +157,37 @@ class AppointmentController extends Controller
         $appointment->delete();
         return redirect()->route('appointments.index')->with('success', 'Appointment deleted successfully.');
     }
+
+    public function editDate(Appointment $appointment)
+    {
+        return view('appointments.change-date', compact('appointment'));
+    }
+
+    public function changeDate(Request $request, Appointment $appointment)
+    {
+        $validated = $request->validate([
+            'date' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) {
+                    $appointmentDate = Carbon::parse($value);
+                    $now = Carbon::now();
+
+                    if ($appointmentDate->lessThanOrEqualTo($now)) {
+                        $fail('De afspraak kan niet in het verleden liggen.');
+                    } elseif ($appointmentDate->lessThan($now->addDay())) {
+                        $fail('De afspraak moet minimaal 24 uur in de toekomst liggen.');
+                    }
+                },
+            ],
+            'time' => 'required',
+        ]);
+
+        $appointment->update([
+            'date' => $validated['date'],
+            'time' => $validated['time'],
+        ]);
+
+        return redirect()->route('appointments.show', $appointment->id)->with('success', 'Afspraakdatum bijgewerkt.');
+    }
 }

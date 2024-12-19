@@ -22,12 +22,14 @@ class AdminDashboardController extends Controller
         $averageWaitTime = number_format(Appointment::avg('time') / 60, 0);
         $totalAppointments = Appointment::count();
         $averageAppointmentDuration = number_format(Appointment::avg('time'), 0);
+        $users = User::paginate(10); // Adjust the number as needed
 
         return view('adminDashboard', [
             'totalPatients' => $totalPatients,
             'averageWaitTime' => $averageWaitTime,
             'totalAppointments' => $totalAppointments,
             'averageAppointmentDuration' => $averageAppointmentDuration,
+            'users' => $users,
         ]);
     }
 
@@ -36,7 +38,7 @@ class AdminDashboardController extends Controller
         if (Auth::user()->role !== 'admin') {
             return redirect()->route('home')->with('error', 'You do not have access.');
         }
-        $users = User::all();
+        $users = User::paginate(10); // Adjust the number as needed
         return view('AcountenOverzicht', compact('users'));
     }
 }
