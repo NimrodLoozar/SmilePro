@@ -24,15 +24,16 @@ class AppointmentFactory extends Factory
         $appointmentTypes = [
             'General Checkup',
             'Dental Cleaning',
-            'Eye Examination',
-            'Vaccination',
-            'Physical Therapy',
-            'Cardiology Consultation',
-            'Orthopedic Consultation',
-            'Psychological Consultation',
-            'Nutrition Consultation',
-            'Dermatology Consultation',
+            'Tooth Extraction',
+            'Dental Fillings',
+            'Root Canal Treatment',
+            'Orthodontic Consultation',
+            'Teeth Whitening',
+            'Dental Implants Consultation',
+            'Periodontal Treatment',
+            'Crown and Bridge Consultation',
         ];
+
 
         // Zorg dat de datum minimaal 24 uur in de toekomst ligt
         $startDate = Carbon::now()->addDay(); // Minimaal 24 uur in de toekomst

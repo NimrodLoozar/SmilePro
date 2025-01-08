@@ -4,6 +4,13 @@
             <h2 class="font-semibold text-xl text-gray-200 leading-tight">
                 {{ __('Employees') }}
             </h2>
+
+            @if (session('success'))
+            <div class="bg-green-900 border-t-4 border-green-600 rounded-b px-4 py-3 text-green-200" role="alert">
+                {{ session('success') }}
+            </div>
+            @endif
+            
             <label class="flex items-center">
                 <span class="mr-2 text-gray-200">Toon Data</span>
                 <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
