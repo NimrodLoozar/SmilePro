@@ -1,23 +1,24 @@
 <?php
+
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Patient extends Model
+class Patiënt extends Model
 {
-
-    protected $table = 'patient';
+    use HasFactory;
 
     protected $fillable = [
-        'person_id', 'number', 'medical_file', 'is_active', 'comment'
+        'naam',
+        'geboortedatum',
+        'email',
+        'telefoonnummer',
+        // Voeg hier extra velden toe indien nodig
     ];
 
-    protected $casts = [
-        'is_active' => 'boolean',
-    ];
-
-    public function person()
+    public static function bestaatAl($email)
     {
-        return $this->belongsTo(Person::class);
+        return self::where('email', $email)->exists();
     }
 }

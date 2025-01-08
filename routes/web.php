@@ -12,6 +12,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\AdminMiddleware;
 
 
+
+
 Route::get('/', function () {
     return view('index');
 })->name('home');
@@ -58,5 +60,8 @@ Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.up
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 Route::resource('schedules', ScheduleController::class)->middleware('auth');
+
+
+
 
 require __DIR__ . '/auth.php';
