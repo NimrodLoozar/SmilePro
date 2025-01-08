@@ -42,7 +42,7 @@
                         <td class="py-2 px-4">
                             <div class="flex space-x-2">
                                 <a href="{{ route('employees.show', $employee->id) }}"
-                                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View</a>
+                                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</a>
                                 <form action="{{ route('employees.destroy', $employee->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
