@@ -29,9 +29,8 @@ class Patient extends Model
         return $this->person->name;
     }
 
-    public static function bestaatAl($email)
+    public function person()
     {
-        return self::where('email', $email)->exists();
+        return $this->belongsTo(Person::class);
     }
 }
-
