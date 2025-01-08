@@ -20,9 +20,25 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
         'password',
-        'rule',
+        'role',
+        'profile_photo_path',
+        'phone',
+        'address',
+        'city',
+        'postcode',
+        'country',
+        'date_of_birth',
+        // why man :( you already have this at person, don't do it at both
+        // 'employee',
+        'is_active',
     ];
+
+    public function person()
+    {
+        return $this->hasOne(Person::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,5 +61,16 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Zorg ervoor dat de roles relatie correct is
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
     }
 }

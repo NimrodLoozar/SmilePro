@@ -13,8 +13,8 @@ class DashboardController extends Controller
         $user = Auth::user();
         $allConversations = Conversation::where('user_id', $user->id)->get();
         $conversationId = $request->get('conversation_id', $allConversations->first()->id ?? null);
-        $conversations = Conversation::where('id', $conversationId)->with('messages')->get();
+        $conversation = $conversationId ? Conversation::with('messages')->find($conversationId) : null;
 
-        return view('dashboard', compact('user', 'conversations', 'allConversations'));
+        return view('dashboard', compact('user', 'conversation', 'allConversations', 'conversationId'));
     }
 }

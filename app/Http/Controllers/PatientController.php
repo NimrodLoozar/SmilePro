@@ -1,27 +1,67 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Patiënt;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 
 class PatiëntController extends Controller
 {
+    public function index(): View
+    {
+        $patients = Patient::with('person')->paginate(10);
+        return view('patient.index', ['patients' => $patients]);
+    }
+
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'naam' => 'required|string|max:255',
-            'geboortedatum' => 'required|date',
-            'email' => 'required|email|max:255',
-            'telefoonnummer' => 'nullable|string|max:20',
+        $validator = Validator::make($request->all(), [
+            'person_id' => 'required|exists:people,id',
+            'number' => 'required|string',
+            'medical_file' => 'nullable|string',
+            'is_active' => 'required|boolean',
+            'comment' => 'nullable|string',
         ]);
 
-        if (Patiënt::bestaatAl($validatedData['email'])) {
-            return redirect()->back()->with('error', 'Deze patiënt bestaat al');
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
         }
 
-        Patiënt::create($validatedData);
+        $patient = Patient::create($request->all());
+        return response()->json($patient, 201);
+    }
 
-        return redirect()->back()->with('success', 'De patiënt is succesvol toegevoegd.');
+    public function show(Patient $patient)
+    {
+        return response()->json($patient->load('person'));
+    }
+
+    public function update(Request $request, Patient $patient)
+    {
+        $validator = Validator::make($request->all(), [
+            'person_id' => 'required|exists:people,id',
+            'number' => 'required|string',
+            'medical_file' => 'nullable|string',
+            'is_active' => 'required|boolean',
+            'comment' => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $patient->update($request->all());
+        return response()->json($patient);
+    }
+
+    public function edit() {}
+
+    public function destroy(Patient $patient)
+    {
+        $patient->delete();
+        return redirect('/patients');
     }
 }
+

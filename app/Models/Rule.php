@@ -12,7 +12,6 @@ class Rule extends Model
     protected $fillable = [
         'user_id',
         'name',
-        'rule',
         'is_active',
         'comment',
     ];

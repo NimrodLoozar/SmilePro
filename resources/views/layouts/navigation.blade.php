@@ -11,11 +11,26 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    @if (Auth::check() && Auth::user()->rule === 'admin')
+                    <x-nav-link :href="route('appointments.index')" :active="request()->routeIs('appointments.index')">
+                        {{ __('Appointments') }}
+                    </x-nav-link>
+                    @if (Auth::check() && Auth::user()->role === 'admin')
                         <x-nav-link :href="route('messages.admin.index')" :active="request()->routeIs('messages.admin.index')">
                             {{ __('Messages') }}
                         </x-nav-link>
-                    @elseif (Auth::check() && Auth::user()->rule === 'dentist')
+                        <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                            {{ __('Admin Dashboard') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
+                            {{ __('Accounten Overzicht') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.Employee')" :active="request()->routeIs('admin.Employee')">
+                            {{ __('Employee') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('patient.index')" :active="request()->routeIs('patient.index')">
+                            {{ __('Patient') }}
+                        </x-nav-link>
+                    @elseif (Auth::check() && Auth::user()->role === 'dentist')
                         <x-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.index')">
                             {{ __('Messages') }}
                         </x-nav-link>
@@ -34,9 +49,9 @@
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
+                                    <path fill-role="evenodd"
                                         d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
+                                        clip-role="evenodd" />
                                 </svg>
                             </div>
                         </button>
@@ -85,11 +100,17 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            @if (Auth::check() && Auth::user()->rule === 'admin')
+            @if (Auth::check() && Auth::user()->role === 'admin')
                 <x-responsive-nav-link :href="route('messages.admin.index')" :active="request()->routeIs('messages.admin.index')">
                     {{ __('Messages') }}
                 </x-responsive-nav-link>
-            @elseif (Auth::check() && Auth::user()->rule === 'dentist')
+                <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                    {{ __('Admin Dashboard') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
+                    {{ __('Users') }}
+                </x-responsive-nav-link>
+            @elseif (Auth::check() && Auth::user()->role === 'dentist')
                 <x-responsive-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.index')">
                     {{ __('Messages') }}
                 </x-responsive-nav-link>

@@ -29,6 +29,11 @@ export default {
                     DEFAULT: '#ef4444',
                     dark: '#991b1b',
                 },
+                customTeal: {
+                    light: '#81d0d3',
+                    DEFAULT: '#54b9bd',
+                    dark: '#3a8689',
+                },
             },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],

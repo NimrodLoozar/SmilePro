@@ -1,20 +1,23 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class EmployeeController extends Controller
 {
     /**
-     * Display a listing of employees.
+     * Display a listing of employees!
      */
     public function index()
     {
-        $employees = Employee::with('person')->get();
-        return view('employees.index', compact('employees'));
+        $employees = Employee::with('person')->paginate(10);
+        return view('employee.index', compact('employees'));
     }
 
     /**
@@ -22,32 +25,47 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $persons = Person::pluck('name', 'id'); // Assuming Person has a 'name' field
-        return view('employees.create', compact('persons'));
+        $persons = Person::all(); // Fetch all persons
+        return view('employee.create', compact('persons'));
     }
+
 
     /**
      * Store a new employee in the database.
      */
     public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'person_id' => 'required|exists:persons,id',
-            'number' => 'required|string',
-            'employee_type' => 'required|string',
-            'specialization' => 'nullable|string',
-            'availability' => 'nullable|string',
-            'is_active' => 'required|boolean',
-            'comment' => 'nullable|string',
+{
+    // Validate the incoming request data
+    $validated = $request->validate([
+        'person_id' => 'required|exists:person,id',
+        'number' => 'required|string|max:255',
+        'employee_type' => 'required|string|max:255',
+        'specialization' => 'nullable|string|max:255',
+        'availability' => 'nullable|string|max:255',
+        'comment' => 'nullable|string|max:500',
+    ]);
+
+    // Retrieve the person
+    $person = Person::findOrFail($validated['person_id']);
+
+    // Create a new employee record
+    Employee::create([
+        'person_id' => $validated['person_id'],
+        'user_id' => Auth::id(),
+        'name' => $person->name, // Use the name from the selected person
+        'email' => $person->email, // Use the email from the selected person
+        'number' => $validated['number'],
+        'employee_type' => $validated['employee_type'],
+        'specialization' => $validated['specialization'],
+        'availability' => $validated['availability'],
+        'comment' => $validated['comment'],
         ]);
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+    // Redirect with a success message
+    return redirect()->route('employees.index')->with('success', 'Medewerker succesvol aangemaakt.');
+}
 
-        Employee::create($request->all());
-        return redirect()->route('employees.index')->with('success', 'Employee created successfully.');
-    }
+
 
     /**
      * Show details of a specific employee.
@@ -73,7 +91,7 @@ class EmployeeController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'person_id' => 'required|exists:persons,id',
-            'number' => 'required|string',
+            'name' => 'required|string',
             'employee_type' => 'required|string',
             'specialization' => 'nullable|string',
             'availability' => 'nullable|string',
@@ -86,7 +104,7 @@ class EmployeeController extends Controller
         }
 
         $employee->update($request->all());
-        return redirect()->route('employees.show', $employee->id)->with('success', 'Employee updated successfully.');
+        return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');
     }
 
     /**

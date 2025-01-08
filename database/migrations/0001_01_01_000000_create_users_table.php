@@ -15,37 +15,33 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique(); // Add unique constraint
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('rule')->default('user');
+            $table->string('role')->default('user');
             $table->string('profile_photo_path', 2048)->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->string('city')->nullable();
             $table->string('postcode')->nullable();
             $table->string('country')->nullable();
-            $table->string('company')->nullable();
-            $table->string('vat')->nullable();
-            $table->string('kvk')->nullable();
-            $table->string('iban')->nullable();
-            $table->boolean('is_active');
+            $table->date('date_of_birth')->nullable(true);
+            $table->boolean('is_employee')->default(false);
+            $table->boolean('is_active')->default(true);
             $table->rememberToken();
             $table->timestamps(6);
         });
-        DB::statement('ALTER TABLE users MODIFY is_active BIT(1)default 1');
+        // DB::statement('ALTER TABLE users MODIFY is_active BIT(1)default 1');
 
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
 
         Schema::create('sessions', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
             $table->string('ip_address', 45)->nullable();

@@ -25,6 +25,13 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+            'date_of_birth' => ['required', 'date'],
+            'country' => ['required', 'string', 'max:255'],
+            'postcode' => ['required', 'string', 'max:10'],
+            'city' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:15'],
+            'profile_photo_path' => ['nullable', 'image', 'max:2048'],
         ];
     }
 }
