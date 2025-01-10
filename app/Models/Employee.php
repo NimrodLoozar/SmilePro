@@ -36,11 +36,9 @@ class Employee extends Model
 
     public function getFullNameAttribute()
     {
-<<<<<<<<< Temporary merge branch 1
-        return isset($this->person) ? $this->person->first_name . ' ' . $this->person->last_name : 'N/A';
-=========
+
         return $this->person->name;
->>>>>>>>> Temporary merge branch 2
+
     }
 
     protected static function boot()
