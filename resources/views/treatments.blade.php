@@ -16,7 +16,7 @@
 
             <!-- Error Message (Hidden by default) -->
             <div id="errorMessage" class="bg-red-500 text-white p-4 rounded mb-4 hidden">
-                Probeer later opnieuw.
+                Kan de data niet ophalen van de server. Probeer later opnieuw.
             </div>
 
             <!-- Treatments Content -->
