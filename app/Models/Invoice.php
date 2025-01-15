@@ -16,10 +16,7 @@ class Invoice extends Model
         'treatment_id',
         'number',
         'date',
-        'amount',
-        'status',
-        'is_active',
-        'comment',
+        'amount'
     ];
 
     public function patient()
