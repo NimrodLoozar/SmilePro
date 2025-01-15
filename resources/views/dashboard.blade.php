@@ -195,6 +195,9 @@
                         <div class="p-6 text-gray-900 dark:text-gray-100">
                             <a href="{{ route('appointments.index') }}">Alle Afspraken</a>
                         </div>
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <a href="{{ route('treatments') }}">Behandelingen</a>
+                        </div>
                     </div>
                 </div>
             </div>

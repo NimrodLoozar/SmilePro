@@ -22,6 +22,10 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
+Route::get('/treatments', function () {
+    return view('treatments');
+})->middleware(['auth'])->name('treatments');
+
 Route::resource('appointments', AppointmentController::class);
 Route::get('appointments/{appointment}/change-date', [AppointmentController::class, 'editDate'])->name('appointments.change-date');
 Route::put('appointments/{appointment}/change-date', [AppointmentController::class, 'changeDate'])->name('appointments.update-date');
