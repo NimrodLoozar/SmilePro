@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -6,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
-    protected $table = 'appointment';
+    protected $table = 'appointments'; // Ensure the table name is correct
+
     use HasFactory;
 
     protected $fillable = ['patient_id', 'employee_id', 'date', 'time', 'status', 'is_active', 'comment'];
@@ -15,7 +17,7 @@ class Appointment extends Model
         'is_active' => 'boolean',
     ];
 
-    
+
     public function patient()
     {
         return $this->belongsTo(Patient::class);
@@ -25,5 +27,4 @@ class Appointment extends Model
     {
         return $this->belongsTo(Employee::class);
     }
-    
 }

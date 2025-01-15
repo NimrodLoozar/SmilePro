@@ -1,82 +1,83 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-200 leading-tight">
-            {{ __('Create New Employee') }}
-        </h2>
-    </x-slot>
+    <div class="min-h-screen p-6 flex items-center justify-center dark:bg-gray-900 dark:text-white">
+        <div class="container max-w-screen-lg mx-auto">
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+            @if ($errors->any())
+                <div class="bg-red-100 border-t-4 border-red-600 rounded-b px-4 py-3 text-red-700" role="alert">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            
+            <div>
+                <h2 class="font-semibold text-xl text-gray-600 dark:text-gray-300">Medewerker Formulier</h2>
+                <p class="text-gray-500 dark:text-gray-400 mb-6">Vul het formulier in om een nieuwe medewerker toe te voegen.</p>
+
+                <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 dark:bg-gray-800">
                     <form action="{{ route('employees.store') }}" method="POST">
                         @csrf
+                        <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+                            <div class="text-gray-600 dark:text-gray-300">
+                                <p class="font-medium text-lg">Persoonlijke Gegevens</p>
+                                <p>Vul alle velden in.</p>
+                            </div>
 
-                        <!-- Name -->
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                            <input type="text" name="name" id="name" 
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
-                                required>
-                        </div>
+                            <div class="lg:col-span-2">
+                                <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                                    <div class="md:col-span-5">
+                                        <label for="person_id">Persoon</label>
+                                        <select name="person_id" id="person_id"
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
+                                            @foreach ($persons as $person)
+                                                <option value="{{ $person->id }}">{{ $person->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
+                                    <div class="md:col-span-5">
+                                        <label for="employee_type">Functie</label>
+                                        <input type="text" name="employee_type" id="employee_type"
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:bg-gray-700 dark:text-gray-300"
+                                            placeholder="Bijv. Tandarts, Assistent, etc." />
+                                    </div>
 
+                                    <div class="md:col-span-5">
+                                        <label for="number">Nummer</label>
+                                        <input type="text" name="number" id="number"
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:bg-gray-700 dark:text-gray-300"
+                                            placeholder="Bijv. ABC-1234" />
+                                    </div>
 
-                        <!-- Type -->
-                        <div class="mt-4">
-                            <label for="type" class="block text-sm font-medium text-gray-700">Type</label>
-                            <select name="type" id="type" 
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
-                                required>
-                                <option value="" disabled selected>Select Type</option>
-                                <option value="Tandarts">Tandarts</option>
-                                <option value="Assistents">Assistents</option>
-                                <option value="Dokter">HulpDesk</option>
-                            </select>
-                        </div>
+                                    <div class="md:col-span-5">
+                                        <label for="specialization">Specialisatie</label>
+                                        <input type="text" name="specialization" id="specialization"
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:bg-gray-700 dark:text-gray-300"
+                                            placeholder="Bijv. Orthodontie, Implantologie, etc." />
+                                    </div>
 
-                        <!-- Specialization -->
-                        <div class="mt-4">
-                            <label for="specialization" class="block text-sm font-medium text-gray-700">Specialization</label>
-                            <input type="text" name="specialization" id="specialization" 
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        </div>
+                                    <div class="md:col-span-5">
+                                        <label for="availability">Beschikbaarheid</label>
+                                        <input type="text" name="availability" id="availability"
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:bg-gray-700 dark:text-gray-300"
+                                            placeholder="Bijv. Ma-Vr 9:00-17:00" />
+                                    </div>
 
-                        <!-- Availability -->
-                        <div class="mt-4">
-                            <label for="availability" class="block text-sm font-medium text-gray-700">Availability</label>
-                            <select name="availability" id="availability" 
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
-                                <option value="" disabled selected>Select Availability</option>
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
-                            </select>
-                        </div>
+                                    <div class="md:col-span-5">
+                                        <label for="comment">Opmerkingen</label>
+                                        <textarea name="comment" id="comment" rows="4"
+                                            class="h-20 border mt-1 rounded px-4 w-full bg-gray-50 dark:bg-gray-700 dark:text-gray-300"
+                                            placeholder="Bijv. specifieke vaardigheden of opmerkingen"></textarea>
+                                    </div>
 
-
-                        <!-- Active -->
-                        <div class="mt-4">
-                            <label for="active" class="block text-sm font-medium text-gray-700">Active</label>
-                            <select name="active" id="active" 
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                <option value="" disabled selected>Select Availability</option>
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
-                            </select>
-                        </div>
-
-                        <!-- Comment -->
-                        <div class="mt-4">
-                            <label for="comment" class="block text-sm font-medium text-gray-700">Comment</label>
-                            <textarea name="comment" id="comment" rows="3" 
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="mt-4">
-                            <button type="submit" class="px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600">
-                                Add
-                            </button>
+                                    <div class="md:col-span-5 text-right">
+                                        <button type="submit"
+                                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Verstuur</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>

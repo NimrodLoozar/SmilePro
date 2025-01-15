@@ -14,6 +14,36 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Scripts -->
     @vite(['resources/js/app.js'])
+
+    <style>
+        .crop-top {
+            object-fit: cover;
+            object-position: top center;
+            height: 80%;
+            /* Adjust this value to crop more from the top */
+        }
+
+        .crop-top-third {
+            object-fit: cover;
+            object-position: top;
+            height: 100%;
+            clip-path: inset(33% 10% 5% 10%);
+            /* Crop the top third */
+        }
+
+        .shadow-custom {
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .hover-box {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hover-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50 text-gray-800">

@@ -27,23 +27,21 @@ return new class extends Migration
             $table->string('postcode')->nullable();
             $table->string('country')->nullable();
             $table->date('date_of_birth')->nullable(true);
-            $table->boolean('employee')->default(0);
-            $table->boolean('is_active');
+            $table->boolean('is_employee')->default(false);
+            $table->boolean('is_active')->default(true);
             $table->rememberToken();
             $table->timestamps(6);
         });
-        DB::statement('ALTER TABLE users MODIFY is_active BIT(1)default 1');
+        // DB::statement('ALTER TABLE users MODIFY is_active BIT(1)default 1');
 
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
 
         Schema::create('sessions', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
             $table->string('ip_address', 45)->nullable();

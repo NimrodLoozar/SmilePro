@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,8 +10,7 @@ class Patient extends Model
 {
     use HasFactory;
 
-
-    protected $table = 'patient';
+    protected $table = 'patients'; // Ensure the table name is correct
 
     protected $fillable = [
         'person_id',
@@ -26,7 +26,7 @@ class Patient extends Model
 
     public function getFullNameAttribute()
     {
-        return $this->person->first_name . ' ' . $this->person->last_name;
+        return $this->person->name;
     }
 
     public function person()

@@ -30,7 +30,8 @@ class User extends Authenticatable
         'postcode',
         'country',
         'date_of_birth',
-        'employee',
+        // why man :( you already have this at person, don't do it at both
+        // 'employee',
         'is_active',
     ];
 
@@ -66,5 +67,10 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
     }
 }

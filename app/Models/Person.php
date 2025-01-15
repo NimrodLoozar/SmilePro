@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
 {
-    protected $table = 'person';
-
     use HasFactory;
 
     protected $fillable = [
@@ -17,7 +15,8 @@ class Person extends Model
         'email',
         'date_of_birth',
         'is_active',
-        'comment'
+        'comment',
+        'is_employee'
     ];
 
     public function employee()
@@ -25,7 +24,7 @@ class Person extends Model
         return $this->hasOne(Employee::class);
     }
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
@@ -33,8 +32,9 @@ class Person extends Model
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
     public function getFullNameAttribute()
     {
-        return "{$this->first_name} {$this->infix} {$this->last_name}";
+        return $this->name;
     }
 }

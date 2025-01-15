@@ -3,31 +3,39 @@
 namespace Database\Factories;
 
 use App\Models\Employee;
-use App\Models\Person;
 use App\Models\User;
+use App\Models\Person;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Employee>
- */
 class EmployeeFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
     protected $model = Employee::class;
 
     /**
      * Define the model's default state.
      *
-     * @return array<string, mixed>
+     * @return array
      */
     public function definition()
     {
+        // $user = User::factory()->create();
+        // $person = Person::factory()->create([
+        //     'user_id' => $user->id,
+        //     'employee' => true,
+        // ]);
+
         return [
             'user_id' => User::factory(), // Assumes a factory exists for the User model    
             'person_id' => Person::factory(), // Assumes a factory exists for the Person model
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'number' => $this->faker->unique()->regexify('[A-Z]{3}-[0-9]{4}'),
-            'employee_type' => $this->faker->randomElement(['full-time', 'part-time', 'contract']),
+            'employee_type' => $this->faker->randomElement(['Assistents', 'Tandarts', 'HulpDesk']),
             'specialization' => $this->faker->optional()->jobTitle(),
             'availability' => $this->faker->optional()->text(100),
             'date_of_birth' => $this->faker->date(),

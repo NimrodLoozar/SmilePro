@@ -1,4 +1,4 @@
-<header class="bg-teal-400 text-white shadow-md">
+<header class="bg-teal-400 text-white shadow-[2px_2px_5px_rgba(0,0,0,0.75)]">
     <div class="container mx-auto flex justify-between items-center py-4 px-6">
         <div>
             <h1 class="text-2xl font-bold">SmilePro</h1>
@@ -15,6 +15,10 @@
                         <a href="{{ route('messages.admin.index') }}"
                             class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
                             Messages
+                        </a>
+                        <a href="{{ route('schedules.create') }}"
+                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                            Beschikbaarheiden Indienen
                         </a>
                     @elseif (Auth::user()->role === 'dentist')
                         <a href="{{ route('messages.index') }}"
