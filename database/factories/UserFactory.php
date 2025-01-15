@@ -59,7 +59,8 @@ class UserFactory extends Factory
             'password' => Hash::make('Test1234'),
             'role' => 'user',
             'is_employee' => false,
-            // naming convention laravel
+            // Ensure unique name
+            'name' => $this->faker->unique()->userName,
         ]);
     }
 

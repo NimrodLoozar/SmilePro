@@ -1,39 +1,24 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-200 leading-tight">
+            {{ __('Invoice') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-<div class="container">
-    <h1>Factuur Overzicht</h1>
-    @if($invoices->isEmpty())
-        <p>Geen facturen gevonden. Probeer later opnieuw.</p>
-    @else
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Nummer</th>
-                    <th>Datum</th>
-                    <th>Bedrag</th>
-                    <th>Acties</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($invoices as $invoice)
-                    <tr>
-                        <td>{{ $invoice->number }}</td>
-                        <td>{{ $invoice->date }}</td>
-                        <td>{{ $invoice->amount }}</td>
-                        <td>
-                            <a href="{{ route('invoices.show', $invoice->id) }}" class="btn btn-primary">Bekijk</a>
-                            <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-warning">Bewerk</a>
-                            <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Verwijder</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    @endif
-</div>
-@endsection
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if (session('error'))
+                <div class="bg-red-500 text-white p-4 rounded mb-4">
+                    {{ session('error') }}
+                </div>
+            @endif
+            @if (session('success'))
+                <div class="bg-green-500 text-white p-4 rounded mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
+            <div class="flex flex-col lg:flex-row gap-8">
+               
+
+               
+</x-app-layout>
