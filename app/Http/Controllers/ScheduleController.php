@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Schedule;
 use App\Models\User;
+use App\Models\Employee;
 
 class ScheduleController extends Controller
 {
@@ -19,16 +20,20 @@ class ScheduleController extends Controller
     public function create()
     {
         $roles = User::whereIn('role', ['admin', 'dentist', 'employee'])
-            ->get()
-            ->groupBy('role');
-        return view('schedules.create', compact('roles'));
+        ->get()
+        ->groupBy('role');
+        $employees = Employee::all(); // Fetch all employees
+
+        return view('schedules.create', compact('roles', 'employees'));
     }
+
 
     // Store a newly created resource in storage. store
     public function store(Request $request)
     {
         $request->validate([
             'user_id' => 'required|exists:users,id',
+            'employee_id' => 'required|exists:employees,id', // Add validation for employee_id
             'description' => 'required',
             'start_time' => 'required|date',
             'end_time' => 'required|date',
@@ -37,6 +42,7 @@ class ScheduleController extends Controller
         $user = User::find($request->user_id);
         $schedule = new Schedule($request->all());
         $schedule->name = $user->name;
+        $schedule->employee_id = $request->employee_id; // Set employee_id
         $schedule->save();
 
         return redirect()->route('schedules.index')
