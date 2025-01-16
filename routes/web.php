@@ -13,7 +13,6 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\TreatmentController;
-
 use App\Http\Controllers\InvoiceController;
 
 Route::get('/', function () {

@@ -24,7 +24,7 @@ class InvoiceFactory extends Factory
             'number' => $this->faker->unique()->numerify('#####'),
             'date' => $this->faker->date(),
             'amount' => $this->faker->randomFloat(2, 50, 1000),
-            'status' => $this->faker->randomElement(['betaaild', 'onbetaald', 'in behandeling']),
+            'status' => $this->faker->randomElement(['betaald', 'onbetaald', 'in behandeling']),
         ];
     }
 }
