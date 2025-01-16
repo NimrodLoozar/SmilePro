@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Patient;
 use App\Models\Appointment;
 use App\Models\Invoice;
-// use App\Models\Treatment;
+use App\Models\Treatment;
 // ...other model imports...
 
 class DatabaseSeeder extends Seeder
@@ -48,8 +48,8 @@ class DatabaseSeeder extends Seeder
         // Create Invoice
         Invoice::factory()->count(10)->create();
 
-        //// Create Treatment
-        //// Treatment::factory()->count(10)->create();
+        // Create Treatment
+        Treatment::factory()->count(10)->create();
 
         //// Other seeders can be called here
         //// $this->call(OtherSeeder::class);

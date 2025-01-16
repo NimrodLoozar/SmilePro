@@ -27,8 +27,6 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'patient_id' => 'required',
-            'treatment_id' => 'required',
             'number' => 'required',
             'date' => 'required',
             'amount' => 'required',
@@ -47,8 +45,6 @@ class InvoiceController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'patient_id' => 'required',
-            'treatment_id' => 'required',
             'number' => 'required',
             'date' => 'required',
             'amount' => 'required',

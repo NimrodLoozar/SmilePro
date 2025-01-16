@@ -9,15 +9,9 @@ class Invoice extends Model
 {
     use HasFactory;
 
-    // protected $table = 'invoice';
+    protected $table = 'invoice';
 
-    protected $fillable = [
-        'patient_id',
-        'treatment_id',
-        'number',
-        'date',
-        'amount'
-    ];
+    protected $guarded = [];
 
     public function patient()
     {
