@@ -21,10 +21,10 @@ class InvoiceFactory extends Factory
         return [
             'patient_id' => Patient::factory(),
             'treatment_id' => Treatment::factory(),
-            'number' => $this->faker->unique()->numerify('INV-#####'),
+            'number' => $this->faker->unique()->numerify('#####'),
             'date' => $this->faker->date(),
             'amount' => $this->faker->randomFloat(2, 50, 1000),
-            'status' => $this->faker->randomElement(['paid', 'unpaid', 'pending']),
+            'status' => $this->faker->randomElement(['betaaild', 'onbetaald', 'in behandeling']),
         ];
     }
 }
