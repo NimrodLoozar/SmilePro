@@ -1,10 +1,11 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
-use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Patient;
 use Illuminate\View\View;
 
 class PatientController extends Controller

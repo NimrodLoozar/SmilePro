@@ -28,7 +28,7 @@
                     <h3 class="text-2xl font-bold mb-4">Statistieken</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow">
-                            <p class="text-lg font-semibold">Totaal aantal patiënten</p>
+                            <p class="text-lg font-semibold">Totaal aantal patiënten per week</p>
                             <p class="text-3xl">{{ $totalPatients }}</p>
                         </div>
                         <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow">
