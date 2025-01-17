@@ -180,8 +180,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('patient_id')->constrained()->cascadeOnDelete();
             $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
-            // $table->unsignedBigInteger('employee_id');
-            // $table->unsignedBigInteger('patient_id');
             $table->date('date');
             $table->time('time');
             $table->string('treatment_type');

@@ -1,6 +1,6 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }" class="bg-teal-400 background-color: #54b9bd;">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-teal-400 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Navigation Links -->
@@ -32,6 +32,9 @@
                         </x-nav-link>
                         <x-nav-link :href="route('schedules.index')" :active="request()->routeIs('schedules.index')">
                             {{ __('Schedules') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('invoice.index')" :active="request()->routeIs('invoice.index')">
+                            {{ __('Invoice') }}
                         </x-nav-link>
                     @elseif (Auth::check() && Auth::user()->role === 'dentist')
                         <x-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.index')">
