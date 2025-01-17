@@ -28,7 +28,7 @@
                         @method('PATCH')
                         <div class="form-group mt-4">
                             <label for="description">Description</label>
-                            <textarea name="description" id="description" class="form-control bg-gray-100 border-2 w-full p-4 rounded-lg" required>{{ old('description', $schedule->description) }}</textarea>
+                            <textarea name="description" id="description" class="form-control bg-gray-100 border-2 w-full p-4 rounded-lg">{{ old('description', $schedule->description) }}</textarea>
                         </div>
 
                         <div class="form-group mb-4">
