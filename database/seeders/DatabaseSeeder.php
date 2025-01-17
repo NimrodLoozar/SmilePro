@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->dentistUser()->create();
         //// User::factory()->employeeUser()->create();
         User::factory()->patientUser()->create();
-        Schedule::factory()->count(10)->create();
+        Schedule::factory()->count(20)->create();
 
         //// Create schedules
         //// Schedule::factory()->count(10)->create();
@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
         //// Create Invoice
         //// Invoice::factory()->count(10)->create();
 
-        //// Create Treatment
+        // Create Treatment
         Treatment::factory()->count(10)->create();
 
         //// Other seeders can be called here

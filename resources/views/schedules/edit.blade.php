@@ -6,9 +6,13 @@
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @if (session('error'))
+            @if ($errors->any())
                 <div class="bg-red-500 text-white p-4 rounded mb-4">
-                    {{ session('error') }}
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
             @if (session('success'))
@@ -24,20 +28,20 @@
                         @method('PATCH')
                         <div class="form-group mt-4">
                             <label for="description">Description</label>
-                            <textarea name="description" id="description" class="form-control bg-gray-100 border-2 w-full p-4 rounded-lg" required>{{ $schedule->description }}</textarea>
+                            <textarea name="description" id="description" class="form-control bg-gray-100 border-2 w-full p-4 rounded-lg" required>{{ old('description', $schedule->description) }}</textarea>
                         </div>
 
                         <div class="form-group mb-4">
                             <label for="start_time" class="block text-black">Starttijd:</label>
                             <input type="datetime-local" id="start_time" name="start_time"
                                 class="form-control mt-1 block w-full border-black-300 rounded-md shadow-sm"
-                                value="{{ $schedule->start_time }}" required>
+                                value="{{ old('start_time', $schedule->start_time) }}" required>
                         </div>
                         <div class="form-group mb-4">
                             <label for="end_time" class="block text-black">Eindtijd:</label>
                             <input type="datetime-local" id="end_time" name="end_time"
                                 class="form-control mt-1 block w-full border-black-300 rounded-md shadow-sm"
-                                value="{{ $schedule->end_time }}" required>
+                                value="{{ old('end_time', $schedule->end_time) }}" required>
                         </div>
 
                         <div class="flex justify-between mt-4">

@@ -30,6 +30,9 @@
                         <x-nav-link :href="route('patient.index')" :active="request()->routeIs('patient.index')">
                             {{ __('Patient') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('schedules.index')" :active="request()->routeIs('schedules.index')">
+                            {{ __('Schedules') }}
+                        </x-nav-link>
                     @elseif (Auth::check() && Auth::user()->role === 'dentist')
                         <x-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.index')">
                             {{ __('Messages') }}
