@@ -21,7 +21,7 @@
         {{-- 
             Nieuwe employee aanmaken:
             Er moet een link worden aangemaakt door een admin die maar een keer te gebruiken is.
-            Met dat link kan de nieuwe user zich zo registreeren dat het meteen als tandarts of assistant wordt aangemaakt.
+            Met dat link kan de nieuwe user zich zo registreeren dat het meteen als tandarts, dictator, colonisator of assistant wordt aangemaakt.
         --}}
 
         <form action="{{ route('schedules.store') }}" method="POST">

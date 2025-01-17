@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Schedule;
 use App\Models\User;
 use App\Models\Employee;
-use Carbon\Carbon;
 
 class ScheduleController extends Controller
 {
@@ -17,12 +16,12 @@ class ScheduleController extends Controller
             $query->orderBy('start_time');
         }])->has('schedules')->paginate(10);
 
-        return view('schedules.index', compact('users'));
-    }
+        if ($users->isEmpty()) {
+            return view('schedules.index', compact('users'))
+                ->withErrors(['no_schedules' => 'Er zijn geen schedules gevonden momenteel. Probeer later opnieuw.']);
+        }
 
-    private function isDurationExceedingLimit($startTime, $endTime, $limitInHours = 8)
-    {
-        return $endTime->diffInHours($startTime) > $limitInHours;
+        return view('schedules.index', compact('users'));
     }
 
     // Show the form for creating a new resource. create
@@ -49,26 +48,6 @@ class ScheduleController extends Controller
             'start_time' => 'required|date|after:now',
             'end_time' => 'required|date|after:start_time|after:' . now()->addHours(4),
         ]);
-
-        $startDate = Carbon::parse($request->start_time)->toDateString();
-        $existingSchedule = Schedule::where('user_id', $request->user_id)
-            ->whereDate('start_time', $startDate)
-            ->exists();
-
-        if ($existingSchedule) {
-            return redirect()->back()
-                ->withErrors(['user_id' => 'Deze organisator heeft al een schedule op deze dag.'])
-                ->withInput();
-        }
-
-        // De tijd tussen starttijd en eindtijd mag maximaal 8 uur zijn.
-        $startTime = Carbon::parse($request->start_time);
-        $endTime = Carbon::parse($request->end_time);
-        if ($this->isDurationExceedingLimit($startTime, $endTime)) {
-            return redirect()->back()
-                ->withErrors(['end_time' => 'De duur tussen starttijd en eindtijd mag maximaal 8 uur zijn.'])
-                ->withInput();
-        }
 
         $user = User::find($request->user_id);
         $schedule = new Schedule($request->all());
@@ -99,18 +78,10 @@ class ScheduleController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'description' => 'nullable',
+            'description' => 'required',
             'start_time' => 'required|date|after:now',
             'end_time' => 'required|date|after:start_time|after:' . now()->addHours(4),
         ]);
-
-        $startTime = Carbon::parse($request->start_time);
-        $endTime = Carbon::parse($request->end_time);
-        if ($endTime->diffInHours($startTime) > 8) {
-            return redirect()->back()
-                ->withErrors(['end_time' => 'De duur tussen starttijd en eindtijd mag maximaal 8 uur zijn.'])
-                ->withInput();
-        }
 
         $schedule = Schedule::find($id);
         $schedule->update($request->only(['description', 'start_time', 'end_time']));
