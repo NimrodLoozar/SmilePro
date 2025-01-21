@@ -14,14 +14,9 @@
                         <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                             <div class="md:col-span-5">
                                 <label for="person_id">Persoon</label>
-                                <select id="person_id" name="person_id" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
-                                    @foreach ($persons as $person)
-                                        <option value="{{ $person->id }}" 
-                                            {{ $employee->person_id == $person->id ? 'selected' : '' }}>
-                                            {{ $person->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <div class="mt-1 px-4 py-2 bg-gray-50 dark:bg-gray-700 dark:text-gray-300 rounded">
+                                    {{ $employee->person->name }}
+                                </div>
                             </div>
 
                             <div class="md:col-span-5">
@@ -37,7 +32,7 @@
                             </div>
 
                             <div class="md:col-span-5">
-                                <p><strong>Specialisatie:</strong> {{ $employee->specialization }}</p>
+                                <p><strong>Specialisatie:</strong> {{ $employee->specialization ?: 'Niet opgegeven' }}</p>
                             </div>
                         </div>
                     </div>
@@ -45,6 +40,4 @@
             </div>
         </div>
     </div>
-
-    
 </x-app-layout>

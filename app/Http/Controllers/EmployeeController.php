@@ -72,7 +72,13 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        return view('employees.show', compact('employee'));
+        // Load the employee's relationships
+        $employee->load('person');
+        
+        // Get all persons for the dropdown
+        $persons = Person::all();
+        
+        return view('employees.show', compact('employee', 'persons'));
     }
 
     /**
