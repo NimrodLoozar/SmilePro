@@ -31,10 +31,12 @@ class UserFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => Hash::make('password'),
+            'password' => bcrypt('password'), // password
             'remember_token' => Str::random(10),
-            'is_employee' => false
-            // naming convention laravel
+            'is_employee' => $this->faker->boolean(),
+            'role' => $this->faker->randomElement(['user', 'admin']),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 
@@ -59,7 +61,8 @@ class UserFactory extends Factory
             'password' => Hash::make('Test1234'),
             'role' => 'user',
             'is_employee' => false,
-            // naming convention laravel
+            // Ensure unique name
+            'name' => $this->faker->unique()->userName,
         ]);
     }
 
