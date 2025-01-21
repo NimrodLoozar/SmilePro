@@ -36,7 +36,9 @@ class Employee extends Model
 
     public function getFullNameAttribute()
     {
+
         return $this->person->name;
+
     }
 
     protected static function boot()
