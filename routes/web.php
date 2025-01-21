@@ -12,6 +12,7 @@ use App\Http\Controllers\StatisticsController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\TreatmentController;
 
 
 Route::get('/', function () {
@@ -75,6 +76,16 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
         Route::resource('employees', EmployeeController::class);
     });
 
+    Route::controller(TreatmentController::class)->group(function () {
+        Route::get('/treatments', 'index'); // List treatments with filters
+        Route::post('/treatments', 'store'); // Create a new treatment
+        Route::get('/treatments/{treatment}', 'show'); // Show a specific treatment
+        Route::put('/treatments/{treatment}', 'update'); // Update a treatment
+        Route::delete('/treatments/{treatment}', 'destroy'); // Delete a treatment
+        Route::get('/treatments/upcoming', 'upcoming'); // Get all upcoming treatments
+        Route::patch('/treatments/{treatment}/toggle-active', 'toggleActive'); // Toggle the active status
+        Route::get('/treatments/{treatment}/formatted-cost', 'getFormattedCost'); // Get formatted cost
+    });
 
     // ...other admin routes...
     Route::get('/messages/{conversation}', [MessageController::class, 'show'])->name('messages.show');
