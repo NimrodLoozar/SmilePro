@@ -23,9 +23,8 @@ class PatientFactory extends Factory
     public function definition()
     {
         $user = User::inRandomOrder()->first();
-        $userName = User::find($user->id)->name;
         return [
-            'name' => in_array(User::find($user->id)->role, ['patient']) ? $userName : 'Default Name',
+            'name' => $user->name,
             'user_id' => $user->id,
             'person_id' => Person::factory(), // Zorg ervoor dat een PersonFactory bestaat
             'number' => $this->faker->unique()->regexify('[A-Z]{2}[0-9]{6}'),

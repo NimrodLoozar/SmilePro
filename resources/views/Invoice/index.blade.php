@@ -56,7 +56,7 @@
                                                 @endif
                                             </td>
                                             <td class="py-3 px-6 text-center">
-                                                <a href="{{ route('invoice.show', $invoice->id) }}" class="text-blue-500 hover:text-blue-700">Bekijk</a> | 
+                                                <a href="{{ route('invoice.show', $invoice->id) }}" class="text-blue-500 hover:text-blue-700">Inzien</a> | 
                                                 <a href="{{ route('invoice.edit', $invoice->id) }}" class="text-yellow-500 hover:text-yellow-700">Bewerk</a> | 
                                                 <form action="{{ route('invoice.destroy', $invoice->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Weet je zeker dat je deze factuur wilt verwijderen?');">
                                                     @csrf
