@@ -39,7 +39,7 @@
                 events: [
                     @foreach ($schedules as $schedule)
                         {
-                            title: '{{ $schedule->name }}',
+                            title: '{{ $user->name }}',
                             start: '{{ $schedule->start_time }}',
                             end: '{{ $schedule->end_time }}',
                             description: '{{ $schedule->description }}',
