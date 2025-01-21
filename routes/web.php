@@ -69,6 +69,7 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
     Route::middleware(['auth'])->group(function () {
         Route::resource('employees', EmployeeController::class);
+        Route::put('/employee/{id}', [EmployeeController::class, 'update'])->name('employee.update');
     });
 
 
