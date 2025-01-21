@@ -22,16 +22,21 @@ class AppointmentFactory extends Factory
     public function definition()
     {
         $appointmentTypes = [
-            'General Checkup',
-            'Dental Cleaning',
-            'Eye Examination',
-            'Vaccination',
-            'Physical Therapy',
-            'Cardiology Consultation',
-            'Orthopedic Consultation',
-            'Psychological Consultation',
-            'Nutrition Consultation',
-            'Dermatology Consultation',
+            'Controle',
+            'Wortelkanaalbehandeling',
+            'Vulling',
+            'Kroon',
+            'Brug',
+            'Tanden bleken',
+            'Tandsteen verwijderen',
+            'Extractie',
+            'Implantaat',
+            'Beugel',
+            'Gebitsreiniging',
+            'Fluoridebehandeling',
+            'Röntgenfoto',
+            'Prothese',
+            'Tandvleesbehandeling'
         ];
 
         // Zorg dat de datum minimaal 24 uur in de toekomst ligt
@@ -44,7 +49,7 @@ class AppointmentFactory extends Factory
             'employee_id' => Employee::factory(), // Ensure EmployeeFactory exists
             'date' => $appointmentDate->format('Y-m-d'),
             'time' => $appointmentDate->format('H:i:s'),
-            'status' => $this->faker->randomElement(['scheduled', 'completed', 'cancelled']),
+            'status' => $this->faker->randomElement(['gepland', 'voltooid', 'geannuleerd']),
             'is_active' => $this->faker->boolean(),
             'comment' => $this->faker->optional()->sentence(),
             'name' => $this->faker->randomElement($appointmentTypes), // Add the name field
