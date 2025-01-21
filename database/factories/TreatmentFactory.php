@@ -2,51 +2,36 @@
 
 namespace Database\Factories;
 
-use App\Models\Treatment;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Patient;
 use App\Models\Employee;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Faker\Generator as Faker;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Treatment>
+ */
 class TreatmentFactory extends Factory
 {
-    protected $model = Treatment::class;
-
-    public function definition()
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
     {
-        $treatmentTypes = [
-            'Check-up',
-            'Filling',
-            'Crown',
-            'Root Canal',
-            'Extraction',
-            'Dental Cleaning',
-            'Implant',
-            'Orthodontic Consultation',
-            'Teeth Whitening',
-            'X-ray'
-        ];
-
-        $statuses = [
-            'Scheduled',
-            'In Progress',
-            'Completed',
-            'Cancelled'
-        ];
-
         return [
             'patient_id' => Patient::factory(),
             'employee_id' => Employee::factory(),
-            'date' => $this->faker->dateTimeBetween('now', '+2 months')->format('d-m-y'),
-            'time' => $this->faker->time('H:i'),
-            'treatment_type' => $this->faker->randomElement($treatmentTypes),
+            'date' => $this->faker->date(),
+            'time' => $this->faker->time(),
+            'treatment_type' => $this->faker->word(),
             'description' => $this->faker->paragraph(),
-            'cost' => $this->faker->randomFloat(2, 50, 1500),
-            'status' => $this->faker->randomElement($statuses),
-            'is_active' => $this->faker->boolean(90), // 90% chance of being true
-            'comment' => $this->faker->optional(0.7)->text(), // 70% chance of having a comment
+            'cost' => $this->faker->randomFloat(2, 50, 500),
+            'status' => $this->faker->randomElement(['scheduled', 'completed', 'cancelled']),
+            'is_active' => $this->faker->boolean(),
+            'comment' => $this->faker->sentence(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
-
-// In database/seeders/TreatmentSeeder.php
-namespace Database\Seeders;

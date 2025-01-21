@@ -13,7 +13,7 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\TreatmentController;
-
+use App\Http\Controllers\InvoiceController;
 
 Route::get('/', function () {
     return view('index');
@@ -22,10 +22,6 @@ Route::get('/', function () {
 Route::get('/welcome', function () {
     return view('welcome');
 });
-
-Route::get('/treatments', function () {
-    return view('treatments');
-})->middleware(['auth'])->name('treatments');
 
 Route::resource('appointments', AppointmentController::class);
 Route::get('appointments/{appointment}/change-date', [AppointmentController::class, 'editDate'])->name('appointments.change-date');
@@ -61,6 +57,16 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/conversations/{conversation}', [MessageController::class, 'destroy'])->name('conversations.destroy');
 
     Route::resource('schedules', ScheduleController::class);
+
+    Route::resource('invoice', InvoiceController::class);
+    Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
+    Route::get('/invoice/{invoice}/create', [InvoiceController::class, 'create'])->name('invoice.create');
+    Route::get('/invoice/{invoice}/edit', [InvoiceController::class, 'edit'])->name('invoice.edit');
+    Route::get('/invoice/{invoice}', [InvoiceController::class, 'show'])->name('invoice.show');
+    Route::post('/invoice', [InvoiceController::class, 'store'])->name('invoice.store');
+    Route::put('/invoice/{invoice}', [InvoiceController::class, 'update'])->name('invoice.update');
+    Route::delete('/invoice/{invoice}', [InvoiceController::class, 'destroy'])->name('invoice.destroy');
+
 });
 
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
