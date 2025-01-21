@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-200 leading-tight">
-                {{ __('Accounten Overzicht') }}
+                {{ __('Accounten') }}
             </h2>
             <label class="flex items-center">
                 <span class="mr-2 text-gray-200">Toon Data</span>
@@ -32,18 +32,6 @@
                                     E-mailadres</th>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
-                                    Telefoonnummer</th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
-                                    Geboortedatum</th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
-                                    Adres</th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
-                                    Accountstatus</th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
                                     Afspraken</th>
                             </tr>
                         </thead>
@@ -52,10 +40,6 @@
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $user->name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $user->email }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $user->phone }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $user->birthdate }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $user->address }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $user->status }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <a href="{{ route('appointments.index', ['user' => $user->id]) }}"
                                             class="text-blue-500 hover:underline">Bekijk afspraken</a>

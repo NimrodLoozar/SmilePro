@@ -12,30 +12,30 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('appointments.index')" :active="request()->routeIs('appointments.index')">
-                        {{ __('Appointments') }}
+                        {{ __('Afspraken') }}
                     </x-nav-link>
                     @if (Auth::check() && Auth::user()->role === 'admin')
                         <x-nav-link :href="route('messages.admin.index')" :active="request()->routeIs('messages.admin.index')">
-                            {{ __('Messages') }}
+                            {{ __('Berichten') }}
                         </x-nav-link>
                         <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                             {{ __('Admin Dashboard') }}
                         </x-nav-link>
                         <x-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
-                            {{ __('Accounten Overzicht') }}
+                            {{ __('Accounten') }}
                         </x-nav-link>
                         <x-nav-link :href="route('admin.Employee')" :active="request()->routeIs('admin.Employee')">
-                            {{ __('Employee') }}
+                            {{ __('Werknemers') }}
                         </x-nav-link>
                         <x-nav-link :href="route('patient.index')" :active="request()->routeIs('patient.index')">
-                            {{ __('Patient') }}
+                            {{ __('Patiënten') }}
                         </x-nav-link>
                         <x-nav-link :href="route('invoice.index')" :active="request()->routeIs('invoice.index')">
-                            {{ __('Invoice') }}
+                            {{ __('Factuuren') }}
                         </x-nav-link>
                     @elseif (Auth::check() && Auth::user()->role === 'dentist')
                         <x-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.index')">
-                            {{ __('Messages') }}
+                            {{ __('Berichten') }}
                         </x-nav-link>
                     @endif
                 </div>
@@ -62,7 +62,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ __('Profiel') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -71,7 +71,7 @@
                             <x-dropdown-link :href="route('logout')"
                                 onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Uitloggen') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -105,17 +105,17 @@
             </x-responsive-nav-link>
             @if (Auth::check() && Auth::user()->role === 'admin')
                 <x-responsive-nav-link :href="route('messages.admin.index')" :active="request()->routeIs('messages.admin.index')">
-                    {{ __('Messages') }}
+                    {{ __('Berichten') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                     {{ __('Admin Dashboard') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
-                    {{ __('Users') }}
+                    {{ __('Gebruikers') }}
                 </x-responsive-nav-link>
             @elseif (Auth::check() && Auth::user()->role === 'dentist')
                 <x-responsive-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.index')">
-                    {{ __('Messages') }}
+                    {{ __('Berichten') }}
                 </x-responsive-nav-link>
             @endif
         </div>
@@ -129,7 +129,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    {{ __('Profiel') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
@@ -138,7 +138,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                         onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('Uitloggen') }}
                     </x-responsive-nav-link>
                 </form>
             </div>
