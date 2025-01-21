@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
+use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+
 
 
 class InvoiceController extends Controller
@@ -18,7 +21,9 @@ class InvoiceController extends Controller
     public function show($id)
     {
         $invoice = Invoice::findOrFail($id);
-        return view('Invoice.show', compact('invoice'));
+        $patient = Patient::findOrFail($invoice->patient_id);
+        
+        return view('Invoice.show', compact('invoice', 'patient'));
     }
 
     public function create()

@@ -1,10 +1,11 @@
 <x-app-layout>
 <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-200 leading-tight">
-                {{ __('Facturen') }}
-            </h2>
-            <label class="flex items-center">
+    <div class="flex justify-between items-center">
+        <h2 class="font-semibold text-xl text-gray-200 leading-tight">
+            {{ __('Facturen') }}
+        </h2>
+        <div class="flex items-center">
+            <label class="flex items-center mr-4">
                 <span class="mr-2 text-gray-200">Toon Data</span>
                 <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
                     <input type="checkbox" id="dataToggle"
@@ -14,8 +15,10 @@
                         class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
                 </div>
             </label>
+            <a href="{{ route('invoice.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-green-700">Factuur Aanmaken</a>
         </div>
-    </x-slot> 
+    </div>
+</x-slot> 
 
     <div id="dataContainer" class="py-12">
     <div class="py-12">
