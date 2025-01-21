@@ -35,7 +35,7 @@
                                 <tbody class="text-gray-600 text-sm font-light">
                                     @foreach ($invoices as $invoice)
                                         <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                            <td class="py-3 px-6 text-left whitespace-nowrap">{{ $invoice->number }}</td>
+                                            <td class="py-3 px-6 text-left whitespace-nowrap"># {{ $invoice->number }}</td>
                                             <td class="py-3 px-6 text-left">{{ $invoice->date }}</td>
                                             <td class="py-3 px-6 text-center">€ {{ $invoice->amount }}</td>
                                             <td class="py-3 px-6 text-center">
