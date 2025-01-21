@@ -1,22 +1,25 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-200 leading-tight">
-            {{ __('Factuur') }}
-        </h2>
-    </x-slot>
+<x-slot name="header">
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-200 leading-tight">
+                {{ __('Facturen') }}
+            </h2>
+            <label class="flex items-center">
+                <span class="mr-2 text-gray-200">Toon Data</span>
+                <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                    <input type="checkbox" id="dataToggle"
+                        class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+                        checked />
+                    <label for="dataToggle"
+                        class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                </div>
+            </label>
+        </div>
+    </x-slot> 
 
+    <div id="dataContainer" class="py-12">
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @if (session('error'))
-                <div class="bg-red-500 text-white p-4 rounded mb-4">
-                    {{ session('error') }}
-                </div>
-            @endif
-            @if (session('success'))
-                <div class="bg-green-500 text-white p-4 rounded mb-4">
-                    {{ session('success') }}
-                </div>
-            @endif
             <div class="flex flex-col lg:flex-row gap-8">
                 <!-- lijst van facturen -->
                 <div class="w-full">
@@ -78,4 +81,33 @@
             </div>
         </div>
     </div>
+</div>
+<div id="errorContainer" class="py-12 hidden ml-64">
+    <p class="text-red-500">geen facturen gevonden. Probeer later opnieuw.</p>
+</div>
 </x-app-layout>
+
+<script>
+    document.getElementById('dataToggle').addEventListener('change', function() {
+        const dataContainer = document.getElementById('dataContainer');
+        const errorContainer = document.getElementById('errorContainer');
+        if (this.checked) {
+            dataContainer.classList.remove('hidden');
+            errorContainer.classList.add('hidden');
+        } else {
+            dataContainer.classList.add('hidden');
+            errorContainer.classList.remove('hidden');
+        }
+    });
+</script>
+
+<style>
+    .toggle-checkbox:checked {
+        right: 0;
+        border-color: #68D391;
+    }
+
+    .toggle-checkbox:checked+.toggle-label {
+        background-color: #68D391;
+    }
+</style>
