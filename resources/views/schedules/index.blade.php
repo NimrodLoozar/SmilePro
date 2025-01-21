@@ -6,23 +6,17 @@
     </x-slot>
 
     <div class="container mx-auto mt-8">
-        <div class="flex flex-col lg:flex-row justify-between mb-6">
+        <div class="flex justify-between mb-6">
             <a href="{{ route('schedules.create') }}"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 lg:mb-0">Beschikbaarheid
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Beschikbaarheid
                 Toevoegen</a>
         </div>
 
-        @if ($errors->has('no_schedules'))
-            <div class="bg-red-500 text-white p-4 rounded mb-4">
-                {{ $errors->first('no_schedules') }}
-            </div>
-        @endif
-
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
-            <div class="lg:col-span-1 pl-4 mb-4 lg:mb-0">
+        <div class="flex">
+            <div class="w-1/4 pr-4">
                 <p class="text-white mb-4">Selecteer een van de onderstaande dokters om hun beschikbaarheid te bekijken:
                 </p>
-                <ul class="list-disc pl-5 space-y-4 hidden lg:block">
+                <ul class="list-disc pl-5 space-y-4">
                     @foreach ($users as $user)
                         <div class="mb-4 p-4 bg-white shadow rounded-lg">
                             <h3 class="text-lg font-semibold">
@@ -32,19 +26,12 @@
                         </div>
                     @endforeach
                 </ul>
-                <select class="block lg:hidden w-full border-black-300 rounded-md shadow-sm"
-                    onchange="location = this.value;">
-                    <option value="">{{ __('Selecteer een dokter') }}</option>
-                    @foreach ($users as $user)
-                        <option value="{{ route('schedules.show', $user->id) }}">{{ $user->name }}</option>
-                    @endforeach
-                </select>
                 <div class="mt-4">
                     {{ $users->links() }}
                 </div>
             </div>
 
-            <div class="lg:col-span-3">
+            <div class="w-3/4">
                 <div class="py-12">
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div class="bg-white p-6 rounded-lg shadow-md">

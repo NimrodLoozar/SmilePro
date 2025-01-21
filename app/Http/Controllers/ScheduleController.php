@@ -16,11 +16,6 @@ class ScheduleController extends Controller
             $query->orderBy('start_time');
         }])->has('schedules')->paginate(10);
 
-        if ($users->isEmpty()) {
-            return view('schedules.index', compact('users'))
-                ->withErrors(['no_schedules' => 'Er zijn geen schedules gevonden momenteel. Probeer later opnieuw.']);
-        }
-
         return view('schedules.index', compact('users'));
     }
 
