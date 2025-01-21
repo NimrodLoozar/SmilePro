@@ -18,13 +18,15 @@ class InvoiceFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    private static $invoiceNumber = 1;
+
     public function definition(): array
     {
         return [
             'patient_id' => Patient::factory(),
             'treatment_id' => Treatment::factory(),
-            'number' => $this->faker->unique()->numerify('#####'),
-            'date' => $this->faker->date(),
+            'number' => self::$invoiceNumber++,
+            'date' => $this->faker->dateTimeBetween('-1 month', 'now')->format('Y-m-d'),
             'amount' => $this->faker->randomFloat(2, 50, 1000),
             'status' => $this->faker->randomElement(['betaald', 'onbetaald', 'in behandeling']),
         ];
