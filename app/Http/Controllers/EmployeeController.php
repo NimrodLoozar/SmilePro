@@ -78,7 +78,7 @@ class EmployeeController extends Controller
         // Get all persons for the dropdown
         $persons = Person::all();
         
-        return view('employees.show', compact('employee', 'persons'));
+        return view('employee.show', compact('employee', 'persons'));
     }
 
     /**
@@ -93,25 +93,20 @@ class EmployeeController extends Controller
     /**
      * Update an employee in the database.
      */
-    public function update(Request $request, Employee $employee)
+    public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'person_id' => 'required|exists:persons,id',
-            'name' => 'required|string',
-            'employee_type' => 'required|string',
-            'specialization' => 'nullable|string',
-            'availability' => 'nullable|string',
-            'is_active' => 'required|boolean',
-            'comment' => 'nullable|string',
+        $employee = Employee::findOrFail($id);
+    
+        $employee->update([
+            'name' => $request->input('name'),
+            'employee_type' => $request->input('employee_type'),
+            'email' => $request->input('email'),
+            'specialization' => $request->input('specialization'),
         ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
-
-        $employee->update($request->all());
-        return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');
+    
+        return redirect()->route('employee.index')->with('success', 'Medewerker succesvol bijgewerkt.');
     }
+    
 
     /**
      * Delete an employee from the database.
