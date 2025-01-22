@@ -28,10 +28,6 @@ class TreatmentFactory extends Factory
             'description' => $this->faker->paragraph(),
             'cost' => $this->faker->randomFloat(2, 50, 500),
             'status' => $this->faker->randomElement(['gepland', 'behandeld', 'geannuleerd']),
-            'is_active' => $this->faker->boolean(),
-            'comment' => $this->faker->sentence(),
-            'created_at' => now(),
-            'updated_at' => now(),
         ];
     }
 }

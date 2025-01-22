@@ -32,19 +32,16 @@
                     <p><strong>Datum:</strong> {{ $invoice->date }}</p>
                 </div>
                 <div class="mb-2">
+                    <p><strong>Patient:</strong> {{ $patient->person->name }}</p>
+                </div>
+                <div class="mb-2">
                     <p><strong>Bedrag:</strong> € {{ $invoice->amount }}</p>
                 </div>
-                <div class="mb-2">
-                    <p><strong>Patient ID:</strong> {{ $invoice->patient_id }}</p>
-                </div>
-                <div class="mb-2">
-                    <p><strong>Patient:</strong> {{ $patient->person->name }} </p>
-                </div>
+               
 
-                
-                <!-- pending -->
-                <!-- <div class="mb-4">
-                    <p><strong>Behandeling:</strong> {{ $invoice->treatment }}</p>
+<!--                 
+                <div class="mb-4">
+                    <p><strong>Behandeling:</strong> {{ $appointment->name }}</p>
                 </div> -->
 
 

@@ -6,6 +6,7 @@ use App\Models\Patient;
 use App\Models\Employee;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Appointment>
@@ -50,11 +51,7 @@ class AppointmentFactory extends Factory
             'date' => $appointmentDate->format('Y-m-d'),
             'time' => $appointmentDate->format('H:i:s'),
             'status' => $this->faker->randomElement(['gepland', 'voltooid', 'geannuleerd']),
-            'is_active' => $this->faker->boolean(),
-            'comment' => $this->faker->optional()->sentence(),
-            'name' => $this->faker->randomElement($appointmentTypes), // Add the name field
-            'created_at' => now(),
-            'updated_at' => now(),
+            'name' => $this->faker->randomElement($appointmentTypes),
         ];
     }
 }
