@@ -28,11 +28,7 @@ class PatientFactory extends Factory
             'user_id' => $user->id,
             'person_id' => Person::factory(), // Zorg ervoor dat een PersonFactory bestaat
             'number' => $this->faker->unique()->regexify('[A-Z]{2}[0-9]{6}'),
-            'medical_file' => $this->faker->optional()->text(200), // Optionele medische gegevens
-            'is_active' => $this->faker->boolean(),
-            'comment' => $this->faker->optional()->sentence(),
-            'created_at' => now(),
-            'updated_at' => now(),
+            'medical_file' => "Laatste consult: " . fake()->date() . " - Notities: " . fake()->sentence(),
         ];
     }
 }
