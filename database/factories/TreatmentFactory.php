@@ -19,7 +19,7 @@ class TreatmentFactory extends Factory
      */
     public function definition(): array
     {
-        $appointmentTypes = [
+        $treatmentTypes = [
             'Routine Dental Checkup',
             'Professional Teeth Cleaning',
             'Dental X-rays',
