@@ -1,67 +1,68 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
+use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Patient;
-use Illuminate\View\View;
 
 class PatientController extends Controller
 {
-    public function index(): View
+    // Toon een lijst van patiënten
+    public function index()
     {
-        $patients = Patient::with('person')->paginate(10);
-        return view('patient.index', ['patients' => $patients]);
+        $patients = Patient::paginate(10);
+        return view('patient.index', compact('patient'));
     }
 
+    // Toon het formulier om een nieuwe patiënt toe te voegen
+    public function create()
+    {
+        return view('patient.create');
+    }
+
+    // Sla een nieuwe patiënt op
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'person_id' => 'required|exists:people,id',
+        $validated = $request->validate([
+            'name' => 'required|string',
             'number' => 'required|string',
             'medical_file' => 'nullable|string',
             'is_active' => 'required|boolean',
             'comment' => 'nullable|string',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
+        Patient::create($validated);
 
-        $patient = Patient::create($request->all());
-        return response()->json($patient, 201);
+        return redirect()->route('patient.index')->with('success', 'Patiënt succesvol toegevoegd.');
     }
 
-    public function show(Patient $patient)
+    // Toon het formulier om een patiënt te bewerken
+    public function edit(Patient $patient)
     {
-        return response()->json($patient->load('person'));
+        return view('patient.edit', compact('patient'));
     }
 
+    // Werk een bestaande patiënt bij
     public function update(Request $request, Patient $patient)
     {
-        $validator = Validator::make($request->all(), [
-            'person_id' => 'required|exists:people,id',
+        $validated = $request->validate([
+            'name' => 'required|string',
             'number' => 'required|string',
             'medical_file' => 'nullable|string',
             'is_active' => 'required|boolean',
             'comment' => 'nullable|string',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
+        $patient->update($validated);
 
-        $patient->update($request->all());
-        return response()->json($patient);
+        return redirect()->route('patient.index')->with('success', 'Patiënt succesvol bijgewerkt.');
     }
 
-    public function edit() {}
-
+    // Verwijder een patiënt
     public function destroy(Patient $patient)
     {
         $patient->delete();
-        return redirect('/patients');
+        return redirect()->route('patient.index')->with('success', 'Patiënt succesvol verwijderd.');
     }
 }

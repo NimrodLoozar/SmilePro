@@ -1,92 +1,47 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-200 leading-tight">
-                {{ __('Patients') }}
-            </h2>
-            <label class="flex items-center">
-                <span class="mr-2 text-gray-200">Show Data</span>
-                <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-                    <input type="checkbox" id="dataToggle"
-                        class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
-                        checked />
-                    <label for="dataToggle"
-                        class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
-                </div>
-            </label>
-        </div>
+        <h2 class="font-semibold text-xl text-gray-200 leading-tight">
+            {{ __('Patiënten') }}
+        </h2>
     </x-slot>
 
-    <div id="dataContainer" class="relative overflow-x-auto shadow-md sm:rounded-lg p-6">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <div class="overflow-x-auto p-6">
+        <table class="w-full text-sm text-left text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
-                    <th scope="col" class="px-6 py-3">
-                        id
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        number
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        medical file
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        isactive
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        comment
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        actions
-                    </th>
+                    <th class="px-6 py-3">Naam</th>
+                    <th class="px-6 py-3">Nummer</th>
+                    <th class="px-6 py-3">Medisch Dossier</th>
+                    <th class="px-6 py-3">Actief</th>
+                    <th class="px-6 py-3">Acties</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($patients as $patient)
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $patient->person->name }}
-                        </th>
+                    <tr class="bg-white border-b hover:bg-gray-50">
+                        <td class="px-6 py-4">{{ $patient->name }}</td>
+                        <td class="px-6 py-4">{{ $patient->number }}</td>
+                        <td class="px-6 py-4">{{ $patient->medical_file }}</td>
+                        <td class="px-6 py-4">{{ $patient->is_active ? 'Actief' : 'Inactief' }}</td>
                         <td class="px-6 py-4">
-                            {{ $patient->number }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ $patient->medical_file }}
-                        </td>
-                        <td class="px-6 py-4">
-                            @if ($patient->is_active)
-                                Active
-                            @else
-                                Inactive
-                            @endif
-                        </td>
-                        <td class="px-6 py-4 text-wrap">
-                            {{ $patient->comment }}
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            <a href="patients/{{ $patient->id }}/edit"
-                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            <form action="patients/{{ $patient->id }}" method="post">
+                            <a href="{{ route('patient.edit', $patient->id) }}" class="text-blue-600 hover:underline">Bewerken</a>
+                            <form action="{{ route('patients.destroy', $patient->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Weet je zeker dat je deze patiënt wilt verwijderen?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</button>
+                                <button type="submit" class="text-red-600 hover:underline">Verwijderen</button>
                             </form>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+
         <div class="pt-3">
             {{ $patients->links() }}
         </div>
     </div>
-    <div id="errorContainer" class="container mx-auto mt-8 hidden">
-        <p class="text-red-500">Unable to fetch data.</p>
-    </div>
 </x-app-layout>
+
 
 <script>
     document.getElementById('dataToggle').addEventListener('change', function() {
@@ -108,7 +63,7 @@
         border-color: #68D391;
     }
 
-    .toggle-checkbox:checked+.toggle-label {
+    .toggle-checkbox:checked + .toggle-label {
         background-color: #68D391;
     }
 </style>

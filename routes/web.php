@@ -20,7 +20,6 @@ Route::get('/', function () {
 
 Route::get('/welcome', function () {
     return view('welcome');
-});
 
 Route::resource('appointments', AppointmentController::class);
 Route::get('appointments/{appointment}/change-date', [AppointmentController::class, 'editDate'])->name('appointments.change-date');
@@ -36,12 +35,24 @@ Route::get('/banner', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    // Index route voor patiënten
     Route::get('/patient', [PatientController::class, 'index'])->name('patient.index');
+
+    // Route voor het aanmaken van een nieuwe patiënt
     Route::get('/patient/create', [PatientController::class, 'create'])->name('patient.create');
-    Route::get('/patient/{patient}', [PatientController::class, 'show'])->name('patient.show');
     Route::post('/patient', [PatientController::class, 'store'])->name('patient.store');
-    Route::post('/patient/update', [PatientController::class, 'update'])->name('patient.update');
+
+    // Route voor het bewerken van een patiënt
+    Route::get('/patient/{patient}/edit', [PatientController::class, 'edit'])->name('patient.edit');
+    Route::put('/patient/{patient}', [PatientController::class, 'update'])->name('patient.update');
+
+    // Route voor het verwijderen van een patiënt
     Route::delete('/patient/{patient}', [PatientController::class, 'destroy'])->name('patient.destroy');
+});
+
+
+
+
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

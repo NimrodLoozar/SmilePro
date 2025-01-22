@@ -56,6 +56,13 @@
                                     <button type="submit"
                                         class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                         Delete
+
+                                        <form method="POST" action="{{ route('patient.destroy', $patient->id) }}" onsubmit="return confirm('Weet je zeker dat je dit patiëntaccount wilt verwijderen?');">
+    @csrf
+    @method('DELETE')
+    <button type="submit">Verwijderen</button>
+</form>
+
                                     </button>
                                 </form>
                             </div>
