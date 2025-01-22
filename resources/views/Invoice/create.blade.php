@@ -24,26 +24,35 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <form action="{{ route('invoice.store') }}" method="POST" class="space-y-4">
                     @csrf
-                    <input type="hidden" name="number" id="number">
 
+                    <!-- factuurnummer -->
+                    <input type="hidden" name="number" id="number">
+                    
+                    <!-- patient naam -->
                     <div>
                         <label for="patient" class="block text-gray-700 text-sm font-bold mb-2">Patiënt:</label>
-                        <select name="patient" id="patient"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            required>
-                            @foreach($patients as $patient)
-                                <option value="{{ $patient->id }}">{{ $patient->name }}</option>
-                            @endforeach
-                        </select>
+                        <select name="patient" id="patient" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        @foreach($patients as $patient)
+                            <option value="{{ $patient->id }}" {{ old('patient') == $patient->id ? 'selected' : '' }}>
+                                {{ $patient->name }}
+                            </option>
+                        @endforeach
+                    </select>
+
                     </div>
 
+                    <!-- datum van behandeling -->
                     <div>
                         <label for="date" class="block text-gray-700 text-sm font-bold mb-2">Datum van behandeling:</label>
                         <input type="date" name="date" id="date"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            required>
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                            @error('date')
+                                <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                            @enderror
+
                     </div>
                     
+                    <!-- behandeling met kosten -->
                     <div class="flex flex-wrap gap-4">
                         <div class="w-full sm:w-1/2">
                             <label for="appointmentType" class="block text-gray-700 text-sm font-bold mb-2">Behandeling:</label>
@@ -73,19 +82,21 @@
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 required readonly>
                         </div>
+
+
                     </div>
 
                     <!-- meer -->
 
                     <div>
                         <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Status:</label>
-                        <select name="status" id="status"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            required>
+                        <select name="status" id="status" aria-label="Selecteer de status" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"                        >
                             <option value="in behandeling">in behandeling</option>
                             <option value="betaald">betaald</option>
                             <option value="onbetaald">onbetaald</option>
                         </select>
+
+                            
                     </div>
 
                     <div class="flex flex-wrap gap-4">
@@ -113,9 +124,9 @@
 
 
 <script>
-    document.getElementById('dataToggle').addEventListener('change', function() {
-        const dataContainer = document.getElementById('dataContainer');
-        const errorContainer = document.getElementById('errorContainer');
+   document.getElementById('dataToggle').addEventListener('change', function () {
+    document.getElementById('dataContainer').classList.toggle('hidden', !this.checked);
+    document.getElementById('errorContainer').classList.toggle('hidden', this.checked);
         if (this.checked) {
             dataContainer.classList.remove('hidden');
             errorContainer.classList.add('hidden');
@@ -124,6 +135,13 @@
             errorContainer.classList.remove('hidden');
         }
     });
+
+        document.getElementById('appointmentType').addEventListener('change', function () {
+        const selectedOption = this.options[this.selectedIndex];
+        const amount = selectedOption.getAttribute('data-amount');
+        document.getElementById('amount').value = amount ? amount.replace('.', '') : '';
+    });
+
 </script>
 
 <style>
