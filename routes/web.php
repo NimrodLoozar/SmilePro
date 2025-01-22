@@ -34,6 +34,8 @@ Route::get('/banner', function () {
     return view('banner');
 });
 
+//wnfndjnfjndfndnfdnfndfn
+
 Route::middleware(['auth'])->group(function () {
     // Index route voor patiënten
     Route::get('/patient', [PatientController::class, 'index'])->name('patient.index');
