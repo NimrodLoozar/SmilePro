@@ -39,11 +39,11 @@
                 </div>
                
 
-<!--                 
-                <div class="mb-4">
-                    <p><strong>Behandeling:</strong> {{ $appointment->name }}</p>
+                <!-- <div class="mb-4">
+                   
                 </div> -->
 
+                
 
                 <div class="mb-4">
                     <p><strong>Status:</strong> 

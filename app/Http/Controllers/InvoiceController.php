@@ -25,7 +25,6 @@ class InvoiceController extends Controller
         $invoice = Invoice::findOrFail($id);
         $patient = Patient::findOrFail($invoice->patient_id);
 
-        
         return view('Invoice.show', compact('invoice', 'patient'));
     }
 
