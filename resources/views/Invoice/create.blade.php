@@ -75,6 +75,8 @@
                         </div>
                     </div>
 
+                    <!-- meer -->
+
                     <div>
                         <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Status:</label>
                         <select name="status" id="status"
@@ -101,9 +103,9 @@
         </div>
 </div>
 
-<div id="errorContainer" class="py-12 hidden ml-64">
+<div id="errorContainer" class="py-8 hidden ml-32">
     <p class="text-red-500">
-        De factuur kan niet worden gegenereerd. Controleer de gegevens en probeer het opnieuw.
+        De factuur kan niet worden gegenereerd. Controleer de gegevens of probeer het opnieuw.
     </p>
 </div>
 
