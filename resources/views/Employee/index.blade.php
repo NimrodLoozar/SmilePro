@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-200 leading-tight">
-                {{ __('Employees') }}
+                {{ __('Werknemers') }}
             </h2>
             <label class="flex items-center">
                 <span class="mr-2 text-gray-200">Toon Data</span>

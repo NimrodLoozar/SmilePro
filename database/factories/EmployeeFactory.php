@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Models\User;
 use App\Models\Person;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class EmployeeFactory extends Factory
 {
@@ -29,13 +30,19 @@ class EmployeeFactory extends Factory
         //     'employee' => true,
         // ]);
 
+        $employeeType = $this->faker->randomElement(['Assistents', 'Tandarts', 'HulpDesk']);
+        $name = $this->faker->name();
+        if ($employeeType === 'Tandarts') {
+            $name = 'Dr. ' . $name;
+        }
+
         return [
             'user_id' => User::factory(), // Assumes a factory exists for the User model    
             'person_id' => Person::factory(), // Assumes a factory exists for the Person model
-            'name' => $this->faker->name(),
+            'name' => $name,
             'email' => $this->faker->unique()->safeEmail(),
             'number' => $this->faker->unique()->regexify('[A-Z]{3}-[0-9]{4}'),
-            'employee_type' => $this->faker->randomElement(['Assistents', 'Tandarts', 'HulpDesk']),
+            'employee_type' => $employeeType,
             'specialization' => $this->faker->optional()->jobTitle(),
             'availability' => $this->faker->optional()->text(100),
             'date_of_birth' => $this->faker->date(),

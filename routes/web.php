@@ -73,12 +73,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('invoice', InvoiceController::class);
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
-    Route::get('/invoice/{invoice}/create', [InvoiceController::class, 'create'])->name('invoice.create');
-    Route::get('/invoice/{invoice}/edit', [InvoiceController::class, 'edit'])->name('invoice.edit');
+    Route::get('/invoice/create', [InvoiceController::class, 'create'])->name('invoice.create');
     Route::get('/invoice/{invoice}', [InvoiceController::class, 'show'])->name('invoice.show');
     Route::post('/invoice', [InvoiceController::class, 'store'])->name('invoice.store');
-    Route::put('/invoice/{invoice}', [InvoiceController::class, 'update'])->name('invoice.update');
+    Route::post('/invoice/update', [InvoiceController::class, 'update'])->name('invoice.update');
     Route::delete('/invoice/{invoice}', [InvoiceController::class, 'destroy'])->name('invoice.destroy');
+    Route::get('/invoice/latest-number', [InvoiceController::class, 'latestNumber'])->name('invoice.latestNumber');
 
 });
 
