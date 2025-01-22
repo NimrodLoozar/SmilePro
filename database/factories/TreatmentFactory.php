@@ -19,10 +19,22 @@ class TreatmentFactory extends Factory
      */
     public function definition(): array
     {
+        $treatmentTypes = [
+            'General Checkup',
+            'Dental Cleaning',
+            'Eye Examination',
+            'Vaccination',
+            'Physical Therapy',
+            'Cardiology Consultation',
+            'Orthopedic Consultation',
+            'Psychological Consultation',
+            'Nutrition Consultation',
+            'Dermatology Consultation',
+        ];
         return [
             'patient_id' => Patient::factory(),
             'employee_id' => Employee::factory(),
-            'treatment_type' => $this->faker->word(),
+            'treatment_type' => $this->faker->randomElement($treatmentTypes),
             'description' => $this->faker->paragraph(),
             'cost' => $this->faker->randomFloat(2, 50, 500),
             'status' => $this->faker->randomElement(['scheduled', 'completed', 'cancelled']),
