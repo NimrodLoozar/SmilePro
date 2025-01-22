@@ -4,23 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Patient;
+use App\Models\Treatment;
 
 class Invoice extends Model
 {
     use HasFactory;
 
-    // protected $table = 'invoice';
+    protected $table = 'invoices';
 
-    protected $fillable = [
-        'patient_id',
-        'treatment_id',
-        'number',
-        'date',
-        'amount',
-        'status',
-        'is_active',
-        'comment',
-    ];
+    protected $guarded = [];
 
     public function patient()
     {
