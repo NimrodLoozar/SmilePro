@@ -22,8 +22,6 @@ class TreatmentFactory extends Factory
         return [
             'patient_id' => Patient::factory(),
             'employee_id' => Employee::factory(),
-            'date' => $this->faker->date(),
-            'time' => $this->faker->time(),
             'treatment_type' => $this->faker->word(),
             'description' => $this->faker->paragraph(),
             'cost' => $this->faker->randomFloat(2, 50, 500),

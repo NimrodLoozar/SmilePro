@@ -180,8 +180,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('patient_id')->constrained()->cascadeOnDelete();
             $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
-            $table->date('date');
-            $table->time('time');
             $table->string('treatment_type');
             $table->text('description');
             $table->decimal('cost', 8, 2);
