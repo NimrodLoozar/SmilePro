@@ -4,7 +4,7 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 md:flex">
+                <div class="hidden md:flex sm:items-center sm:ms-6">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Home') }}
                     </x-nav-link>
@@ -14,38 +14,58 @@
                     <x-nav-link :href="route('appointments.index')" :active="request()->routeIs('appointments.index')">
                         {{ __('Appointments') }}
                     </x-nav-link>
+                </div>
+            </div>
+
+            <!-- Settings Dropdown -->
+            <div class="hidden md:flex sm:items-center sm:ms-6">
+                <div class="mr-6">
                     @if (Auth::check() && Auth::user()->role === 'admin')
-                        <x-nav-link :href="route('messages.admin.index')" :active="request()->routeIs('messages.admin.index')">
-                            {{ __('Messages') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                            {{ __('Admin Dashboard') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
-                            {{ __('Accounten Overzicht') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('admin.Employee')" :active="request()->routeIs('admin.Employee')">
-                            {{ __('Employee') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('patient.index')" :active="request()->routeIs('patient.index')">
-                            {{ __('Patient') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('schedules.index')" :active="request()->routeIs('schedules.index')">
-                            {{ __('Schedules') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('invoice.index')" :active="request()->routeIs('invoice.index')">
-                            {{ __('Invoice') }}
-                        </x-nav-link>
+                        <x-dropdown align="left" width="48">
+                            <x-slot name="trigger">
+                                <button
+                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                                    <div>{{ __('Admin') }}</div>
+                                    <div class="ms-1">
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </button>
+                            </x-slot>
+                            <x-slot name="content">
+                                <x-dropdown-link :href="route('messages.admin.index')" :active="request()->routeIs('messages.admin.index')">
+                                    {{ __('Messages') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                                    {{ __('Admin Dashboard') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
+                                    {{ __('Accounten Overzicht') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('admin.Employee')" :active="request()->routeIs('admin.Employee')">
+                                    {{ __('Employee') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('patient.index')" :active="request()->routeIs('patient.index')">
+                                    {{ __('Patient') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('schedules.index')" :active="request()->routeIs('schedules.index')">
+                                    {{ __('Schedules') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('invoice.index')" :active="request()->routeIs('invoice.index')">
+                                    {{ __('Invoice') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
                     @elseif (Auth::check() && Auth::user()->role === 'dentist')
                         <x-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.index')">
                             {{ __('Messages') }}
                         </x-nav-link>
                     @endif
                 </div>
-            </div>
-
-            <!-- Settings Dropdown -->
-            <div class="hidden md:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
@@ -55,9 +75,9 @@
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 20 20">
-                                    <path fill-role="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clip-role="evenodd" />
+                                    <path fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a 1 1 0 01-1.414 0l-4-4a 1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
                                 </svg>
                             </div>
                         </button>
