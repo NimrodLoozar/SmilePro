@@ -33,7 +33,6 @@
         <table class="min-w-full bg-gray-800 border border-gray-700 rounded-lg shadow-sm">
             <thead>
                 <tr class="bg-gray-700">
-                    <th class="py-2 px-4 text-left text-gray-200">Naam</th>
                     <th class="py-2 px-4 text-left text-gray-200">Patient</th>
                     <th class="py-2 px-4 text-left text-gray-200">Medewerker</th>
                     <th class="py-2 px-4 text-left text-gray-200">Type</th>
@@ -41,7 +40,6 @@
                     <th class="py-2 px-4 text-left text-gray-200">Kosten</th>
                     <th class="py-2 px-4 text-left text-gray-200">Status</th>
                     <th class="py-2 px-4 text-left text-gray-200">Actief</th>
-                    <th class="py-2 px-4 text-left text-gray-200">Datum</th>
                     <th class="py-2 px-4 text-left text-gray-200">Opmerking</th>
                     <th class="py-2 px-4 text-left text-gray-200">Acties</th>
                 </tr>
@@ -49,7 +47,6 @@
             <tbody>
                 @foreach ($treatments as $treatment)
                     <tr class="border-t border-gray-700 hover:bg-gray-700">
-                        <td class="py-2 px-4 text-gray-300">{{ $treatment->name }}</td>
                         <td class="py-2 px-4 text-gray-300">{{ $treatment->patient->name ?? $treatment->patient_id }}</td>
                         <td class="py-2 px-4 text-gray-300">{{ $treatment->employee->name ?? $treatment->employee_id }}</td>
                         <td class="py-2 px-4 text-gray-300">{{ $treatment->treatment_type }}</td>
@@ -61,7 +58,6 @@
                                 {{ $treatment->is_active ? 'Actief' : 'Inactief' }}
                             </span>
                         </td>
-                        <td class="py-2 px-4 text-gray-300">{{ date('d-m-Y', strtotime($treatment->date)) }}</td>
                         <td class="py-2 px-4 text-gray-300">{{ Str::limit($treatment->comment, 20) }}</td>
                         <td class="py-2 px-4">
                             <div class="flex space-x-2">
