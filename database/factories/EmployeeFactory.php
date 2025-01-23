@@ -43,13 +43,9 @@ class EmployeeFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'number' => $this->faker->unique()->regexify('[A-Z]{3}-[0-9]{4}'),
             'employee_type' => $employeeType,
-            'specialization' => $this->faker->optional()->jobTitle(),
+            'specialization' => $employeeType === 'Tandarts' ? $this->faker->randomElement(['Orthodontist', 'Parodontoloog', 'Endodontoloog', 'Prosthodontist']) : $this->faker->optional()->jobTitle(),
             'availability' => $this->faker->optional()->text(100),
             'date_of_birth' => $this->faker->date(),
-            'is_active' => $this->faker->boolean(),
-            'comment' => $this->faker->optional()->sentence(),
-            'created_at' => now(),
-            'updated_at' => now(),
         ];
     }
 }
