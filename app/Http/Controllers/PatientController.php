@@ -64,4 +64,4 @@ class PatientController extends Controller
         $patient->delete();
         return redirect('/patients');
     }
-}  
+}

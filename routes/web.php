@@ -1,3 +1,4 @@
+
 <?php
 
 use App\Http\Controllers\AppointmentController;
@@ -21,6 +22,7 @@ Route::get('/', function () {
 
 Route::get('/welcome', function () {
     return view('welcome');
+});
 
 Route::resource('appointments', AppointmentController::class);
 Route::get('appointments/{appointment}/change-date', [AppointmentController::class, 'editDate'])->name('appointments.change-date');
@@ -40,10 +42,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/patient/create', [PatientController::class, 'create'])->name('patient.create');
     Route::get('/patient/{patient}', [PatientController::class, 'show'])->name('patient.show');
     Route::post('/patient', [PatientController::class, 'store'])->name('patient.store');
+    Route::get('/patient/{patient}/edit', [PatientController::class, 'edit'])->name('patient.edit');
     Route::post('/patient/update', [PatientController::class, 'update'])->name('patient.update');
     Route::delete('/patient/{patient}', [PatientController::class, 'destroy'])->name('patient.destroy');
-
-
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -61,12 +62,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('invoice', InvoiceController::class);
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
-    Route::get('/invoice/create', [InvoiceController::class, 'create'])->name('invoice.create');
+    Route::get('/invoice/{invoice}/create', [InvoiceController::class, 'create'])->name('invoice.create');
+    Route::get('/invoice/{invoice}/edit', [InvoiceController::class, 'edit'])->name('invoice.edit');
     Route::get('/invoice/{invoice}', [InvoiceController::class, 'show'])->name('invoice.show');
     Route::post('/invoice', [InvoiceController::class, 'store'])->name('invoice.store');
-    Route::post('/invoice/update', [InvoiceController::class, 'update'])->name('invoice.update');
+    Route::put('/invoice/{invoice}', [InvoiceController::class, 'update'])->name('invoice.update');
     Route::delete('/invoice/{invoice}', [InvoiceController::class, 'destroy'])->name('invoice.destroy');
-    Route::get('/invoice/latest-number', [InvoiceController::class, 'latestNumber'])->name('invoice.latestNumber');
 
 });
 
@@ -77,10 +78,10 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 
     // Employee
     Route::get('/admin/Employee', [EmployeeController::class, 'index'])->name('admin.Employee');
-    Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');
-    Route::post('/employee', [EmployeeController::class, 'store'])->name('employee.store');
+    Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
+    Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
     Route::middleware(['auth'])->group(function () {
-        Route::resource('employee', EmployeeController::class);
+        Route::resource('employees', EmployeeController::class);
         Route::put('/employee/{id}', [EmployeeController::class, 'update'])->name('employee.update');
     });
 
@@ -119,4 +120,3 @@ Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.up
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 require __DIR__ . '/auth.php';
-});
