@@ -5,6 +5,24 @@
         </h2>
     </x-slot>
 
+    <style>
+        @media (max-width: 640px) {
+            .grid-container {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        @media (min-width: 641px) {
+            .grid-container {
+                display: grid;
+                grid-template-columns: 1fr 2fr;
+                gap: 1rem;
+            }
+        }
+    </style>
+
     <div class="container mx-auto mt-8">
         <div class="flex justify-between mb-6">
             <a href="{{ route('schedules.create') }}"
@@ -12,8 +30,8 @@
                 Toevoegen</a>
         </div>
 
-        <div class="flex">
-            <div class="w-1/4 pr-4">
+        <div class="grid-container">
+            <div class="w-full pr-4">
                 <p class="text-white mb-4">Selecteer een van de onderstaande dokters om hun beschikbaarheid te bekijken:
                 </p>
                 <ul class="list-disc pl-5 space-y-4">
@@ -31,7 +49,7 @@
                 </div>
             </div>
 
-            <div class="w-3/4">
+            <div class="w-full">
                 <div class="py-12">
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div class="bg-white p-6 rounded-lg shadow-md">
