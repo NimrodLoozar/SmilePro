@@ -21,11 +21,11 @@
                 <!-- lijst van facturen -->
                 <div class="w-full">
                     <div class="bg-white shadow-md rounded my-6 overflow-x-auto">
-                        <table class="min-w-max w-full table-auto">
-                            @if ($invoices->count() > 0)
+                        @if ($invoices->count() > 0)
+                            <table class="min-w-max w-full table-auto">
                                 <thead>
                                     <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                                        <th class="py-3 px-6 text-left">Factuur #</th>
+                                        <th class="py-3 px-6 text-left">Factuurnummer</th>
                                         <th class="py-3 px-6 text-left">Datum</th>
                                         <th class="py-3 px-6 text-center">Bedrag</th>
                                         <th class="py-3 px-6 text-center">Status</th>
@@ -61,14 +61,14 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                            @else
-                                <tbody class="text-gray-600 text-sm font-light">
-                                    <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                        <td class="bg-red-500 text-white p-4 rounded mb-4" colspan="5">Geen facturen gevonden. Probeer later opnieuw.</td>
-                                    </tr>
-                                </tbody>
-                            @endif
-                        </table>
+                            </table>
+                        @else
+                            <tbody class="text-gray-600 text-sm font-light">
+                                <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                    <td class="bg-red-500 text-white p-4 rounded mb-4" colspan="5">Geen facturen gevonden. Probeer later opnieuw.</td>
+                                </tr>
+                            </tbody>
+                        @endif
                     </div>
                 </div>
                 <!-- Einde lijst van facturen -->
@@ -76,7 +76,6 @@
             <div class="py-4">
                 {{ $invoices->links() }}
             </div>
-
         </div>
     </div>
 </x-app-layout>
