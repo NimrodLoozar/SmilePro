@@ -21,66 +21,66 @@
 
     <div id="dataContainer" class="py-12">
         <!-- Edit view form -->
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <form action="{{ route('invoice.update', $invoice->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="px-4 py-5 bg-white sm:p-6">
-                        <div class="grid grid-cols-6 gap-6">
-                            
-                        <!-- factuurnnummer -->
-                        <input type="hidden" name="number" id="number" value="{{ $invoice->number }}">
+            <form action="{{ route('invoice.update', $invoice->id) }}" method="POST" class="space-y-6">
+                @csrf
+                @method('PUT')
 
+                <!-- Factuurnummer (readonly) -->
+                <div class="mb-4">
+                    <label for="number" class="block text-sm font-medium text-gray-700">Factuurnummer</label>
+                    <input type="text" name="number" id="number" value="{{ old('number', $invoice->number) }}" 
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" readonly>
+                </div>
 
+                <!-- Datum -->
+                <div class="mb-4">
+                    <label for="date" class="block text-sm font-medium text-gray-700">Datum</label>
+                    <input type="date" name="date" id="date" value="{{ old('date', $invoice->date) }}" 
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                </div>
 
-                        <!-- datum van behandeling -->
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="date" class="block text-sm font-medium text-gray-700">Datum van behandeling</label>
-                            <input type="date" name="date" id="date" value="{{ old('date', $invoice->date) }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                            @error('date')
-                                <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                            @enderror
-                        </div>
+                <!-- Behandeling -->
+                <div class="mb-4">
+                    <label for="treatment_id" class="block text-sm font-medium text-gray-700">Behandeling</label>
+                    <select name="treatment_id" id="treatment_id" 
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        @foreach ($treatments as $treatment)
+                            <option value="{{ $treatment->id }}" 
+                                {{ old('treatment_id', $invoice->treatment_id) == $treatment->id ? 'selected' : '' }}>
+                                {{ $treatment->treatment_type }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="appointmentType" class="block text-sm font-medium text-gray-700">Behandeling</label>
-                            <select id="appointmentType" name="appointmentType" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                <option value="Controle" data-amount="50" {{ old('appointmentType', $invoice->appointmentType) == 'Controle' ? 'selected' : '' }}</option>
-                                <!-- Andere opties hier -->
-                            </select>
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="amount" class="block text-sm font-medium text-gray-700">Bedrag (€)</label>
-                            <input type="number" id="amount" name="amount" value="{{ old('amount', $invoice->amount) }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" readonly>
-                        </div>
+                <!-- Bedrag (readonly) -->
+                <div class="mb-4">
+                    <label for="amount" class="block text-sm font-medium text-gray-700">Bedrag (€)</label>
+                    <input type="text" name="amount" id="amount" value="{{ old('amount', $invoice->amount) }}" 
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" readonly>
+                </div>
 
+                <!-- Status -->
+                <div class="mb-4">
+                    <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                    <select name="status" id="status" 
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        <option value="betaald" {{ old('status', $invoice->status) == 'betaald' ? 'selected' : '' }}>Betaald</option>
+                        <option value="onbetaald" {{ old('status', $invoice->status) == 'onbetaald' ? 'selected' : '' }}>Onbetaald</option>
+                        <option value="in behandeling" {{ old('status', $invoice->status) == 'in behandeling' ? 'selected' : '' }}>In behandeling</option>
+                    </select>
+                </div>
 
-                            
-                            
-
-                            <!-- status -->
-                            <div class="col-span-6 sm:col-span-3">
-                                <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-                                <select id="status" name="status" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                    <option value="in behandeling" {{ old('status', $invoice->status) == 'in behandeling' ? 'selected' : '' }}>in behandeling</option>
-                                    <option value="betaald" {{ old('status', $invoice->status) == 'betaald' ? 'selected' : '' }}>betaald</option>
-                                    <option value="onbetaald" {{ old('status', $invoice->status) == 'onbetaald' ? 'selected' : '' }}>onbetaald</option>
-                                </select>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                <!-- Actieknoppen -->
+                <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                     <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         Opslaan
                     </button>
                     <a href="{{ route('invoice.index') }}" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                         Annuleren
                     </a>
-
-                    </div>
-                </form>
+                </div>
+            </form>
             </div>
         </div>
         <!-- End of edit view form -->
@@ -108,6 +108,12 @@
         const selectedOption = this.options[this.selectedIndex];
         const amount = selectedOption.getAttribute('data-amount');
         document.getElementById('amount').value = amount ? amount.replace('.', '') : '';
+    });
+
+    document.getElementById('treatment_id').addEventListener('change', function () {
+        const selectedTreatment = this.options[this.selectedIndex];
+        const treatmentPrice = selectedTreatment.getAttribute('data-price'); // Zorg ervoor dat je 'data-price' toevoegt aan de behandelingsopties in de controller.
+        document.getElementById('amount').value = treatmentPrice || 0;
     });
 
 </script>
