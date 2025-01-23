@@ -137,7 +137,7 @@
                     {{ __('Admin Dashboard') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
-                    {{ __('Accounten Overzicht') }}
+                    {{ __('Gebruikers') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('admin.Employee')" :active="request()->routeIs('admin.Employee')">
                     {{ __('Employee') }}
