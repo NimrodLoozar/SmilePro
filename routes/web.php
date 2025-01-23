@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\RegistrationLinkController;
 
 Route::get('/', function () {
     return view('index');
@@ -66,7 +67,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/invoice/update', [InvoiceController::class, 'update'])->name('invoice.update');
     Route::delete('/invoice/{invoice}', [InvoiceController::class, 'destroy'])->name('invoice.destroy');
     Route::get('/invoice/latest-number', [InvoiceController::class, 'latestNumber'])->name('invoice.latestNumber');
-
 });
 
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
@@ -76,12 +76,18 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 
     // Employee
     Route::get('/admin/Employee', [EmployeeController::class, 'index'])->name('admin.Employee');
-    Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
-    Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
+    Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');
+    Route::post('/employee', [EmployeeController::class, 'store'])->name('employee.store');
     Route::middleware(['auth'])->group(function () {
-        Route::resource('employees', EmployeeController::class);
+        Route::resource('employee', EmployeeController::class);
         Route::put('/employee/{id}', [EmployeeController::class, 'update'])->name('employee.update');
     });
+
+    Route::get('/admin/employees/create', [EmployeeController::class, 'create'])->name('admin.employees.create');
+    Route::post('/admin/employees', [EmployeeController::class, 'store'])->name('admin.employees.store');
+    Route::post('/admin/employees/generate-link', [RegistrationLinkController::class, 'generate'])->name('admin.employees.generate-link');
+    Route::get('/register/{token}', [RegistrationLinkController::class, 'registerForm'])->name('register.form');
+    Route::post('/register/{token}', [RegistrationLinkController::class, 'register'])->name('register');
 
     Route::controller(TreatmentController::class)->group(function () {
         Route::get('/treatments', 'index'); // List treatments with filters
