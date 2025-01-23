@@ -29,10 +29,13 @@ class InvoiceController extends Controller
     }
 
     public function create()
-    {
-        $patients = Patient::all();
-        return view('Invoice.create', compact('patients'));
-    }
+        {
+            $patients = Patient::all();
+            $treatments = Treatment::all();
+        
+            return view('invoice.create', compact('patients', 'treatments'));
+        }
+    
 
     public function store(Request $request)
     {
