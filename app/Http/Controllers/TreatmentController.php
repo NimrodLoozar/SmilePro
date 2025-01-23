@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Treatment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 class TreatmentController extends Controller
 {
@@ -25,11 +24,6 @@ class TreatmentController extends Controller
             $query->active();
         }
 
-        // Filter upcoming treatments
-        if ($request->has('upcoming')) {
-            $query->upcoming();
-        }
-
         $treatments = $query->paginate(10);
 
         return response()->json($treatments);
@@ -43,8 +37,6 @@ class TreatmentController extends Controller
         $validated = $request->validate([
             'patient_id' => 'required|exists:patients,id',
             'employee_id' => 'required|exists:employees,id',
-            'date' => 'required|date',
-            'time' => 'required|date_format:H:i',
             'treatment_type' => 'required|string|max:255',
             'description' => 'nullable|string',
             'cost' => 'required|numeric|min:0',
@@ -74,8 +66,6 @@ class TreatmentController extends Controller
         $validated = $request->validate([
             'patient_id' => 'sometimes|exists:patients,id',
             'employee_id' => 'sometimes|exists:employees,id',
-            'date' => 'sometimes|date',
-            'time' => 'sometimes|date_format:H:i',
             'treatment_type' => 'sometimes|string|max:255',
             'description' => 'nullable|string',
             'cost' => 'sometimes|numeric|min:0',
@@ -97,16 +87,6 @@ class TreatmentController extends Controller
         $treatment->delete();
 
         return response()->json(['message' => 'Treatment deleted successfully.'], 200);
-    }
-
-    /**
-     * List all upcoming treatments.
-     */
-    public function upcoming()
-    {
-        $treatments = Treatment::upcoming()->get();
-
-        return response()->json($treatments);
     }
 
     /**

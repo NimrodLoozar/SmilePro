@@ -22,16 +22,16 @@ class AppointmentFactory extends Factory
     public function definition()
     {
         $appointmentTypes = [
-            'General Checkup',
-            'Dental Cleaning',
-            'Eye Examination',
-            'Vaccination',
-            'Physical Therapy',
-            'Cardiology Consultation',
-            'Orthopedic Consultation',
-            'Psychological Consultation',
-            'Nutrition Consultation',
-            'Dermatology Consultation',
+            'Routine Dental Checkup',
+            'Professional Teeth Cleaning',
+            'Dental X-rays',
+            'Filling/Cavity Treatment',
+            'Root Canal Therapy',
+            'Crown/Bridge Work',
+            'Dental Implant Consultation',
+            'Emergency Dental Care',
+            'Teeth Whitening',
+            'Periodontal Treatment',
         ];
 
         // Zorg dat de datum minimaal 24 uur in de toekomst ligt

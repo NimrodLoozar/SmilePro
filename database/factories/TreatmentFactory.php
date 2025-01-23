@@ -19,12 +19,22 @@ class TreatmentFactory extends Factory
      */
     public function definition(): array
     {
+        $treatmentTypes = [
+            'Routine Dental Checkup',
+            'Professional Teeth Cleaning',
+            'Dental X-rays',
+            'Filling/Cavity Treatment',
+            'Root Canal Therapy',
+            'Crown/Bridge Work',
+            'Dental Implant Consultation',
+            'Emergency Dental Care',
+            'Teeth Whitening',
+            'Periodontal Treatment',
+        ];
         return [
             'patient_id' => Patient::factory(),
             'employee_id' => Employee::factory(),
-            'date' => $this->faker->date(),
-            'time' => $this->faker->time(),
-            'treatment_type' => $this->faker->word(),
+            'treatment_type' => $this->faker->randomElement($treatmentTypes),
             'description' => $this->faker->paragraph(),
             'cost' => $this->faker->randomFloat(2, 50, 500),
             'status' => $this->faker->randomElement(['scheduled', 'completed', 'cancelled']),
