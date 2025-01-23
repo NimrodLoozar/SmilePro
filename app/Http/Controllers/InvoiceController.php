@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use App\Models\Patient;
-use App\Models\Appointment;
+use App\Models\Treatment;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -29,28 +29,34 @@ class InvoiceController extends Controller
     }
 
     public function create()
-    {
-        $patients = Patient::all();
-        return view('Invoice.create', compact('patients'));
-    }
+        {
+            $patients = Patient::all();
+            $treatments = Treatment::all();
+        
+            return view('invoice.create', compact('patients', 'treatments'));
+        }
+    
 
     public function store(Request $request)
     {
         $request->validate([
-            'number' => 'required|unique:invoices,number',
+            'number' => 'required|unique:invoice,number',
             'date' => 'required',
             'amount' => 'required',
         ]);
 
         Invoice::create($request->all());
-        return redirect()->route('invoices.index');
+        return redirect()->route('invoice.index');
     }
 
     public function edit($id)
     {
         $invoice = Invoice::findOrFail($id);
-        return view('Invoice.edit', compact('invoice'));
+        $treatments = Treatment::all();
+
+        return view('invoice.edit', compact('invoice', 'treatments'));
     }
+
 
     public function update(Request $request, $id)
     {

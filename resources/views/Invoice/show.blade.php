@@ -26,7 +26,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-md rounded p-6">
                 <div class="mb-6">
-                    <h3 class="text-lg font-semibold">Factuurnummer: #{{ $invoice->number }}</h3>
+                    <h3 class="text-lg font-semibold underline">Factuurnummer: #{{ $invoice->number }}</h3>
                 </div>
                 <div class="mb-2">
                     <p><strong>Datum:</strong> {{ $invoice->date }}</p>
@@ -34,14 +34,22 @@
                 <div class="mb-2">
                     <p><strong>Patient:</strong> {{ $patient->person->name }}</p>
                 </div>
-                <div class="mb-2">
+
+                <div class="mb-10">
+                    <p><strong>Behandeling:</strong> {{ $invoice->treatment->treatment_type ?? 'Onbekend' }}</p>
+                </div>
+
+                <div class="mb-4">
+                    <p><strong>Medische Dossier:</strong> {{ $invoice->treatment->description }}</p>
+                </div>
+
+                <div class="mb-4">
                     <p><strong>Bedrag:</strong> € {{ $invoice->amount }}</p>
                 </div>
                
 
-                <!-- <div class="mb-4">
-                   
-                </div> -->
+              
+
 
                 
 

@@ -27,7 +27,7 @@
 
                     <!-- factuurnummer -->
                     <input type="hidden" name="number" id="number">
-                    
+                                        
                     <!-- patient naam -->
                     <div>
                         <label for="patient" class="block text-gray-700 text-sm font-bold mb-2">Patiënt:</label>
@@ -52,42 +52,31 @@
 
                     </div>
                     
-                    <!-- behandeling met kosten -->
+                     <!-- Behandeling met kosten -->
                     <div class="flex flex-wrap gap-4">
                         <div class="w-full sm:w-1/2">
-                            <label for="appointmentType" class="block text-gray-700 text-sm font-bold mb-2">Behandeling:</label>
-                            <select name="appointmentType" id="appointmentType"
+                            <label for="treatment_id" class="block text-gray-700 text-sm font-bold mb-2">Behandeling:</label>
+                            <select name="treatment_id" id="treatment_id"
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 required>
-                                <option value="Controle" data-amount="50">Controle</option>
-                                <option value="Wortelkanaalbehandeling" data-amount="200">Wortelkanaalbehandeling</option>
-                                <option value="Vulling" data-amount="75">Vulling</option>
-                                <option value="Kroon" data-amount="500">Kroon</option>
-                                <option value="Brug" data-amount="700">Brug</option>
-                                <option value="Tanden bleken" data-amount="150">Tanden bleken</option>
-                                <option value="Tandsteen verwijderen" data-amount="100">Tandsteen verwijderen</option>
-                                <option value="Extractie" data-amount="80">Extractie</option>
-                                <option value="Implantaat" data-amount="1.200">Implantaat</option>
-                                <option value="Beugel" data-amount="1.000">Beugel</option>
-                                <option value="Gebitsreiniging" data-amount="60">Gebitsreiniging</option>
-                                <option value="Fluoridebehandeling" data-amount="40">Fluoridebehandeling</option>
-                                <option value="Röntgenfoto" data-amount="30">Röntgenfoto</option>
-                                <option value="Prothese" data-amount="800">Prothese</option>
-                                <option value="Tandvleesbehandeling" data-amount="90">Tandvleesbehandeling</option>
+                                @foreach ($treatments as $treatment)
+                                    <option value="{{ $treatment->id }}" data-price="{{ $treatment->price }}" 
+                                        {{ old('treatment_id') == $treatment->id ? 'selected' : '' }}>
+                                        {{ $treatment->treatment_type }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="w-full sm:w-1/2">
                             <label for="amount" class="block text-gray-700 text-sm font-bold mb-2">Bedrag: €</label>
                             <input type="number" name="amount" id="amount"
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                required readonly>
+                                readonly required>
                         </div>
-
-
                     </div>
+                    
 
-                    <!-- meer -->
-
+                    <!-- status -->
                     <div>
                         <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Status:</label>
                         <select name="status" id="status" aria-label="Selecteer de status" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"                        >
@@ -124,22 +113,31 @@
 
 
 <script>
+   // Toggle visibility of data container
    document.getElementById('dataToggle').addEventListener('change', function () {
-    document.getElementById('dataContainer').classList.toggle('hidden', !this.checked);
-    document.getElementById('errorContainer').classList.toggle('hidden', this.checked);
-        if (this.checked) {
-            dataContainer.classList.remove('hidden');
-            errorContainer.classList.add('hidden');
-        } else {
-            dataContainer.classList.add('hidden');
-            errorContainer.classList.remove('hidden');
-        }
+        const dataContainer = document.getElementById('dataContainer');
+        const errorContainer = document.getElementById('errorContainer');
+        dataContainer.classList.toggle('hidden', !this.checked);
+        errorContainer.classList.toggle('hidden', this.checked);
     });
 
-        document.getElementById('appointmentType').addEventListener('change', function () {
-        const selectedOption = this.options[this.selectedIndex];
-        const amount = selectedOption.getAttribute('data-amount');
-        document.getElementById('amount').value = amount ? amount.replace('.', '') : '';
+      // Zorg ervoor dat het script wordt uitgevoerd zodra de pagina geladen is
+    document.addEventListener('DOMContentLoaded', function() {
+        const treatmentSelect = document.getElementById('treatment_id');
+        const amountInput = document.getElementById('amount');
+
+        // Functie om het bedrag bij te werken
+        const updateAmount = () => {
+            const selectedOption = treatmentSelect.options[treatmentSelect.selectedIndex];
+            const price = selectedOption.dataset.price;
+            amountInput.value = price ? price : '';
+        };
+
+        // Event listener voor verandering van selectie
+        treatmentSelect.addEventListener('change', updateAmount);
+
+        // Initialiseer bedrag bij laden van de pagina
+        updateAmount();
     });
 
 </script>

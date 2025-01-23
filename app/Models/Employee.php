@@ -21,8 +21,6 @@ class Employee extends Model
         'specialization',
         'availability',
         'date_of_birth',
-        'is_active',
-        'comment'
     ];
 
     protected $casts = [

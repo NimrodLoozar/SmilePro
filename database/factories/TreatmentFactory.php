@@ -21,13 +21,28 @@ class TreatmentFactory extends Factory
      */
     public function definition(): array
     {
+        $treatmentTypes = [
+            'Controle',
+            'Wortelkanaalbehandeling',
+            'Vulling',
+            'Kroon',
+            'Brug',
+            'Tanden bleken',
+            'Tandsteen verwijderen',
+            'Extractie',
+            'Implantaat',
+            'Beugel',
+            'Gebitsreiniging',
+            'Fluoridebehandeling',
+            'Röntgenfoto',
+            'Prothese',
+            'Tandvleesbehandeling'
+        ];
         return [
             'patient_id' => Patient::factory(),
             'employee_id' => Employee::factory(),
-            'treatment_type' => $this->faker->word(),
+            'treatment_type' => $this->faker->randomElement($treatmentTypes),
             'description' => $this->faker->paragraph(),
-            'cost' => $this->faker->randomFloat(2, 50, 500),
-            'status' => $this->faker->randomElement(['gepland', 'behandeld', 'geannuleerd']),
         ];
     }
 }

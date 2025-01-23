@@ -12,16 +12,21 @@ class ScheduleController extends Controller
     // Display a listing of the resource. view
     public function index()
     {
-        $users = User::with('schedules')->has('schedules')->get();
+        $users = User::with(['schedules' => function ($query) {
+            $query->orderBy('start_time');
+        }])->has('schedules')->paginate(10);
+
         return view('schedules.index', compact('users'));
     }
 
     // Show the form for creating a new resource. create
     public function create()
     {
-        $roles = User::whereIn('role', ['admin', 'dentist', 'employee'])
-        ->get()
-        ->groupBy('role');
+        $roles = User::whereIn('role', ['admin', 'dentist', 'Tandarts'])
+            ->get()
+            ->groupBy(function ($user) {
+                return $user->role === 'dentist' ? 'Dentist' : $user->role;
+            });
         $employees = Employee::all(); // Fetch all employees
 
         return view('schedules.create', compact('roles', 'employees'));
@@ -33,10 +38,10 @@ class ScheduleController extends Controller
     {
         $request->validate([
             'user_id' => 'required|exists:users,id',
-            'employee_id' => 'required|exists:employees,id', // Add validation for employee_id
-            'description' => 'required',
-            'start_time' => 'required|date',
-            'end_time' => 'required|date',
+            'employee_id' => 'required|exists:employees,id',
+            'description' => 'nullable',
+            'start_time' => 'required|date|after:now',
+            'end_time' => 'required|date|after:start_time|after:' . now()->addHours(4),
         ]);
 
         $user = User::find($request->user_id);
@@ -69,8 +74,8 @@ class ScheduleController extends Controller
     {
         $request->validate([
             'description' => 'required',
-            'start_time' => 'required|date',
-            'end_time' => 'required|date',
+            'start_time' => 'required|date|after:now',
+            'end_time' => 'required|date|after:start_time|after:' . now()->addHours(4),
         ]);
 
         $schedule = Schedule::find($id);
