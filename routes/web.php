@@ -76,10 +76,10 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 
     // Employee
     Route::get('/admin/Employee', [EmployeeController::class, 'index'])->name('admin.Employee');
-    Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
-    Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
+    Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');
+    Route::post('/employee', [EmployeeController::class, 'store'])->name('employee.store');
     Route::middleware(['auth'])->group(function () {
-        Route::resource('employees', EmployeeController::class);
+        Route::resource('employee', EmployeeController::class);
         Route::put('/employee/{id}', [EmployeeController::class, 'update'])->name('employee.update');
     });
 
