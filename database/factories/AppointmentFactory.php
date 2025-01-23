@@ -6,6 +6,7 @@ use App\Models\Patient;
 use App\Models\Employee;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Appointment>
@@ -22,16 +23,21 @@ class AppointmentFactory extends Factory
     public function definition()
     {
         $appointmentTypes = [
-            'Routine Dental Checkup',
-            'Professional Teeth Cleaning',
-            'Dental X-rays',
-            'Filling/Cavity Treatment',
-            'Root Canal Therapy',
-            'Crown/Bridge Work',
-            'Dental Implant Consultation',
-            'Emergency Dental Care',
-            'Teeth Whitening',
-            'Periodontal Treatment',
+            'Controle',
+            'Wortelkanaalbehandeling',
+            'Vulling',
+            'Kroon',
+            'Brug',
+            'Tanden bleken',
+            'Tandsteen verwijderen',
+            'Extractie',
+            'Implantaat',
+            'Beugel',
+            'Gebitsreiniging',
+            'Fluoridebehandeling',
+            'Röntgenfoto',
+            'Prothese',
+            'Tandvleesbehandeling'
         ];
 
         // Zorg dat de datum minimaal 24 uur in de toekomst ligt
@@ -44,12 +50,8 @@ class AppointmentFactory extends Factory
             'employee_id' => Employee::factory(), // Ensure EmployeeFactory exists
             'date' => $appointmentDate->format('Y-m-d'),
             'time' => $appointmentDate->format('H:i:s'),
-            'status' => $this->faker->randomElement(['scheduled', 'completed', 'cancelled']),
-            'is_active' => $this->faker->boolean(),
-            'comment' => $this->faker->optional()->sentence(),
-            'name' => $this->faker->randomElement($appointmentTypes), // Add the name field
-            'created_at' => now(),
-            'updated_at' => now(),
+            'status' => $this->faker->randomElement(['gepland', 'voltooid', 'geannuleerd']),
+            'name' => $this->faker->randomElement($appointmentTypes),
         ];
     }
 }

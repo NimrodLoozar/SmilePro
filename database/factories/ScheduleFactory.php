@@ -7,6 +7,8 @@ use App\Models\Schedule;
 use App\Models\User;
 use Carbon\Carbon;
 use App\Models\Employee;
+use App\Models\Patient;
+use App\Models\Treatment;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Schedule>
