@@ -52,30 +52,24 @@
 
                     </div>
                     
-                     <!-- Behandeling met kosten -->
-                    <div class="flex flex-wrap gap-4">
-                        <div class="w-full sm:w-1/2">
-                            <label for="treatment_id" class="block text-gray-700 text-sm font-bold mb-2">Behandeling:</label>
-                            <select name="treatment_id" id="treatment_id"
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                required>
-                                @foreach ($treatments as $treatment)
-                                    <option value="{{ $treatment->id }}" data-price="{{ $treatment->price }}" 
-                                        {{ old('treatment_id') == $treatment->id ? 'selected' : '' }}>
-                                        {{ $treatment->treatment_type }}
-                                    </option>
+                     <!-- Behandeling -->
+                        <div>
+                            <label for="treatment_type" class="block text-gray-700 text-sm font-bold mb-2">Behandeling:</label>
+                            <select name="treatment_type" id="treatment_type" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                @foreach($treatmentTypes as $treatment_type)
+                                    <option value="{{ $treatment_type }}">{{ $treatment_type }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="w-full sm:w-1/2">
-                            <label for="amount" class="block text-gray-700 text-sm font-bold mb-2">Bedrag: €</label>
-                            <input type="number" name="amount" id="amount"
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                readonly required>
-                        </div>
+
+                    <!-- prijs -->
+                    <div>
+                        <label for="amount" class="block text-gray-700 text-sm font-bold mb-2">Prijs:</label>
+                        <input type="text" name="amount" id="amount" readonly
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                     </div>
                     
-
+                    
                     <!-- status -->
                     <div>
                         <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Status:</label>
@@ -84,9 +78,8 @@
                             <option value="betaald">betaald</option>
                             <option value="onbetaald">onbetaald</option>
                         </select>
-
-                            
                     </div>
+
 
                     <div class="flex flex-wrap gap-4">
                         <button type="submit"
@@ -121,25 +114,41 @@
         errorContainer.classList.toggle('hidden', this.checked);
     });
 
-      // Zorg ervoor dat het script wordt uitgevoerd zodra de pagina geladen is
-    document.addEventListener('DOMContentLoaded', function() {
-        const treatmentSelect = document.getElementById('treatment_id');
-        const amountInput = document.getElementById('amount');
 
-        // Functie om het bedrag bij te werken
-        const updateAmount = () => {
-            const selectedOption = treatmentSelect.options[treatmentSelect.selectedIndex];
-            const price = selectedOption.dataset.price;
-            amountInput.value = price ? price : '';
-        };
+      // Lijst van behandelingen met bijbehorende kostenbereiken
+      const treatmentPrices = {
+        'Controle': [30, 75],
+        'Wortelkanaalbehandeling': [200, 700],
+        'Vulling': [50, 150],
+        'Kroon': [300, 900],
+        'Brug': [500, 1500],
+        'Tanden bleken': [150, 500],
+        'Tandsteen verwijderen': [50, 150],
+        'Extractie': [50, 150],
+        'Implantaat': [800, 2500],
+        'Beugel': [1500, 5000],
+        'Gebitsreiniging': [50, 150],
+        'Fluoridebehandeling': [20, 50],
+        'Röntgenfoto': [30, 100],
+        'Prothese': [300, 1500],
+        'Tandvleesbehandeling': [100, 300]
+    };
 
-        // Event listener voor verandering van selectie
-        treatmentSelect.addEventListener('change', updateAmount);
+    document.getElementById('treatment_type').addEventListener('change', function () {
+        // Haal het geselecteerde behandelingstype op
+        const treatmentType = this.value;
 
-        // Initialiseer bedrag bij laden van de pagina
-        updateAmount();
+        // Zoek het bijbehorende prijsbereik
+        const priceRange = treatmentPrices[treatmentType];
+
+        if (priceRange) {
+            // Kies een willekeurig bedrag binnen het bereik
+            const amount = (Math.random() * (priceRange[1] - priceRange[0]) + priceRange[0]).toFixed(2);
+            document.getElementById('amount').value = amount;
+        } else {
+            document.getElementById('amount').value = '';
+        }
     });
-
 </script>
 
 <style>

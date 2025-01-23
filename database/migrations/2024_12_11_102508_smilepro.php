@@ -200,7 +200,7 @@ return new class extends Migration
             // $table->unsignedBigInteger('treatment_id');
             $table->string('number');
             $table->date('date');
-            $table->decimal('amount', 8, 2);
+            $table->decimal('amount', 15, 2);
             $table->string('status');
             $table->boolean('is_active')->default(true);
             $table->text('comment')->nullable();

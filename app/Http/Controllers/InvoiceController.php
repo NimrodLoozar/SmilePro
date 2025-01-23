@@ -29,13 +29,13 @@ class InvoiceController extends Controller
     }
 
     public function create()
-        {
-            $patients = Patient::all();
-            $treatments = Treatment::all();
-        
-            return view('invoice.create', compact('patients', 'treatments'));
-        }
-    
+    {
+        $patients = Patient::all();
+        $treatments = Treatment::all();
+        $treatmentTypes = Treatment::distinct()->pluck('treatment_type');
+
+        return view('invoice.create', compact('patients', 'treatments', 'treatmentTypes'));
+    }
 
     public function store(Request $request)
     {
@@ -53,8 +53,9 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::findOrFail($id);
         $treatments = Treatment::all();
+        $treatmentTypes = Treatment::distinct()->pluck('treatment_type');
 
-        return view('invoice.edit', compact('invoice', 'treatments'));
+        return view('invoice.edit', compact('invoice', 'treatments', 'treatmentTypes'));
     }
 
 
