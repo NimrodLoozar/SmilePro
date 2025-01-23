@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Treatment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class TreatmentController extends Controller
 {
@@ -14,19 +15,27 @@ class TreatmentController extends Controller
     {
         $query = Treatment::query();
 
-        // Filter by status if provided
         if ($status = $request->input('status')) {
             $query->byStatus($status);
         }
 
-        // Filter active treatments
         if ($request->has('active')) {
             $query->active();
         }
 
         $treatments = $query->paginate(10);
 
-        return response()->json($treatments);
+        return view('treatments.index', [
+            'treatments' => $treatments
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new treatment.
+     */
+    public function create()
+    {
+        return view('treatments.create'); // You'll need to create this view
     }
 
     /**
@@ -35,19 +44,16 @@ class TreatmentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'patient_id' => 'required|exists:patients,id',
-            'employee_id' => 'required|exists:employees,id',
-            'treatment_type' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'cost' => 'required|numeric|min:0',
-            'status' => 'required|string|max:255',
-            'is_active' => 'required|boolean',
-            'comment' => 'nullable|string',
+            'date' => 'required|date',
         ]);
 
-        $treatment = Treatment::create($validated);
+        Treatment::create($validated);
 
-        return response()->json($treatment, 201);
+        return Redirect::route('treatments.index')
+            ->with('success', 'Behandeling succesvol aangemaakt.');
     }
 
     /**
@@ -55,7 +61,19 @@ class TreatmentController extends Controller
      */
     public function show(Treatment $treatment)
     {
-        return response()->json($treatment);
+        return view('treatments.show', [
+            'treatment' => $treatment
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified treatment.
+     */
+    public function edit(Treatment $treatment)
+    {
+        return view('treatments.edit', [
+            'treatment' => $treatment
+        ]);
     }
 
     /**
@@ -64,19 +82,16 @@ class TreatmentController extends Controller
     public function update(Request $request, Treatment $treatment)
     {
         $validated = $request->validate([
-            'patient_id' => 'sometimes|exists:patients,id',
-            'employee_id' => 'sometimes|exists:employees,id',
-            'treatment_type' => 'sometimes|string|max:255',
+            'name' => 'sometimes|string|max:255',
             'description' => 'nullable|string',
             'cost' => 'sometimes|numeric|min:0',
-            'status' => 'sometimes|string|max:255',
-            'is_active' => 'sometimes|boolean',
-            'comment' => 'nullable|string',
+            'date' => 'sometimes|date',
         ]);
 
         $treatment->update($validated);
 
-        return response()->json($treatment);
+        return Redirect::route('treatments.index')
+            ->with('success', 'Behandeling succesvol bijgewerkt.');
     }
 
     /**
@@ -86,25 +101,7 @@ class TreatmentController extends Controller
     {
         $treatment->delete();
 
-        return response()->json(['message' => 'Treatment deleted successfully.'], 200);
-    }
-
-    /**
-     * Toggle the active status of a treatment.
-     */
-    public function toggleActive(Treatment $treatment)
-    {
-        $treatment->is_active = !$treatment->is_active;
-        $treatment->save();
-
-        return response()->json($treatment);
-    }
-
-    /**
-     * Fetch the cost of a treatment in formatted currency.
-     */
-    public function getFormattedCost(Treatment $treatment)
-    {
-        return response()->json(['formatted_cost' => $treatment->formatted_cost]);
+        return Redirect::route('treatments.index')
+            ->with('success', 'Behandeling succesvol verwijderd.');
     }
 }
