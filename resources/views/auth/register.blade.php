@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ isset($token) ? route('register', $token) : route('register') }}">
         @csrf
 
         <!-- Name -->
