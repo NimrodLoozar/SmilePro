@@ -26,8 +26,7 @@
 
         <div class="flex justify-between items-center mb-4">
             <h1 class="text-3xl font-bold text-white">Behandelingen</h1>
-            <a href="{{ route('treatments.create') }}"
-                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Nieuwe behandeling aanmaken</a>
+            <!-- Create button removed -->
         </div>
 
         <table class="min-w-full bg-gray-800 border border-gray-700 rounded-lg shadow-sm">
@@ -61,8 +60,7 @@
                         <td class="py-2 px-4 text-gray-300">{{ Str::limit($treatment->comment, 20) }}</td>
                         <td class="py-2 px-4">
                             <div class="flex space-x-2">
-                                <a href="{{ route('treatments.show', $treatment->id) }}"
-                                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Bekijken</a>
+                                <!-- View button removed -->
                                 <form action="{{ route('treatments.destroy', $treatment->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
@@ -101,7 +99,6 @@
     });
 </script>
 
-<!-- Add this style section -->
 <style>
     .toggle-checkbox:checked {
         right: 0;

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Person;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -26,8 +25,8 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $users = User::with('person')->get(); // Fetch all users with their related person
-        return view('employees.create', compact('users'));
+        $persons = Person::all(); // Fetch all persons
+        return view('employee.create', compact('persons'));
     }
 
 
@@ -46,16 +45,27 @@ class EmployeeController extends Controller
         'comment' => 'nullable|string|max:500',
     ]);
 
-        // Ensure the person exists
-        $person = Person::find($validated['person_id']);
-        if (!$person) {
-            return redirect()->back()->withErrors(['person_id' => 'Selected person does not exist.']);
-        }
+        // Retrieve the person
+        $person = Person::findOrFail($validated['person_id']);
 
-        Employee::create($validated);
+        // Create a new employee record
+        Employee::create([
+            'person_id' => $validated['person_id'],
+            'user_id' => Auth::id(),
+            'name' => $person->name, // Use the name from the selected person
+            'email' => $person->email, // Use the email from the selected person
+            'number' => $validated['number'],
+            'employee_type' => $validated['employee_type'],
+            'specialization' => $validated['specialization'],
+            'availability' => $validated['availability'],
+            'comment' => $validated['comment'],
+        ]);
 
-        return redirect()->route('admin.employees.create')->with('success', 'Employee created successfully.');
+        // Redirect with a success message
+        return redirect()->route('employees.index')->with('success', 'Medewerker succesvol aangemaakt.');
     }
+
+
 
     /**
      * Show details of a specific employee.
