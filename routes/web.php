@@ -14,7 +14,6 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\RegistrationLinkController;
 
 Route::get('/', function () {
     return view('index');
