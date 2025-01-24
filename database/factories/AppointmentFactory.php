@@ -1,11 +1,11 @@
 <?php
 namespace Database\Factories;
-
 use App\Models\Appointment;
 use App\Models\Patient;
 use App\Models\Employee;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Appointment>
@@ -22,32 +22,43 @@ class AppointmentFactory extends Factory
     public function definition()
     {
         $appointmentTypes = [
-            'General Checkup',
-            'Dental Cleaning',
-            'Eye Examination',
-            'Vaccination',
-            'Physical Therapy',
-            'Cardiology Consultation',
-            'Orthopedic Consultation',
-            'Psychological Consultation',
-            'Nutrition Consultation',
-            'Dermatology Consultation',
+            'Controle',
+            'Wortelkanaalbehandeling',
+            'Vulling',
+            'Kroon',
+            'Brug',
+            'Tanden bleken',
+            'Tandsteen verwijderen',
+            'Extractie',
+            'Implantaat',
+            'Beugel',
+            'Gebitsreiniging',
+            'Fluoridebehandeling',
+            'Röntgenfoto',
+            'Prothese',
+            'Tandvleesbehandeling'
         ];
 
-        // Zorg dat de datum minimaal 24 uur in de toekomst ligt
-        $startDate = Carbon::now()->addDay(); // Minimaal 24 uur in de toekomst
-        $endDate = Carbon::now()->addYear(); // Maximaal 1 jaar in de toekomst
+        // Ensure date is at least 24 hours in the future
+        $startDate = Carbon::now()->addDay(); 
+        $endDate = Carbon::now()->addYear(); 
         $appointmentDate = $this->faker->dateTimeBetween($startDate, $endDate);
 
+        // Generate time between 08:00 and 18:00 in 15-minute increments
+        $minutes = [0, 15, 30, 45];
+        $hour = $this->faker->numberBetween(8, 17);
+        $minute = $this->faker->randomElement($minutes);
+        $time = sprintf('%02d:%02d', $hour, $minute);
+
         return [
-            'patient_id' => Patient::factory(), // Ensure PatientFactory exists
-            'employee_id' => Employee::factory(), // Ensure EmployeeFactory exists
+            'patient_id' => Patient::factory(),
+            'employee_id' => Employee::factory(),
             'date' => $appointmentDate->format('Y-m-d'),
-            'time' => $appointmentDate->format('H:i:s'),
+            'time' => $time,
             'status' => $this->faker->randomElement(['scheduled', 'completed', 'cancelled']),
             'is_active' => $this->faker->boolean(),
             'comment' => $this->faker->optional()->sentence(),
-            'name' => $this->faker->randomElement($appointmentTypes), // Add the name field
+            'name' => $this->faker->randomElement($appointmentTypes),
             'created_at' => now(),
             'updated_at' => now(),
         ];

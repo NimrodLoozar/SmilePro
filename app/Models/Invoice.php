@@ -13,7 +13,15 @@ class Invoice extends Model
 
     protected $table = 'invoices';
 
-    protected $guarded = [];
+    protected $primaryKey = 'id';
+
+    protected $fillable = [
+        'patient_id',
+        'treatment_id',
+        'number',
+        'date',
+        'amount',
+    ];
 
     public function patient()
     {

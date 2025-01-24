@@ -5,7 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Patient;
 use App\Models\Employee;
-use Faker\Generator as Faker;
+use App\Models\Treatment;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Treatment>
@@ -19,19 +21,28 @@ class TreatmentFactory extends Factory
      */
     public function definition(): array
     {
+        $treatmentTypes = [
+            'Controle',
+            'Wortelkanaalbehandeling',
+            'Vulling',
+            'Kroon',
+            'Brug',
+            'Tanden bleken',
+            'Tandsteen verwijderen',
+            'Extractie',
+            'Implantaat',
+            'Beugel',
+            'Gebitsreiniging',
+            'Fluoridebehandeling',
+            'Röntgenfoto',
+            'Prothese',
+            'Tandvleesbehandeling'
+        ];
         return [
             'patient_id' => Patient::factory(),
             'employee_id' => Employee::factory(),
-            'date' => $this->faker->date(),
-            'time' => $this->faker->time(),
-            'treatment_type' => $this->faker->word(),
+            'treatment_type' => $this->faker->randomElement($treatmentTypes),
             'description' => $this->faker->paragraph(),
-            'cost' => $this->faker->randomFloat(2, 50, 500),
-            'status' => $this->faker->randomElement(['scheduled', 'completed', 'cancelled']),
-            'is_active' => $this->faker->boolean(),
-            'comment' => $this->faker->sentence(),
-            'created_at' => now(),
-            'updated_at' => now(),
         ];
     }
 }

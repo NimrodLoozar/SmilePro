@@ -33,9 +33,7 @@ class AppointmentController extends Controller
         return view('appointments.create', compact('patients', 'employees'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    //  store method
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -45,18 +43,23 @@ class AppointmentController extends Controller
             'date' => [
                 'required',
                 'date',
-                function ($attribute, $value, $fail) {
-                    $appointmentDate = Carbon::parse($value);
+                function ($attribute, $value, $fail) use ($request) {
+                    $time = $request->input('time');
+                    if (!$time) {
+                        $fail('Het tijdveld is vereist.');
+                        return;
+                    }
+                    $appointmentDateTime = Carbon::parse($value . ' ' . $time);
                     $now = Carbon::now();
 
-                    if ($appointmentDate->lessThanOrEqualTo($now)) {
+                    if ($appointmentDateTime->lessThanOrEqualTo($now)) {
                         $fail('De afspraak kan niet in het verleden liggen.');
-                    } elseif ($appointmentDate->lessThan($now->addDay())) {
+                    } elseif ($appointmentDateTime->lessThan($now->copy()->addDay())) {
                         $fail('De afspraak moet minimaal 24 uur in de toekomst liggen.');
                     }
                 },
             ],
-            'time' => 'required',
+            'time' => 'required|date_format:H:i',
             'comment' => 'nullable|string|max:255',
         ]);
 

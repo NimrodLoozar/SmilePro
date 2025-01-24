@@ -11,7 +11,8 @@ class Appointment extends Model
 
     use HasFactory;
 
-    protected $fillable = ['patient_id', 'employee_id', 'date', 'time', 'status', 'is_active', 'comment'];
+    // Appointment.php
+    protected $fillable = ['patient_id', 'employee_id', 'name', 'date', 'time', 'status', 'is_active', 'comment'];
 
     protected $casts = [
         'is_active' => 'boolean',
