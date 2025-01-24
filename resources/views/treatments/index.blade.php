@@ -24,6 +24,9 @@
             </div>
         @endif
 
+        <div>
+            
+        </div>
         <div class="flex justify-between items-center mb-4">
             <h1 class="text-3xl font-bold text-white">Behandelingen</h1>
             <!-- Create button removed -->
