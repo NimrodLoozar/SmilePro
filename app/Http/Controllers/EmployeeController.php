@@ -37,7 +37,7 @@ class EmployeeController extends Controller
 {
     // Validate the incoming request data
     $validated = $request->validate([
-        'person_id' => 'required|exists:person,id',
+        'person_id' => 'required|exists:people,id',
         'number' => 'required|string|max:255',
         'employee_type' => 'required|string|max:255',
         'specialization' => 'nullable|string|max:255',
