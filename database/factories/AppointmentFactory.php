@@ -1,6 +1,5 @@
 <?php
 namespace Database\Factories;
-
 use App\Models\Appointment;
 use App\Models\Patient;
 use App\Models\Employee;
@@ -40,18 +39,28 @@ class AppointmentFactory extends Factory
             'Tandvleesbehandeling'
         ];
 
-        // Zorg dat de datum minimaal 24 uur in de toekomst ligt
-        $startDate = Carbon::now()->addDay(); // Minimaal 24 uur in de toekomst
-        $endDate = Carbon::now()->addYear(); // Maximaal 1 jaar in de toekomst
+        // Ensure date is at least 24 hours in the future
+        $startDate = Carbon::now()->addDay(); 
+        $endDate = Carbon::now()->addYear(); 
         $appointmentDate = $this->faker->dateTimeBetween($startDate, $endDate);
 
+        // Generate time between 08:00 and 18:00 in 15-minute increments
+        $minutes = [0, 15, 30, 45];
+        $hour = $this->faker->numberBetween(8, 17);
+        $minute = $this->faker->randomElement($minutes);
+        $time = sprintf('%02d:%02d', $hour, $minute);
+
         return [
-            'patient_id' => Patient::factory(), // Ensure PatientFactory exists
-            'employee_id' => Employee::factory(), // Ensure EmployeeFactory exists
+            'patient_id' => Patient::factory(),
+            'employee_id' => Employee::factory(),
             'date' => $appointmentDate->format('Y-m-d'),
-            'time' => $appointmentDate->format('H:i:s'),
-            'status' => $this->faker->randomElement(['gepland', 'voltooid', 'geannuleerd']),
+            'time' => $time,
+            'status' => $this->faker->randomElement(['scheduled', 'completed', 'cancelled']),
+            'is_active' => $this->faker->boolean(),
+            'comment' => $this->faker->optional()->sentence(),
             'name' => $this->faker->randomElement($appointmentTypes),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

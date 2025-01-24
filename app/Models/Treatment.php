@@ -13,10 +13,23 @@ class Treatment extends Model
 
     protected $table = 'treatments';
 
-    protected $guarded = [];
+    protected $primaryKey = 'id';
+    
+    public $timestamps = false;
 
-    public function invoices()
+    protected $fillable = ['treatment_type'];
+
+    public function invoice()
     {
         return $this->hasMany(Invoice::class);
+    }
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
     }
 }

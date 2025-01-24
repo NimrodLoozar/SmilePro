@@ -63,7 +63,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/invoice/create', [InvoiceController::class, 'create'])->name('invoice.create');
     Route::get('/invoice/{invoice}', [InvoiceController::class, 'show'])->name('invoice.show');
     Route::post('/invoice', [InvoiceController::class, 'store'])->name('invoice.store');
-    Route::post('/invoice/update', [InvoiceController::class, 'update'])->name('invoice.update');
+    Route::get('/invoice/{invoice}/edit', [InvoiceController::class, 'edit'])->name('invoice.edit');
+    Route::put('/invoice/{invoice}', [InvoiceController::class, 'update'])->name('invoice.update');
+    
     Route::delete('/invoice/{invoice}', [InvoiceController::class, 'destroy'])->name('invoice.destroy');
     Route::get('/invoice/latest-number', [InvoiceController::class, 'latestNumber'])->name('invoice.latestNumber');
 });
@@ -82,6 +84,8 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
         Route::put('/employee/{id}', [EmployeeController::class, 'update'])->name('employee.update');
     });
 
+    Route::resource('treatments', TreatmentController::class);
+    /*
     Route::controller(TreatmentController::class)->group(function () {
         Route::get('/treatments', 'index'); // List treatments with filters
         Route::post('/treatments', 'store'); // Create a new treatment
@@ -92,7 +96,7 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
         Route::patch('/treatments/{treatment}/toggle-active', 'toggleActive'); // Toggle the active status
         Route::get('/treatments/{treatment}/formatted-cost', 'getFormattedCost'); // Get formatted cost
     });
-
+    */
     // ...other admin routes...
     Route::get('/messages/{conversation}', [MessageController::class, 'show'])->name('messages.show');
     Route::get('/messages/{conversation}/edit', [MessageController::class, 'edit'])->name('messages.edit');
