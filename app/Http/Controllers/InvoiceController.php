@@ -38,7 +38,7 @@ class InvoiceController extends Controller
         $lastInvoice = Invoice::latest('id')->first();
         $newNumber = $lastInvoice ? str_pad($lastInvoice->number + 1, 6, '0', STR_PAD_LEFT) : '000001';
 
-        $patients = Patient::all();
+        $patients = Patient::all(['id', 'name']);
         $treatments = Treatment::all();
         $treatmentTypes = Treatment::distinct()->pluck('treatment_type');
 
@@ -56,9 +56,6 @@ class InvoiceController extends Controller
 
         // dd($request->all());
 
-
-
-
         $validated = $request->validate([
             'patient_id' => 'required|exists:patients,id',
             'treatment_type' => 'required|string',
@@ -66,8 +63,6 @@ class InvoiceController extends Controller
             'amount' => 'required|numeric|min:0',
             'status' => 'nullable|string|in:in behandeling,betaald,onbetaald',
         ]);
-
-
 
 
         // dd($request->all());
@@ -104,21 +99,36 @@ class InvoiceController extends Controller
      * Werk een bestaande factuur bij.
      */
     public function update(Request $request, $id)
-    {
-        $invoice = Invoice::findOrFail($id);
+{
+    // dd($request);
+     $invoice = Invoice::findOrFail($id);
 
-        $validated = $request->validate([
-            'number' => 'required|unique:invoices,number,' . $id . '|max:6',
-            'patient_id' => 'required|exists:patients,id',
-            'treatment_id' => 'required|exists:treatments,id',
-            'date' => 'required|date',
-            'amount' => 'required|numeric|min:0',
-        ]);
+    // Valideer invoer
+    $validated = $request->validate([
+        // 'number' => 'required|unique:invoices,number,' . $id . '|max:6',
+        // 'patient_id' => 'required|exists:patients,id',
+        // 'treatment_type' => 'required|string',
+        'date' => 'required|date',
+        // 'amount' => 'required|numeric|min:0',
+        // 'status' => 'nullable|string|in:in behandeling,betaald,onbetaald',
+    ]);
+    
+    // Zoek het bijbehorende treatment_id op basis van treatment_type
 
-        $invoice->update($validated);
+    // $treatment = Treatment::where('treatment_type', $request->treatment_type)->first();
+    // if (!$treatment) {
+    //     return back()->withErrors(['treatment_type' => 'Geen behandeling gevonden voor het geselecteerde type.'])->withInput();
+    // }
 
-        return redirect()->route('invoice.index')->with('success', 'Factuur succesvol bijgewerkt.');
-    }
+    // $validated['treatment_id'] = $treatment->id;
+
+    
+    // Update de factuur
+    $invoice->update($validated);
+
+    return redirect()->route('invoice.index')->with('success', 'Factuur succesvol bijgewerkt.');
+}
+
 
     /**
      * Verwijder een factuur.

@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col sm:flex-row justify-between items-center">
+        <div class="flex flex-col justify-between">
             <h2 class="font-semibold text-xl text-gray-200 leading-tight">
                 {{ __('Factuur Aanpassen') }}
             </h2>
-            <div class="flex items-center mt-4 sm:mt-0">
-                <label class="flex items-center">
+            <div class="flex mt-4 sm:mt-0">
+                <label class="flex">
                     <span class="mr-2 text-gray-200">Toon Data</span>
                     <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
                         <input type="checkbox" id="dataToggle"
@@ -23,7 +23,7 @@
     <div id="dataContainer" class="py-6 px-4 sm:px-6 lg:px-8 bg-white shadow-md rounded-md">
         <form action="{{ route('invoice.update', $invoice->id) }}" method="POST" class="space-y-6">
             @csrf
-            @method('PUT')
+            @method('POST')
 
             <!-- Factuurnummer -->
             <div>
