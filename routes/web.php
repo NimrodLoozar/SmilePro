@@ -84,6 +84,8 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
         Route::put('/employee/{id}', [EmployeeController::class, 'update'])->name('employee.update');
     });
 
+    Route::resource('treatments', TreatmentController::class);
+    /*
     Route::controller(TreatmentController::class)->group(function () {
         Route::get('/treatments', 'index'); // List treatments with filters
         Route::post('/treatments', 'store'); // Create a new treatment
@@ -94,7 +96,7 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
         Route::patch('/treatments/{treatment}/toggle-active', 'toggleActive'); // Toggle the active status
         Route::get('/treatments/{treatment}/formatted-cost', 'getFormattedCost'); // Get formatted cost
     });
-
+    */
     // ...other admin routes...
     Route::get('/messages/{conversation}', [MessageController::class, 'show'])->name('messages.show');
     Route::get('/messages/{conversation}/edit', [MessageController::class, 'edit'])->name('messages.edit');

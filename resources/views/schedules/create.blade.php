@@ -61,63 +61,40 @@
                     class="form-control mt-1 block w-full border-black-300 rounded-md shadow-sm"
                     value="{{ old('end_time') }}" required>
             </div>
-            <button type="button" id="create-button"
-                class="btn btn-primary bg-blue-500 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded">Create</button>
+            <div class="flex justify-between mt-4">
+                <a href="{{ route('schedules.index') }}"
+                    class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                    Cancel
+                </a>
+                <button type="button" id="create-button"
+                    class="bg-blue-500 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded">Create</button>
+            </div>
         </form>
-        <a href="{{ route('schedules.index') }}"
-            class="btn btn-secondary bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-4 inline-block">
-            Beschikbaarheid Overzicht
-        </a>
     </div>
 
-    <!-- Modal -->
-    <div id="confirmation-modal" class="fixed z-10 inset-0 overflow-y-auto hidden">
-        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div
-                class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div class="sm:flex sm:items-start">
-                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                                Bevestiging
-                            </h3>
-                            <div class="mt-2">
-                                <p class="text-sm text-gray-500">
-                                    Weet je zeker dat je een nieuwe schedule wilt aanmaken?
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                    <button type="button" id="confirm-button"
-                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
-                        Ja
-                    </button>
-                    <button type="button" id="cancel-button"
-                        class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm">
-                        Nee
-                    </button>
-                </div>
+    <div id="confirmation-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-md text-center">
+            <p>Weet je zeker dat je een nieuwe schedule wilt aanmaken?</p>
+            <div class="mt-4 flex justify-center space-x-4">
+                <button type="button" id="confirm-button"
+                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Ja</button>
+                <button type="button" id="cancel-button"
+                    class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Nee</button>
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('create-button').addEventListener('click', function() {
+            document.getElementById('confirmation-modal').classList.remove('hidden');
+        });
+
+        document.getElementById('confirm-button').addEventListener('click', function() {
+            document.getElementById('schedule-form').submit();
+        });
+
+        document.getElementById('cancel-button').addEventListener('click', function() {
+            document.getElementById('confirmation-modal').classList.add('hidden');
+        });
+    </script>
 </x-app-layout>
-
-<script>
-    document.getElementById('create-button').addEventListener('click', function() {
-        document.getElementById('confirmation-modal').classList.remove('hidden');
-    });
-
-    document.getElementById('confirm-button').addEventListener('click', function() {
-        document.getElementById('schedule-form').submit();
-    });
-
-    document.getElementById('cancel-button').addEventListener('click', function() {
-        document.getElementById('confirmation-modal').classList.add('hidden');
-    });
-</script>

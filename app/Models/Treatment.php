@@ -23,4 +23,13 @@ class Treatment extends Model
     {
         return $this->hasMany(Invoice::class);
     }
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
 }
