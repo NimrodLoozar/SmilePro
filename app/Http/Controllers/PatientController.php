@@ -1,25 +1,28 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
+use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Patient;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
 
 class PatientController extends Controller
 {
-    public function index(): View
+    public function index()
     {
-        $patients = Patient::with('person')->paginate(10);
-        return view('patient.index', ['patients' => $patients]);
+        $patients = Patient::all();
+        return view('patient.index', compact('patients'));
+    }
+
+    public function create()
+    {
+        return view('patient.create');
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'person_id' => 'required|exists:people,id',
             'number' => 'required|string',
             'medical_file' => 'nullable|string',
             'is_active' => 'required|boolean',
@@ -27,22 +30,24 @@ class PatientController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $patient = Patient::create($request->all());
-        return response()->json($patient, 201);
+        Patient::create($request->all());
+        return redirect()->route('patient.index')->with('success', 'Patiënt succesvol aangemaakt.');
     }
 
-    public function show(Patient $patient)
+    public function edit(Request $request, Patient $patient)
     {
-        return response()->json($patient->load('person'));
+        $patient = Patient::getPatient($patient->id);
+        dd($patient);
+        
+         return view('patient.edit', compact('patient'));
     }
 
     public function update(Request $request, Patient $patient)
     {
         $validator = Validator::make($request->all(), [
-            'person_id' => 'required|exists:people,id',
             'number' => 'required|string',
             'medical_file' => 'nullable|string',
             'is_active' => 'required|boolean',
@@ -50,18 +55,24 @@ class PatientController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         $patient->update($request->all());
-        return response()->json($patient);
+        return redirect()->route('patient.index')->with('success', 'Patiënt succesvol bijgewerkt!');
     }
-
-    public function edit() {}
 
     public function destroy(Patient $patient)
     {
-        $patient->delete();
-        return redirect('/patients');
+        try {
+            $patient->delete();
+            return redirect()->route('patient.index')->with('success', 'Patiënt succesvol verwijderd.');
+        } catch (\Exception $e) {
+            // Log de fout
+            \Log::error('Fout bij verwijderen patiënt: ' . $e->getMessage());
+
+            // Redirect met foutmelding
+            return redirect()->back()->with('error', 'Er is een fout opgetreden bij het verwijderen van de patiënt.');
+        }
     }
 }

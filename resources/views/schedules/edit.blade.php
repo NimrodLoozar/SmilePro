@@ -54,14 +54,10 @@
                                     class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                                     Update
                                 </button>
-                                <form action="{{ route('schedules.destroy', $schedule->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                        Delete
-                                    </button>
-                                </form>
+                                <button type="button" onclick="showConfirmationPopup()"
+                                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                    Delete
+                                </button>
                             </div>
                         </div>
                     </form>
