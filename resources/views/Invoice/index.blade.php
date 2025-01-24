@@ -6,7 +6,7 @@
             </h2>
             <div class="flex items-center">
                 <label class="flex items-center mr-4">
-                    <span class="mr-2 text-white-900">Toon Data</span>
+                    <span class="mr-2 text-white-900 toon" >Toon Data</span>
                     <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
                         <input type="checkbox" id="dataToggle"
                             class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
@@ -118,6 +118,15 @@
 </script>
 
 <style>
+
+    h2 {
+        color: #fff;
+    }
+
+    .toon {
+        color: #fff;
+    }
+
     .toggle-checkbox:checked {
         right: 0;
         border-color: #38A169;

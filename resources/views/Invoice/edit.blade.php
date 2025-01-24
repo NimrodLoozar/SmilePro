@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col justify-between">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
             <h2 class="font-semibold text-xl text-gray-200 leading-tight">
                 {{ __('Factuur Aanpassen') }}
             </h2>
-            <div class="flex mt-4 sm:mt-0">
-                <label class="flex">
+            <div class="flex items-center mt-4 sm:mt-0">
+                <label class="flex items-center">
                     <span class="mr-2 text-gray-200">Toon Data</span>
                     <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
                         <input type="checkbox" id="dataToggle"
@@ -20,8 +20,8 @@
     </x-slot>
 
     <!-- Data Container -->
-    <div id="dataContainer" class="py-6 px-4 sm:px-6 lg:px-8 bg-white shadow-md rounded-md">
-        <form action="{{ route('invoice.update', $invoice->id) }}" method="POST" class="space-y-4">
+    <div id="dataContainer" class="py-5 px-3 sm:px-6 lg:px-8 bg-white shadow-md rounded-md">
+        <form action="{{ route('invoice.update', $invoice->id) }}" method="POST" class="space-y-4 ml-8 mr-8">
             @csrf
             @method('PUT')
 
@@ -33,7 +33,7 @@
                     readonly>
             </div>
 
-            <!-- Patient -->
+            <!-- Patiënt -->
             <div>
                 <label for="patient_id" class="block text-sm font-medium text-gray-700">Patiënt</label>
                 <select name="patient_id" id="patient_id"
@@ -63,8 +63,7 @@
                 <select name="treatment_id" id="treatment_id"
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                     @foreach ($treatments as $treatment)
-                        <option value="{{ $treatment->id }}"
-                            data-price="{{ $treatment->price }}"
+                        <option value="{{ $treatment->id }}" data-price="{{ $treatment->price }}"
                             {{ old('treatment_id', $invoice->treatment_id) == $treatment->id ? 'selected' : '' }}>
                             {{ $treatment->treatment_type }}
                         </option>
@@ -74,11 +73,11 @@
 
             <!-- Bedrag -->
             <div>
-            <label for="amount" class="block text-sm font-medium text-gray-700">Bedrag (€)</label>
-                        <input type="text" name="amount" id="amount" value="{{ old('amount', $invoice->amount) }}" 
-                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                            readonly>            
-            </div> 
+                <label for="amount" class="block text-sm font-medium text-gray-700">Bedrag (€)</label>
+                <input type="text" name="amount" id="amount" value="{{ old('amount', $invoice->amount) }}"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    readonly>
+            </div>
 
             <!-- Status -->
             <div>
@@ -92,13 +91,13 @@
             </div>
 
             <!-- Actieknoppen -->
-            <div class="flex flex-wrap gap-4">
+            <div class="flex justify-end gap-4">
                 <button type="submit"
-                    class="w-full sm:w-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    class="bg-blue-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Opslaan
                 </button>
                 <a href="{{ route('invoice.index') }}"
-                    class="w-full sm:w-auto bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-600 text-center">
+                    class="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded-md">
                     Annuleren
                 </a>
             </div>
@@ -106,8 +105,8 @@
     </div>
 
     <!-- Error Container -->
-    <div id="errorContainer" class="ml-6 py-6 px-4 sm:px-6 lg:px-8 hidden">
-        <p class="text-red-500">De factuur kon niet worden gewijzigd. Controleer de gegevens en probeer het opnieuw.</p>
+    <div id="errorContainer" class="py-6 hidden">
+        <p class="text-red-500 font-semibold text-center">De factuur kon niet worden gewijzigd. Controleer de gegevens en probeer het opnieuw.</p>
     </div>
 </x-app-layout>
 
