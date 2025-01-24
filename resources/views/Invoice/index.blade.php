@@ -60,7 +60,7 @@
                                             <td class="py-3 px-6 text-center">
                                                 <a href="{{ route('invoice.show', $invoice->id) }}" class="text-blue-500 hover:text-blue-700">ⓘ</a> 
                                                 <a href="{{ route('invoice.edit', $invoice->id) }}" class="text-yellow-500 hover:text-yellow-700">✎</a> 
-                                                <form action="{{ route('invoice.destroy', $invoice->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Weet je zeker dat je deze factuur wilt verwijderen?');">
+                                                <form action="{{ route('invoice.destroy', $invoice->id) }}" method="POST" class="inline-block" onsubmit="return confirmDeletion('{{ $invoice->date }}');">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-red-500 hover:text-red-700">🗑️</button>
@@ -104,6 +104,19 @@
             errorContainer.classList.remove('hidden');
         }
     });
+    
+    function confirmDeletion(invoiceDate) {
+        const invoiceDateObj = new Date(invoiceDate);
+        const currentDate = new Date();
+        const sevenYearsAgo = new Date(currentDate.setFullYear(currentDate.getFullYear() - 7));
+
+        if (invoiceDateObj > sevenYearsAgo) {
+            alert('De factuur kan niet worden verwijderd vanwege privacy beperkingen (GDPR) binnen 7 jaren');
+            return false;
+        }
+
+        return confirm('Weet je zeker dat je deze factuur wilt verwijderen?');
+    }
 </script>
 
 <style>

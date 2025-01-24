@@ -44,7 +44,7 @@ class InvoiceFactory extends Factory
         $amountRange = $treatmentTypes[$treatmentType];
 
         // Maak de behandeling aan zonder het type te gebruiken en koppel de prijs aan de factuur
-        $treatment = Treatment::factory()->create();  // Treatment wordt aangemaakt zonder extra 'type' kolom
+        $treatment = Treatment::factory()->create(['treatment_type' => $treatmentType]);
 
         return [
             'patient_id' => Patient::factory(),
@@ -53,6 +53,8 @@ class InvoiceFactory extends Factory
             'date' => $this->faker->dateTimeBetween('-1 month', 'now')->format('Y-m-d'),
             'amount' => $this->faker->randomFloat(2, $amountRange[0], $amountRange[1]),
             'status' => $this->faker->randomElement(['betaald', 'onbetaald', 'in behandeling']),
+            'created_at' => now(),
+            'updated_at' => now()
         ];
     }
 }
