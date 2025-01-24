@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\RegistrationLinkController;
 
 Route::get('/', function () {
     return view('index');
@@ -60,13 +61,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('invoice', InvoiceController::class);
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
-    Route::get('/invoice/{invoice}/create', [InvoiceController::class, 'create'])->name('invoice.create');
-    Route::get('/invoice/{invoice}/edit', [InvoiceController::class, 'edit'])->name('invoice.edit');
+    Route::get('/invoice/create', [InvoiceController::class, 'create'])->name('invoice.create');
     Route::get('/invoice/{invoice}', [InvoiceController::class, 'show'])->name('invoice.show');
     Route::post('/invoice', [InvoiceController::class, 'store'])->name('invoice.store');
-    Route::put('/invoice/{invoice}', [InvoiceController::class, 'update'])->name('invoice.update');
+    Route::post('/invoice/update', [InvoiceController::class, 'update'])->name('invoice.update');
     Route::delete('/invoice/{invoice}', [InvoiceController::class, 'destroy'])->name('invoice.destroy');
-
+    Route::get('/invoice/latest-number', [InvoiceController::class, 'latestNumber'])->name('invoice.latestNumber');
 });
 
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
@@ -76,10 +76,11 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 
     // Employee
     Route::get('/admin/Employee', [EmployeeController::class, 'index'])->name('admin.Employee');
-    Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
-    Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
+    Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');
+    Route::post('/employee', [EmployeeController::class, 'store'])->name('employee.store');
     Route::middleware(['auth'])->group(function () {
-        Route::resource('employees', EmployeeController::class);
+        Route::resource('employee', EmployeeController::class);
+        Route::put('/employee/{id}', [EmployeeController::class, 'update'])->name('employee.update');
     });
 
     Route::resource('treatments', TreatmentController::class);

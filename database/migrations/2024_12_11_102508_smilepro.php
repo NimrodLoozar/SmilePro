@@ -182,8 +182,6 @@ return new class extends Migration
             $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
             $table->string('treatment_type');
             $table->text('description');
-            $table->decimal('cost', 8, 2);
-            $table->string('status');
             $table->boolean('is_active')->default(true);
             $table->text('comment')->nullable();
             $table->timestamps();

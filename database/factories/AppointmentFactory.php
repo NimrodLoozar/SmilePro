@@ -5,6 +5,7 @@ use App\Models\Patient;
 use App\Models\Employee;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Appointment>
@@ -21,16 +22,21 @@ class AppointmentFactory extends Factory
     public function definition()
     {
         $appointmentTypes = [
-            'Routine Dental Checkup',
-            'Professional Teeth Cleaning',
-            'Dental X-rays',
-            'Filling/Cavity Treatment',
-            'Root Canal Therapy',
-            'Crown/Bridge Work',
-            'Dental Implant Consultation',
-            'Emergency Dental Care',
-            'Teeth Whitening',
-            'Periodontal Treatment',
+            'Controle',
+            'Wortelkanaalbehandeling',
+            'Vulling',
+            'Kroon',
+            'Brug',
+            'Tanden bleken',
+            'Tandsteen verwijderen',
+            'Extractie',
+            'Implantaat',
+            'Beugel',
+            'Gebitsreiniging',
+            'Fluoridebehandeling',
+            'Röntgenfoto',
+            'Prothese',
+            'Tandvleesbehandeling'
         ];
 
         // Ensure date is at least 24 hours in the future

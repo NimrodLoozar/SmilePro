@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Person;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
@@ -25,7 +26,7 @@ class PersonFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'is_employee' => $this->faker->boolean(),
-            'date_of_birth' => $this->faker->dateTimeBetween('-80 years', '-18 years')->format('Y-m-d'),
+            'date_of_birth' => $this->faker->dateTimeBetween('-80 years', '-18 years')->format('y-m-d'),
             'is_active' => $this->faker->boolean(),
             'comment' => $this->faker->optional()->sentence(),
             'created_at' => now(),
