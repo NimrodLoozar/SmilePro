@@ -21,9 +21,9 @@
 
     <!-- Data Container -->
     <div id="dataContainer" class="py-6 px-4 sm:px-6 lg:px-8 bg-white shadow-md rounded-md">
-        <form action="{{ route('invoice.update', $invoice->id) }}" method="POST" class="space-y-6">
+        <form action="{{ route('invoice.update', $invoice->id) }}" method="POST" class="space-y-4">
             @csrf
-            @method('POST')
+            @method('PUT')
 
             <!-- Factuurnummer -->
             <div>
@@ -31,6 +31,20 @@
                 <input type="text" name="number" id="number" value="{{ old('number', $invoice->number) }}"
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                     readonly>
+            </div>
+
+            <!-- Patient -->
+            <div>
+                <label for="patient_id" class="block text-sm font-medium text-gray-700">Patiënt</label>
+                <select name="patient_id" id="patient_id"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    @foreach ($patients as $patient)
+                        <option value="{{ $patient->id }}"
+                            {{ old('patient_id', $invoice->patient_id) == $patient->id ? 'selected' : '' }}>
+                            {{ $patient->name }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
             <!-- Datum -->
@@ -60,11 +74,11 @@
 
             <!-- Bedrag -->
             <div>
-                <label for="amount" class="block text-sm font-medium text-gray-700">Bedrag (€)</label>
-                <input type="text" name="amount" id="amount" value="{{ old('amount', $invoice->amount) }}"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    readonly>
-            </div>
+            <label for="amount" class="block text-sm font-medium text-gray-700">Bedrag (€)</label>
+                        <input type="text" name="amount" id="amount" value="{{ old('amount', $invoice->amount) }}" 
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                            readonly>            
+            </div> 
 
             <!-- Status -->
             <div>
@@ -105,7 +119,7 @@
     });
 
     // Lijst van behandelingen met bijbehorende kostenbereiken
-      const treatmentPrices = {
+    const treatmentPrices = {
         'Controle': [30, 75],
         'Wortelkanaalbehandeling': [200, 700],
         'Vulling': [50, 150],
@@ -123,9 +137,9 @@
         'Tandvleesbehandeling': [100, 300]
     };
 
-    document.getElementById('treatment_type').addEventListener('change', function () {
+    document.getElementById('treatment_id').addEventListener('change', function () {
         // Haal het geselecteerde behandelingstype op
-        const treatmentType = this.value;
+        const treatmentType = this.options[this.selectedIndex].text;
 
         // Zoek het bijbehorende prijsbereik
         const priceRange = treatmentPrices[treatmentType];

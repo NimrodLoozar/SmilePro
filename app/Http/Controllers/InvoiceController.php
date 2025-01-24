@@ -14,7 +14,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::paginate(6);
+        $invoices = Invoice::paginate(12);
         return view('invoice.index', compact('invoices'));
     }
 
@@ -99,36 +99,24 @@ class InvoiceController extends Controller
      * Werk een bestaande factuur bij.
      */
     public function update(Request $request, $id)
-{
-    // dd($request);
-     $invoice = Invoice::findOrFail($id);
+    {
+        $invoice = Invoice::findOrFail($id);
 
-    // Valideer invoer
-    $validated = $request->validate([
-        // 'number' => 'required|unique:invoices,number,' . $id . '|max:6',
-        // 'patient_id' => 'required|exists:patients,id',
-        // 'treatment_type' => 'required|string',
-        'date' => 'required|date',
-        // 'amount' => 'required|numeric|min:0',
-        // 'status' => 'nullable|string|in:in behandeling,betaald,onbetaald',
-    ]);
-    
-    // Zoek het bijbehorende treatment_id op basis van treatment_type
+        // Valideer invoer
+        $validated = $request->validate([
+            'treatment_id' => 'required|exists:treatments,id',
+            'patient_id' => 'required|exists:patients,id',
+            'number' => 'required|max:6',
+            'date' => 'required|date',
+            'amount' => 'required|numeric|min:0',
+            'status' => 'nullable|string|in:in behandeling,betaald,onbetaald',
+        ]);
 
-    // $treatment = Treatment::where('treatment_type', $request->treatment_type)->first();
-    // if (!$treatment) {
-    //     return back()->withErrors(['treatment_type' => 'Geen behandeling gevonden voor het geselecteerde type.'])->withInput();
-    // }
+        // Update de factuur
+        $invoice->update($validated);
 
-    // $validated['treatment_id'] = $treatment->id;
-
-    
-    // Update de factuur
-    $invoice->update($validated);
-
-    return redirect()->route('invoice.index')->with('success', 'Factuur succesvol bijgewerkt.');
-}
-
+        return redirect()->route('invoice.index')->with('success', 'Factuur succesvol bijgewerkt.');
+    }
 
     /**
      * Verwijder een factuur.
