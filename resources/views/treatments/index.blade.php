@@ -87,4 +87,28 @@
     </div>
 </x-app-layout>
 
-<!-- Keep the existing script and style sections unchanged -->
+<script>
+    document.getElementById('dataToggle').addEventListener('change', function() {
+        const dataContainer = document.getElementById('dataContainer');
+        const errorContainer = document.getElementById('errorContainer');
+        if (this.checked) {
+            dataContainer.classList.remove('hidden');
+            errorContainer.classList.add('hidden');
+        } else {
+            dataContainer.classList.add('hidden');
+            errorContainer.classList.remove('hidden');
+        }
+    });
+</script>
+
+<!-- Add this style section -->
+<style>
+    .toggle-checkbox:checked {
+        right: 0;
+        border-color: #68D391;
+    }
+
+    .toggle-checkbox:checked+.toggle-label {
+        background-color: #68D391;
+    }
+</style>
