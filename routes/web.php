@@ -14,7 +14,6 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\RegistrationLinkController;
 
 Route::get('/', function () {
     return view('index');
@@ -84,12 +83,6 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
         Route::resource('employee', EmployeeController::class);
         Route::put('/employee/{id}', [EmployeeController::class, 'update'])->name('employee.update');
     });
-
-    Route::get('/admin/employees/create', [EmployeeController::class, 'create'])->name('admin.employees.create');
-    Route::post('/admin/employees', [EmployeeController::class, 'store'])->name('admin.employees.store');
-    Route::post('/admin/employees/generate-link', [RegistrationLinkController::class, 'generate'])->name('admin.employees.generate-link');
-    Route::get('/register/{token}', [RegistrationLinkController::class, 'registerForm'])->name('register.form');
-    Route::post('/register/{token}', [RegistrationLinkController::class, 'register'])->name('register');
 
     Route::controller(TreatmentController::class)->group(function () {
         Route::get('/treatments', 'index'); // List treatments with filters
