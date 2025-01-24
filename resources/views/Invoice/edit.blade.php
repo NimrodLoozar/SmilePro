@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col sm:flex-row justify-between items-center">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
             <h2 class="font-semibold text-xl text-gray-200 leading-tight">
                 {{ __('Factuur Aanpassen') }}
             </h2>
@@ -19,13 +19,13 @@
         </div>
     </x-slot>
 
-    <div id="dataContainer" class="py-6 px-4 sm:px-6 lg:px-8 bg-white shadow-md rounded-md">
-        <!-- Edit view form -->
-        <form action="{{ route('invoice.update', $invoice->id) }}" method="POST" class="space-y-6">
+    <!-- Data Container -->
+    <div id="dataContainer" class="py-5 px-3 sm:px-6 lg:px-8 bg-white shadow-md rounded-md">
+        <form action="{{ route('invoice.update', $invoice->id) }}" method="POST" class="space-y-4 ml-8 mr-8">
             @csrf
             @method('PUT')
 
-            <!-- Factuurnummer (readonly) -->
+            <!-- Factuurnummer -->
             <div>
                 <label for="number" class="block text-sm font-medium text-gray-700">Factuurnummer</label>
                 <input type="text" name="number" id="number" value="{{ old('number', $invoice->number) }}"
@@ -33,11 +33,28 @@
                     readonly>
             </div>
 
+            <!-- Patiënt -->
+            <div>
+                <label for="patient_id" class="block text-sm font-medium text-gray-700">Patiënt</label>
+                <select name="patient_id" id="patient_id"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    @foreach ($patients as $patient)
+                        <option value="{{ $patient->id }}"
+                            {{ old('patient_id', $invoice->patient_id) == $patient->id ? 'selected' : '' }}>
+                            {{ $patient->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
             <!-- Datum -->
             <div>
                 <label for="date" class="block text-sm font-medium text-gray-700">Datum</label>
                 <input type="date" name="date" id="date" value="{{ old('date', $invoice->date) }}"
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                @error('date')
+                    <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                @enderror
             </div>
 
             <!-- Behandeling -->
@@ -46,7 +63,7 @@
                 <select name="treatment_id" id="treatment_id"
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                     @foreach ($treatments as $treatment)
-                        <option value="{{ $treatment->id }}"
+                        <option value="{{ $treatment->id }}" data-price="{{ $treatment->price }}"
                             {{ old('treatment_id', $invoice->treatment_id) == $treatment->id ? 'selected' : '' }}>
                             {{ $treatment->treatment_type }}
                         </option>
@@ -54,7 +71,7 @@
                 </select>
             </div>
 
-            <!-- Bedrag (readonly) -->
+            <!-- Bedrag -->
             <div>
                 <label for="amount" class="block text-sm font-medium text-gray-700">Bedrag (€)</label>
                 <input type="text" name="amount" id="amount" value="{{ old('amount', $invoice->amount) }}"
@@ -67,60 +84,73 @@
                 <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
                 <select name="status" id="status"
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                    <option value="betaald" {{ old('status', $invoice->status) == 'betaald' ? 'selected' : '' }}>Betaald
-                    </option>
-                    <option value="onbetaald" {{ old('status', $invoice->status) == 'onbetaald' ? 'selected' : '' }}>
-                        Onbetaald</option>
-                    <option value="in behandeling"
-                        {{ old('status', $invoice->status) == 'in behandeling' ? 'selected' : '' }}>In behandeling
-                    </option>
+                    <option value="betaald" {{ old('status', $invoice->status) == 'betaald' ? 'selected' : '' }}>Betaald</option>
+                    <option value="onbetaald" {{ old('status', $invoice->status) == 'onbetaald' ? 'selected' : '' }}>Onbetaald</option>
+                    <option value="in behandeling" {{ old('status', $invoice->status) == 'in behandeling' ? 'selected' : '' }}>In behandeling</option>
                 </select>
             </div>
 
             <!-- Actieknoppen -->
-            <div class="flex flex-col sm:flex-row items-center justify-end gap-4">
+            <div class="flex justify-end gap-4">
                 <button type="submit"
-                    class="w-full sm:w-auto inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    class="bg-blue-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Opslaan
                 </button>
                 <a href="{{ route('invoice.index') }}"
-                    class="w-full sm:w-auto inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    class="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded-md">
                     Annuleren
                 </a>
             </div>
         </form>
     </div>
 
-    <div id="errorContainer" class="ml-6 py-6 px-4 sm:px-6 lg:px-8 hidden">
-        <p class="text-red-500">De factuur kon niet worden gewijzigd. Controleer de gegevens en probeer het opnieuw.</p>
+    <!-- Error Container -->
+    <div id="errorContainer" class="py-6 hidden">
+        <p class="text-red-500 font-semibold text-center">De factuur kon niet worden gewijzigd. Controleer de gegevens en probeer het opnieuw.</p>
     </div>
 </x-app-layout>
 
 <script>
+    // Toggle visibility
     document.getElementById('dataToggle').addEventListener('change', function () {
         document.getElementById('dataContainer').classList.toggle('hidden', !this.checked);
         document.getElementById('errorContainer').classList.toggle('hidden', this.checked);
-            if (this.checked) {
-            dataContainer.classList.remove('hidden');
-            errorContainer.classList.add('hidden');
-        } else {
-            dataContainer.classList.add('hidden');
-            errorContainer.classList.remove('hidden');
-        }
     });
 
-    document.getElementById('appointmentType').addEventListener('change', function () {
-        const selectedOption = this.options[this.selectedIndex];
-        const amount = selectedOption.getAttribute('data-amount');
-        document.getElementById('amount').value = amount ? amount.replace('.', '') : '';
-    });
+    // Lijst van behandelingen met bijbehorende kostenbereiken
+    const treatmentPrices = {
+        'Controle': [30, 75],
+        'Wortelkanaalbehandeling': [200, 700],
+        'Vulling': [50, 150],
+        'Kroon': [300, 900],
+        'Brug': [500, 1500],
+        'Tanden bleken': [150, 500],
+        'Tandsteen verwijderen': [50, 150],
+        'Extractie': [50, 150],
+        'Implantaat': [800, 2500],
+        'Beugel': [1500, 5000],
+        'Gebitsreiniging': [50, 150],
+        'Fluoridebehandeling': [20, 50],
+        'Röntgenfoto': [30, 100],
+        'Prothese': [300, 1500],
+        'Tandvleesbehandeling': [100, 300]
+    };
 
     document.getElementById('treatment_id').addEventListener('change', function () {
-        const selectedTreatment = this.options[this.selectedIndex];
-        const treatmentPrice = selectedTreatment.getAttribute('data-price'); // Zorg ervoor dat je 'data-price' toevoegt aan de behandelingsopties in de controller.
-        document.getElementById('amount').value = treatmentPrice || 0;
-    });
+        // Haal het geselecteerde behandelingstype op
+        const treatmentType = this.options[this.selectedIndex].text;
 
+        // Zoek het bijbehorende prijsbereik
+        const priceRange = treatmentPrices[treatmentType];
+
+        if (priceRange) {
+            // Kies een willekeurig bedrag binnen het bereik
+            const amount = (Math.random() * (priceRange[1] - priceRange[0]) + priceRange[0]).toFixed(2);
+            document.getElementById('amount').value = amount;
+        } else {
+            document.getElementById('amount').value = '';
+        }
+    });
 </script>
 
 <style>
@@ -129,7 +159,7 @@
         border-color: #68D391;
     }
 
-    .toggle-checkbox:checked+.toggle-label {
+    .toggle-checkbox:checked + .toggle-label {
         background-color: #68D391;
     }
 </style>
