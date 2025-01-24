@@ -75,13 +75,17 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin/users', [AdminDashboardController::class, 'showUsers'])->name('admin.users');
 
     // Employee
+    Route::resource('employees', EmployeeController::class);
+    
     Route::get('/admin/Employee', [EmployeeController::class, 'index'])->name('admin.Employee');
     Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');
     Route::post('/employee', [EmployeeController::class, 'store'])->name('employee.store');
+
     Route::middleware(['auth'])->group(function () {
-        Route::resource('employee', EmployeeController::class);
-        Route::put('/employee/{id}', [EmployeeController::class, 'update'])->name('employee.update');
+        Route::resource('employee', EmployeeController::class)->except(['store']); // If needed
+        Route::post('/employee', [EmployeeController::class, 'store'])->name('employee.store');
     });
+    
 
     Route::resource('treatments', TreatmentController::class);
     /*

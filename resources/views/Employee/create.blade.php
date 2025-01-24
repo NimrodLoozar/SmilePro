@@ -17,7 +17,7 @@
                 <p class="text-gray-500 dark:text-gray-400 mb-6">Vul het formulier in om een nieuwe medewerker toe te voegen.</p>
 
                 <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 dark:bg-gray-800">
-                    <form action="{{ route('employees.store') }}" method="POST">
+                    <form action="{{ route('employee.store') }}" method="POST">
                         @csrf
                         <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
                             <div class="text-gray-600 dark:text-gray-300">
