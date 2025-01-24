@@ -70,14 +70,14 @@ class TreatmentFactory extends Factory
             'patient_id' => Patient::factory(),
             'employee_id' => Employee::factory(),
             'treatment_type' => $this->faker->randomElement($treatmentTypes),
-            'description' => "**Klacht:** Patiënt meldt " . $this->faker->randomElement($complaints) . ".\n\n" .
-                             "**Diagnose:** " . $this->faker->randomElement($diagnoses) . " vastgesteld middels " .
+            'description' => "Klacht: Patiënt meldt " . $this->faker->randomElement($complaints) . ".\n\n" .
+                             "Diagnose: " . $this->faker->randomElement($diagnoses) . " vastgesteld middels " .
                              $this->faker->randomElement(['klinisch onderzoek', 'röntgenopname', 'percussietest', 'koudetest']) . ".\n\n" .
-                             "**Behandeling:** " . $this->faker->randomElement($procedures) . " uitgevoerd. " .
+                             "Behandeling: " . $this->faker->randomElement($procedures) . " uitgevoerd. " .
                              $this->faker->randomElement(['Geen complicaties waargenomen', 'Lichte bloeding gecontroleerd', 'Patiënt verdraagde procedure goed']) . ".\n\n" .
-                             "**Advies:** " . $this->faker->randomElement($recommendations) . ". " .
+                             "Advies: " . $this->faker->randomElement($recommendations) . ". " .
                              "Medicatie: " . $this->faker->randomElement(['Ibuprofen 600mg 3x daags', 'Amoxicilline 500mg 3x daags', 'Chloorhexidine mondspoeling 2x daags']) . ".\n\n" .
-                             "**Follow-up:** " . $this->faker->randomElement(['Controle over 1 week', 'Afrondende behandeling over 2 sessies', 'Telefonische evaluatie morgen']) . "."
+                             "Follow-up: " . $this->faker->randomElement(['Controle over 1 week', 'Afrondende behandeling over 2 sessies', 'Telefonische evaluatie morgen']) . "."
         ];
     }
 }
