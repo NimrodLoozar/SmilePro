@@ -35,18 +35,16 @@ class EmployeeController extends Controller
      * Store a new employee in the database.
      */
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'person_id' => 'required|exists:persons,id',
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:employees',
-            'number' => 'required|string|max:10|unique:employees',
-            'employee_type' => 'required|string|max:255',
-            'specialization' => 'nullable|string|max:255',
-            'availability' => 'nullable|string|max:255',
-            'date_of_birth' => 'required|date',
-        ]);
+{
+    // Validate the incoming request data
+    $validated = $request->validate([
+        'person_id' => 'required|exists:people,id',
+        'number' => 'required|string|max:255',
+        'employee_type' => 'required|string|max:255',
+        'specialization' => 'nullable|string|max:255',
+        'availability' => 'nullable|string|max:255',
+        'comment' => 'nullable|string|max:500',
+    ]);
 
         // Ensure the person exists
         $person = Person::find($validated['person_id']);
