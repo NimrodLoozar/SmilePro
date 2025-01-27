@@ -14,12 +14,33 @@
                         class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
                 </div>
             </label>
+            <script>
+                document.getElementById('dataToggle').addEventListener('change', function() {
+                    const dataContainer = document.getElementById('dataContainer');
+                    const errorContainer = document.getElementById('errorContainer');
+                    if (this.checked) {
+                        dataContainer.classList.remove('hidden');
+                        errorContainer.classList.add('hidden');
+                    } else {
+                        dataContainer.classList.add('hidden');
+                        errorContainer.classList.remove('hidden');
+                        alert('Geen data gevonden in het database');
+                    }
+                });
+            </script>
             <a href="{{ route('employees.create') }}"
                 class="px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600">
                 NEW +
             </a>
         </div>
     </x-slot>
+
+    <div id="dataContainer" class="container mx-auto p-4">
+        @if (session('success'))
+            <div class="bg-green-900 border-t-4 border-green-600 rounded-b px-4 py-3 text-green-200" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
 
     <div id="dataContainer" class="py-12">
         <table class="mt-4 min-w-full mx-auto bg-gray-800 border border-gray-700 rounded-lg shadow-sm">
@@ -47,9 +68,9 @@
                                     style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit"
+                                    <button type="button"
                                         class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                                        onclick="return confirm('Are you sure you want to delete this employee?')">Delete</button>
+                                        onclick="confirmDelete(this)">Delete</button>
                                 </form>
                             </div>
                         </td>
@@ -57,6 +78,22 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
+
+    <script>
+        function confirmDelete(button) {
+            const confirmation = confirm('Are you sure you want to delete this employee?');
+            if (confirmation) {
+                const reason = prompt('Please provide a reason for deletion: (Cancel, OK, Unhappy)');
+                if (reason === 'Unhappy') {
+                    alert('Werknemer niet kunnen verwijderen.');
+                } else {
+                    alert('Werknemer niet kunnen verwijderen.'); 
+                }
+            }
+        }
+    </script>
+    </script>
 
         <div class="mt-4 text-gray-300">
             {{ $employees->links() }}

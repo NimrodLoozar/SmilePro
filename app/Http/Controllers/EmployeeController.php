@@ -62,7 +62,7 @@ class EmployeeController extends Controller
         ]);
 
         // Redirect with a success message
-        return redirect()->route('employees.index')->with('success', 'Medewerker succesvol aangemaakt.');
+        return redirect()->route('employee.index')->with('success', 'Medewerker succesvol aangemaakt.');
     }
 
 
@@ -104,7 +104,8 @@ class EmployeeController extends Controller
             'specialization' => $request->input('specialization'),
         ]);
 
-        return redirect()->route('employee.index')->with('success', 'Medewerker succesvol bijgewerkt.');
+        return redirect()->route('employee.index')
+        ->with('success', 'Medewerker succesvol bijgewerkt.');
     }
 
 
@@ -114,6 +115,7 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         $employee->delete();
-        return redirect()->route('employees.index')->with('success', 'Employee deleted successfully.');
+        return redirect()->route('employees.index')
+        ->with('success', 'Employee deleted successfully.');
     }
 }
