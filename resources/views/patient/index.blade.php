@@ -14,6 +14,10 @@
                         class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
                 </div>
             </label>
+            <a href="{{ route('patient.create') }}"
+                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                Nieuwe Patiënt
+            </a>
         </div>
     </x-slot>
 
@@ -34,8 +38,10 @@
                 </thead>
                 <tbody>
                     @foreach ($patients as $patient)
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <tr
+                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $patient->person->name }}
                             </th>
                             <td class="px-6 py-4">{{ $patient->number }}</td>
@@ -51,10 +57,13 @@
                             <td class="px-6 py-4 text-right">
                                 <a href="{{ route('patient.edit', $patient->id) }}"
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Bewerken</a>
-                                <form action="{{ route('patient.destroy', $patient->id) }}" method="POST" class="inline-block">
+                                <form id="delete-form-{{ $patient->id }}"
+                                    action="{{ route('patient.destroy', $patient->id) }}" method="POST"
+                                    class="inline-block">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">Verwijderen</button>
+                                    <button type="button" onclick="confirmDeletion({{ $patient->id }})"
+                                        class="font-medium text-red-600 dark:text-red-500 hover:underline">Verwijderen</button>
                                 </form>
                             </td>
                         </tr>
@@ -62,7 +71,7 @@
                 </tbody>
             </table>
             <div class="pt-3">
-               
+
             </div>
         @endif
     </div>
@@ -84,6 +93,13 @@
             errorContainer.classList.remove('hidden');
         }
     });
+
+    function confirmDeletion(patientId) {
+        const confirmation = confirm('Weet je zeker dat je deze patiënt wilt verwijderen?');
+        if (confirmation) {
+            document.getElementById(`delete-form-${patientId}`).submit();
+        }
+    }
 </script>
 
 <style>
@@ -92,7 +108,7 @@
         border-color: #68D391;
     }
 
-    .toggle-checkbox:checked + .toggle-label {
+    .toggle-checkbox:checked+.toggle-label {
         background-color: #68D391;
     }
 </style>

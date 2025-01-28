@@ -10,14 +10,8 @@
                     <input type="checkbox" id="dataToggle"
                         class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
                         checked />
-                    <div
-                        class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-                        <input type="checkbox" id="dataToggle"
-                            class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
-                            checked />
-                        <label for="dataToggle"
-                            class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
-                    </div>
+                    <label for="dataToggle"
+                        class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
                 </div>
             </label>
         </div>
@@ -32,21 +26,6 @@
                 <label for="name" class="block text-black dark:text-white">Naam:</label>
                 <input class="form-control mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black"
                     type="text" id="name" name="name" required>
-            </div>
-            <div class="mb-4">
-                <label for="email" class="block text-black dark:text-white">E-mailadres:</label>
-                <input class="form-control mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black"
-                    type="email" id="email" name="email" required>
-            </div>
-            <div class="mb-4">
-                <label for="password" class="block text-black dark:text-white">Wachtwoord:</label>
-                <input class="form-control mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black"
-                    type="password" id="password" name="password" required>
-            </div>
-            <div class="mb-4">
-                <label for="password_confirmation" class="block text-black dark:text-white">Bevestig Wachtwoord:</label>
-                <input class="form-control mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black"
-                    type="password" id="password_confirmation" name="password_confirmation" required>
             </div>
             <div class="mb-4">
                 <label for="medical_file" class="block text-black dark:text-white">Medisch Dossier:</label>

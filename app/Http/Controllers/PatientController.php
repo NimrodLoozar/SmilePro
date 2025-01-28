@@ -22,27 +22,23 @@ class PatientController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'number' => 'required|string',
-            'medical_file' => 'nullable|string',
-            'is_active' => 'required|boolean',
-            'comment' => 'nullable|string',
-        ]);
+        return redirect()->back()->with('error', 'Je kan geen patiënt toevoegen momenteel.');
+    }
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+    private function generateUniqueNumber()
+    {
+        do {
+            $number = rand(100000, 999999);
+        } while (Patient::where('number', $number)->exists());
 
-        Patient::create($request->all());
-        return redirect()->route('patient.index')->with('success', 'Patiënt succesvol aangemaakt.');
+        return $number;
     }
 
     public function edit(Request $request, Patient $patient)
     {
-        $patient = Patient::getPatient($patient->id);
-        dd($patient);
-        
-         return view('patient.edit', compact('patient'));
+        $patient = $patient->getPatient($patient->id);
+
+        return view('patient.edit', compact('patient'));
     }
 
     public function update(Request $request, Patient $patient)
@@ -64,15 +60,7 @@ class PatientController extends Controller
 
     public function destroy(Patient $patient)
     {
-        try {
-            $patient->delete();
-            return redirect()->route('patient.index')->with('success', 'Patiënt succesvol verwijderd.');
-        } catch (\Exception $e) {
-            // Log de fout
-            \Log::error('Fout bij verwijderen patiënt: ' . $e->getMessage());
-
-            // Redirect met foutmelding
-            return redirect()->back()->with('error', 'Er is een fout opgetreden bij het verwijderen van de patiënt.');
-        }
+        $patient->delete();
+        return redirect()->route('patient.index')->with('success', 'Patiënt succesvol verwijderd!');
     }
 }
