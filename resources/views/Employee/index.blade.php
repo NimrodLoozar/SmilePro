@@ -84,11 +84,11 @@
         function confirmDelete(button) {
             const confirmation = confirm('Are you sure you want to delete this employee?');
             if (confirmation) {
-                const reason = prompt('Please provide a reason for deletion: (Cancel, OK, Unhappy)');
-                if (reason === 'Unhappy') {
-                    alert('Werknemer niet kunnen verwijderen.');
+                const reason = prompt('Please type "ok" to confirm deletion:');
+                if (reason.toLowerCase() === 'ok') {
+                    button.closest('form').submit();
                 } else {
-                    alert('Werknemer niet kunnen verwijderen.'); 
+                    alert('verwijderen mislukt.');
                 }
             }
         }
