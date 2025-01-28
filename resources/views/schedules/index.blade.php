@@ -35,14 +35,20 @@
                 <p class="text-white mb-4">Selecteer een van de onderstaande dokters om hun beschikbaarheid te bekijken:
                 </p>
                 <ul class="list-disc pl-5 space-y-4">
-                    @foreach ($users as $user)
+                    @if ($users->isEmpty())
                         <div class="mb-4 p-4 bg-white shadow rounded-lg">
-                            <h3 class="text-lg font-semibold">
-                                <a href="{{ route('schedules.show', $user->id) }}"
-                                    class="text-black hover:underline">{{ $user->name }}</a>
-                            </h3>
+                            <h3 class="text-lg font-semibold text-black">Er zijn momenteel geen schedules gepland.</h3>
                         </div>
-                    @endforeach
+                    @else
+                        @foreach ($users as $user)
+                            <div class="mb-4 p-4 bg-white shadow rounded-lg">
+                                <h3 class="text-lg font-semibold">
+                                    <a href="{{ route('schedules.show', $user->id) }}"
+                                        class="text-black hover:underline">{{ $user->name }}</a>
+                                </h3>
+                            </div>
+                        @endforeach
+                    @endif
                 </ul>
                 <div class="mt-4">
                     {{ $users->links() }}

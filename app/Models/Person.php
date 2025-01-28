@@ -9,6 +9,9 @@ class Person extends Model
 {
     use HasFactory;
 
+    protected $table = 'people'; // Ensure the table name is correct
+    
+
     protected $fillable = [
         'user_id',
         'name',
@@ -18,6 +21,8 @@ class Person extends Model
         'comment',
         'is_employee'
     ];
+
+
 
     public function employee()
     {
