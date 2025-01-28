@@ -18,9 +18,24 @@ class Patient extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'person_id',
         'number',
         'medical_file',
+        'is_active',
+        'comment',
+    ];
+
+    public function getPatient()
+    {
+        DB::table('patients')
+            ->join('people', 'patients.person_id', '=', 'people.id')
+            ->select('patients.*', 'people.name')
+            ->where('patients.id', $patient->id)
+            ->first();
+    }
+
+
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
 
     public function getFullNameAttribute()

@@ -36,13 +36,17 @@ Route::get('/banner', function () {
     return view('banner');
 });
 
+Route::get('/about', function () {
+    return view('about');
+});
 Route::middleware(['auth'])->group(function () {
     Route::get('/patient', [PatientController::class, 'index'])->name('patient.index');
     Route::get('/patient/create', [PatientController::class, 'create'])->name('patient.create');
-    Route::get('/patient/{patient}', [PatientController::class, 'show'])->name('patient.show');
     Route::post('/patient', [PatientController::class, 'store'])->name('patient.store');
-    Route::post('/patient/update', [PatientController::class, 'update'])->name('patient.update');
+    Route::get('/patient/{patient}/edit', [PatientController::class, 'edit'])->name('patient.edit');
+    Route::put('/patient/{patient}', [PatientController::class, 'update'])->name('patient.update');
     Route::delete('/patient/{patient}', [PatientController::class, 'destroy'])->name('patient.destroy');
+
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -65,7 +69,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/invoice', [InvoiceController::class, 'store'])->name('invoice.store');
     Route::get('/invoice/{invoice}/edit', [InvoiceController::class, 'edit'])->name('invoice.edit');
     Route::put('/invoice/{invoice}', [InvoiceController::class, 'update'])->name('invoice.update');
-    
+
     Route::delete('/invoice/{invoice}', [InvoiceController::class, 'destroy'])->name('invoice.destroy');
     Route::get('/invoice/latest-number', [InvoiceController::class, 'latestNumber'])->name('invoice.latestNumber');
 });
