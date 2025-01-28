@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Invoice;
 use App\Models\Person;
+use Illuminate\Support\Facades\DB;
 
 class Patient extends Model
 {
@@ -18,9 +19,24 @@ class Patient extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'person_id',
+        'name',
         'number',
         'medical_file',
+        'is_active',
+        'comment',
+    ];
+    public function getPatient($patient)
+    {
+        DB::table('patients')
+            ->join('people', 'patients.person_id', '=', 'people.id')
+            ->select('patients.*', 'people.name')
+            ->where('patients.id', $patient->id)
+            ->first();
+    }
+
+
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
 
     public function getFullNameAttribute()
