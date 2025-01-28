@@ -1,5 +1,6 @@
 <?php
 namespace Database\Factories;
+
 use App\Models\Appointment;
 use App\Models\Patient;
 use App\Models\Employee;
@@ -39,22 +40,37 @@ class AppointmentFactory extends Factory
             'Tandvleesbehandeling'
         ];
 
-        // Ensure date is at least 24 hours in the future
-        $startDate = Carbon::now()->addDay(); 
-        $endDate = Carbon::now()->addYear(); 
-        $appointmentDate = $this->faker->dateTimeBetween($startDate, $endDate);
+        // Start from tomorrow at 00:00:00
+        $startDate = Carbon::tomorrow();
+        $endDate = Carbon::now()->addYear();
 
-        // Generate time between 08:00 and 18:00 in 15-minute increments
+        // Get a random future date
+        $appointmentDate = $this->faker->dateTimeBetween($startDate, $endDate);
+        
+        // Convert to Carbon instance for easier manipulation
+        $appointmentCarbon = Carbon::instance($appointmentDate);
+        
+        // Generate time between 08:00 and 17:45 in 15-minute increments
         $minutes = [0, 15, 30, 45];
         $hour = $this->faker->numberBetween(8, 17);
         $minute = $this->faker->randomElement($minutes);
-        $time = sprintf('%02d:%02d', $hour, $minute);
+        
+        // Set the time on our appointment date
+        $appointmentCarbon->setHour($hour)->setMinute($minute)->setSecond(0);
+        
+        // Ensure we're not creating a past appointment due to the time
+        if ($appointmentCarbon->isPast()) {
+            $appointmentCarbon = Carbon::tomorrow()
+                ->setHour($hour)
+                ->setMinute($minute)
+                ->setSecond(0);
+        }
 
         return [
             'patient_id' => Patient::factory(),
             'employee_id' => Employee::factory(),
-            'date' => $appointmentDate->format('Y-m-d'),
-            'time' => $time,
+            'date' => $appointmentCarbon->format('Y-m-d'), // Using full year format
+            'time' => $appointmentCarbon->format('H:i'),
             'status' => $this->faker->randomElement(['scheduled', 'completed', 'cancelled']),
             'is_active' => $this->faker->boolean(),
             'comment' => $this->faker->optional()->sentence(),

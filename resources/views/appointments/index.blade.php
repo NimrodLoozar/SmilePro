@@ -49,7 +49,7 @@
                         <td class="py-2 px-4 text-gray-300">{{ $appointment->patient->person->name ?? 'N/A' }}</td>
                         <td class="py-2 px-4 text-gray-300">{{ $appointment->employee->person->name }}</td>
                         <td class="py-2 px-4 text-gray-300">{{ $appointment->name ?? 'N/A' }}</td>
-                        <td class="py-2 px-4 text-gray-300">{{ $appointment->date }}</td>
+                        <td class="py-2 px-4 text-gray-300">{{ \Carbon\Carbon::parse($appointment->date)->format('d F Y') }}</td>
                         <td class="py-2 px-4 text-gray-300">{{ $appointment->time }}</td>
                         <td class="py-2 px-4">
                             <div class="flex space-x-2">
