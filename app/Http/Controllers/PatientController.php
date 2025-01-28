@@ -37,10 +37,12 @@ class PatientController extends Controller
         return redirect()->route('patient.index')->with('success', 'Patiënt succesvol aangemaakt.');
     }
 
-    public function edit(Request $request, Patient $patient)
+    public function edit($id)
     {
-        $patient = Patient::getPatient($patient->id);
-        dd($patient);
+        
+        $patient = Patient::findOrFail($id);
+        //$patient = DB::table('patients')->where('id', $id)->first();
+        
         
          return view('patient.edit', compact('patient'));
     }
