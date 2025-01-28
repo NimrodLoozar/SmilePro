@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 class EmployeeController extends Controller
 {
     /**
-     * Display a listing of employees!
+     * Display a listing of employees.
      */
     public function index()
     {
@@ -25,44 +25,28 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $persons = Person::all(); // Fetch all persons
-        return view('employee.create', compact('persons'));
+        $users = User::with('person')->get(); // Fetch all users with their related person
+        return view('employees.create', compact('users'));
     }
-
 
     /**
      * Store a new employee in the database.
      */
     public function store(Request $request)
-{
-    // Validate the incoming request data
-    $validated = $request->validate([
-        'person_id' => 'required|exists:people,id',
-        'number' => 'required|string|max:255',
-        'employee_type' => 'required|string|max:255',
-        'specialization' => 'nullable|string|max:255',
-        'availability' => 'nullable|string|max:255',
-        'comment' => 'nullable|string|max:500',
-    ]);
-
-        // Retrieve the person
-        $person = Person::findOrFail($validated['person_id']);
-
-        // Create a new employee record
-        Employee::create([
-            'person_id' => $validated['person_id'],
-            'user_id' => Auth::id(),
-            'name' => $person->name, // Use the name from the selected person
-            'email' => $person->email, // Use the email from the selected person
-            'number' => $validated['number'],
-            'employee_type' => $validated['employee_type'],
-            'specialization' => $validated['specialization'],
-            'availability' => $validated['availability'],
-            'comment' => $validated['comment'],
+    {
+        // Single validation block matching form fields
+        $validated = $request->validate([
+            'person_id' => 'required|exists:people,id',
+            'employee_type' => 'required|string|max:255',
+            'number' => 'required|string|max:255|unique:employees',
+            'specialization' => 'nullable|string|max:255',
+            'availability' => 'nullable|string|max:255',
+            'comment' => 'nullable|string|max:500',
         ]);
 
-        // Redirect with a success message
-        return redirect()->route('employee.index')->with('success', 'Medewerker succesvol aangemaakt.');
+        Employee::create($validated);
+
+        return redirect()->route('employees.index')->with('success', 'Employee created successfully.');
     }
 
 
@@ -72,13 +56,8 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        // Load the employee's relationships
         $employee->load('person');
-
-        // Get all persons for the dropdown
-        $persons = Person::all();
-
-        return view('employee.show', compact('employee', 'persons'));
+        return view('employee.show', compact('employee'));
     }
 
     /**
@@ -93,21 +72,21 @@ class EmployeeController extends Controller
     /**
      * Update an employee in the database.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Employee $employee)
     {
-        $employee = Employee::findOrFail($id);
-
-        $employee->update([
-            'name' => $request->input('name'),
-            'employee_type' => $request->input('employee_type'),
-            'email' => $request->input('email'),
-            'specialization' => $request->input('specialization'),
+        $validated = $request->validate([
+            'person_id' => 'required|exists:people,id',
+            'employee_type' => 'required|string|max:255',
+            'number' => 'required|string|max:255|unique:employees,number,'.$employee->id,
+            'specialization' => 'nullable|string|max:255',
+            'availability' => 'nullable|string|max:255',
+            'comment' => 'nullable|string|max:500',
         ]);
 
-        return redirect()->route('employee.index')
-        ->with('success', 'Medewerker succesvol bijgewerkt.');
-    }
+        $employee->update($validated);
 
+        return redirect()->route('employee.index')->with('success', 'Medewerker succesvol bijgewerkt.');
+    }
 
     /**
      * Delete an employee from the database.
