@@ -10,7 +10,8 @@
             <div class="flex flex-col lg:flex-row gap-8">
 
                 <!-- Gebruikersgegevens -->
-                <div class="w-full lg:w-1/3 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-8 lg:mb-0">
+                <div
+                    class="w-full lg:w-1/3 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-8 lg:mb-0">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <h3 class="text-2xl font-bold mb-4">Mijn Gegevens</h3>
                         <h4 class="text-xl font-semibold">Naam</h4>
@@ -18,7 +19,20 @@
                         <h4 class="text-xl font-semibold mt-4">Email</h4>
                         <p>{{ Auth::user()->email }}</p>
                     </div>
-                </div>                 
+                </div>
+            </div>
+            
+            <br>
+
+            <!-- Behandelingen Link -->
+            <div class="w-full lg:w-1/3 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-8 lg:mb-0">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <h3 class="text-2xl font-bold mb-4">Behandelingen</h3>
+                    <p class="text-lg">
+                        <a href="{{ route('treatments.index') }}" class="text-blue-500 hover:text-blue-700">Beheer
+                            Behandelingen</a>
+                    </p>
+                </div>
             </div>
 
             <br>
@@ -44,7 +58,8 @@
                             <p class="text-3xl">{{ $averageAppointmentDuration }} minuten</p>
                         </div>
                     </div>
-                    <div class="text-red-500 mt-4" style="display: none;">Statistieken konden niet worden geladen. Probeer het later opnieuw.</div>
+                    <div class="text-red-500 mt-4" style="display: none;">Statistieken konden niet worden geladen.
+                        Probeer het later opnieuw.</div>
                 </div>
             </div>
         </div>

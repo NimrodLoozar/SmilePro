@@ -75,7 +75,7 @@
         </div>
     </div>
     <div id="errorContainer" class="container mx-auto mt-8 hidden ml-64">
-        <p class="text-red-500">Er kunnen geen afspraken worden opgehaald.</p>
+        <p class="text-red-500">Op dit moment geen afspraken gevonden.</p>
     </div>
 </x-app-layout>
 

@@ -188,14 +188,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="w-full lg:w-1/3 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100" style="max-height: 500px; overflow-y: auto;">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <a href="{{ route('appointments.index') }}">Jouw Afspraken</a>
-                        </div>
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <a href="{{ route('appointments.index') }}">Alle Afspraken</a>
-                        </div>
+                + <!-- Behandelingen Link -->
+                <div
+                    class="w-full lg:w-1/3 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-8 lg:mb-0">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <h3 class="text-2xl font-bold mb-4">Behandelingen</h3>
+                        <p class="text-lg">
+                            <a href="{{ route('treatments.index') }}"
+                                class="text-blue-500 hover:text-blue-700">Beheer
+                                Behandelingen</a>
+                        </p>
                     </div>
                 </div>
             </div>

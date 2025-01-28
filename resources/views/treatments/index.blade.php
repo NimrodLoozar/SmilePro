@@ -39,7 +39,6 @@
                     <th class="py-2 px-4 text-left text-gray-200">Medewerker</th>
                     <th class="py-2 px-4 text-left text-gray-200">Type</th>
                     <th class="py-2 px-4 text-left text-gray-200">Omschrijving</th>
-                    <th class="py-2 px-4 text-left text-gray-200">Kosten</th>
                     <th class="py-2 px-4 text-left text-gray-200">Actief</th>
                     <th class="py-2 px-4 text-left text-gray-200">Opmerking</th>
                     <th class="py-2 px-4 text-left text-gray-200">Acties</th>
@@ -52,13 +51,12 @@
                         <td class="py-2 px-4 text-gray-300">{{ $treatment->employee->name ?? $treatment->employee_id }}</td>
                         <td class="py-2 px-4 text-gray-300">{{ $treatment->treatment_type }}</td>
                         <td class="py-2 px-4 text-gray-300">{{ Str::limit($treatment->description, 30) }}</td>
-                        <td class="py-2 px-4 text-gray-300">€{{ number_format($treatment->cost, 2, ',', '.') }}</td>
                         <td class="py-2 px-4">
                             <span class="px-2 py-1 text-sm rounded-full {{ $treatment->is_active ? 'bg-green-600 text-green-100' : 'bg-red-600 text-red-100' }}">
                                 {{ $treatment->is_active ? 'Actief' : 'Inactief' }}
                             </span>
                         </td>
-                        <td class="py-2 px-4 text-gray-300">{{ Str::limit($treatment->comment, 20) }}</td>
+                        <td class="py-2 px-4 text-gray-300">{{ $treatment->comment ? Str::limit($treatment->comment, 20) : 'geen opmerking' }}</td>
                         <td class="py-2 px-4">
                             <div class="flex space-x-2">
                                 <!-- View button removed -->
